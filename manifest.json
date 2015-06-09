@@ -30,13 +30,6 @@
     "<all_urls>"
   ],
 
-	"content_scripts": [
-    {
-      "matches": ["*://*/*"],
-      "js": ["libs/jquery-2.1.0.min.js", "js/on_website.js"]
-    }
-  ],
-
   "web_accessible_resources": [
     "org/*/*.png"
   ],
