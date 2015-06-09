@@ -126,9 +126,9 @@ var Defaults = {
     
     // Bigscreen
     if (ls.useBigscreen === undefined)
-      ls.useBigscreen = 'false';
+      ls.useBigscreen = 'true';
     if (ls.whichScreen === undefined)
-      ls.whichScreen = 'notifier';
+      ls.whichScreen = 'infoscreen';
     
     // General
     if (ls.everOpenedOptions === undefined)
