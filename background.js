@@ -254,26 +254,6 @@ $(document).ready( function() {
   var isAvailable = (Affiliation.org[ls.affiliationKey1].hw ? true : false);
   Defaults.setHardwareFeatures(isAvailable);
 
-  // Open options page after install
-  if (ls.everOpenedOptions === 'false' && !DEBUG) {
-    Browser.openTab('options.html');
-    Analytics.trackEvent('loadOptions (fresh install)');
-  }
-  // Open Bigscreen if the option is set
-  if (ls.useBigscreen === 'true') {
-    if (ls.whichScreen === 'infoscreen') {
-      Browser.openTab('infoscreen.html');
-      Analytics.trackEvent('loadInfoscreen');
-    }
-    else if (ls.whichScreen === 'officescreen') {
-      Browser.openTab('officescreen.html');
-      Analytics.trackEvent('loadOfficescreen');
-    }
-    else {
-      console.error('useBigscreen enabled, but whichScreen was "' + ls.whichScreen + '"');
-    }
-  }
-
   loadAffiliationIcon();
 
   // Send some basic statistics once a day
