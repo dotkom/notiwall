@@ -276,10 +276,6 @@ $(document).ready( function() {
 
   loadAffiliationIcon();
 
-  Browser.bindCommandHotkeys();
-  Browser.registerNotificationListeners();
-  Browser.bindOmniboxToOracle();
-
   // Send some basic statistics once a day
   setInterval( function() {
     // App version is interesting
