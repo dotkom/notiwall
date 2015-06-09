@@ -19,7 +19,7 @@
 
   <header>
     <div id="headerText">
-      <b>Notifier</b> Options
+      <b>Notiwall</b> Options
     </div>
     <!-- "Options saved <3" -->
     <div id="notification"><span class="heart">&lt;3</span> <span class="saved">Saved</span></div>
@@ -379,30 +379,6 @@
         <iframe id="bigscreenPreview" class="image" src="about:blank"></iframe>
       </div>
 
-      <div id="bigscreenSlider">
-
-        <div class="item">
-          <label for="showNotifications">
-            <input type="checkbox" name="showNotifications" value="showNotifications" id="showNotifications" />
-            <span>
-              Vis varsel når nyheter publiseres / oppdateres
-            </span><br />
-            <img class="image" src="/img/options-desktop-notification.png" />
-          </label>
-        </div>
-
-        <div class="item">
-          <label for="coffeeSubscription">
-            <input type="checkbox" name="coffeeSubscription" value="coffeeSubscription" id="coffeeSubscription" />
-            <span>
-              Abonner på nytraktet kaffe
-            </span><br />
-            <img id="coffeeSubscriptionImage" class="image" src="/img/options-coffee-subscription.png" />
-          </label>
-        </div>
-
-      </div>
-
     </div> <!-- the slideup div, slides away all other options if useBigscreen is checked -->
   </div>
 
@@ -450,16 +426,15 @@
 
   <!-- Bigscreen modal -->
   <div class="modal">
-    Hva vil du ha? Bigscreen eller Notifier?<br />
+    Hva vil du ha? Infoscreen eller Officescreen?<br />
     <br />
-    Bigscreen kommer i to typer: <b>Infoscreen</b> brukes utenfor kontoret. <b>Officescreen</b> brukes inne på kontoret. For begge typer gjelder følgende:
+    Notiwall kommer i to typer: <b>Infoscreen</b> brukes utenfor kontoret. <b>Officescreen</b> brukes inne på kontoret. For begge typer gjelder følgende:
     <ul>
       <li>Krever en stor skjerm på høykant (f.eks. 24")</li>
       <li>Popup-knappen vil åpne Bigscreen i stedet</li>
       <li>Bigscreen skjuler musepekeren</li>
       <li>Bigscreen åpnes når nettleseren startes</li>
     </ul>
-    <button type="button" id="modalNotifier">Tilbake til Notifier</button>
     <button type="button" id="modalInfoscreen">Bruk Infoscreen</button>
     <button type="button" id="modalOfficescreen">Bruk Officescreen</button>
   </div>

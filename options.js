@@ -568,42 +568,28 @@ var toggleBigscreen = function(activate, type, force) {
       var url = type + '.html';
       // Load bigscreen preview
       $('#bigscreenPreview').attr('src', url);
-      // Remove subtext
-      $('#headerText').fadeOut();
       // No hw-features? Move content higher up on the page
       if (!Affiliation.org[ls.affiliationKey1].hw) {
         $('#container').animate({'top':'50%'}, speed);
         $('header').animate({'top':'50%'}, speed);
       }
-      // Animate away options for news notifications and coffee subscription
-      $('#bigscreenSlider').slideUp(speed, function() {
-        // Animate the useBigscreen image
-        $('img#useBigscreen').slideUp(speed, function() {
-          // Animate in the bigscreen preview
-          $('#bigscreenPreview').slideDown(speed, function() {
-            // New logo subtext
-            if (type === 'infoscreen') {
-              $('#headerText').html('<b>Infoscreen</b> Options');
-            }
-            else if (type === 'officescreen') {
-              $('#headerText').html('<b>Officescreen</b> Options');
-            }
-            $('#headerText').fadeIn(function() {
-              var name = Affiliation.org[ls.affiliationKey1].name
-              if (type === 'infoscreen') {
-                name = name + ' Infoscreen';
-              }
-              else if (type === 'officescreen') {
-                name = name + ' Officescreen';
-              }
-              // Reset icon, icon title and icon badge
-              Browser.setIcon(Affiliation.org[ls.affiliationKey1].icon);
-              Browser.setTitle(name);
-              Browser.setBadgeText('');
-              // Create Bigscreen in a new tab
-              Browser.openBackgroundTab(url);
-            });
-          });
+      // Animate the useBigscreen image
+      $('img#useBigscreen').slideUp(speed, function() {
+        // Animate in the bigscreen preview
+        $('#bigscreenPreview').slideDown(speed, function() {
+          var name = Affiliation.org[ls.affiliationKey1].name
+          if (type === 'infoscreen') {
+            name = name + ' Infoscreen';
+          }
+          else if (type === 'officescreen') {
+            name = name + ' Officescreen';
+          }
+          // Reset icon, icon title and icon badge
+          Browser.setIcon(Affiliation.org[ls.affiliationKey1].icon);
+          Browser.setTitle(name);
+          Browser.setBadgeText('');
+          // Create Bigscreen in a new tab
+          Browser.openBackgroundTab(url);
         });
       });
     }
@@ -637,24 +623,11 @@ var switchBigScreen = function(type) {
       // Switch bigscreen preview
       var url = type + '.html';
       $('#bigscreenPreview').attr('src', url);
-      // Fade out header
-      $('#headerText').fadeOut(function() {
-        // Change header
-        if (type === 'infoscreen') {
-          $('#headerText').html('<b>Infoscreen</b> Options');
-        }
-        else if (type === 'officescreen') {
-          $('#headerText').html('<b>Officescreen</b> Options');
-        }
-        // Fade header back in
-        $('#headerText').fadeIn(function() {
-          // Wait for loading (looks better when the bigscreen is properly loaded)
-          setTimeout(function() {
-            // Slide bigscreen preview back down
-            $('#bigscreenPreview').slideDown(speed);
-          }, 500);
-        });
-      });
+      // Wait for loading (looks better when the bigscreen is properly loaded)
+      setTimeout(function() {
+        // Slide bigscreen preview back down
+        $('#bigscreenPreview').slideDown(speed);
+      }, 500);
     });
   }
   // Wait till after the modal is properly closed
@@ -665,27 +638,17 @@ var revertBigscreen = function() {
   // Wait till after the modal is properly closed
   var run = function() {
     var speed = 300;
-    // Remove subtext
-    $('#headerText').fadeOut(speed, function() {
-      // No hw-features? Move content further down the page
-      if (!Affiliation.org[ls.affiliationKey1].hw) {
-        $('#container').animate({'top':'60%'}, speed);
-        $('header').animate({'top':'60%'}, speed);
-      }
-      // Animate in the bigscreen preview
-      $('#bigscreenPreview').slideUp(speed, function() {
-        // Animate the useBigscreen image
-        $('img#useBigscreen').slideDown(speed, function() {
-          // Slide more options back open
-          $('#bigscreenSlider').slideDown(speed, function() {
-            // Back to old logo subtext
-            $('#headerText').html('<b>Notifier</b> Options');
-            $('#headerText').fadeIn(function() {
-              // Finally, unload bigscreen preview (resource heavy)
-              $('#bigscreenPreview').attr('src', 'about:blank');
-            });
-          });
-        });
+    // No hw-features? Move content further down the page
+    if (!Affiliation.org[ls.affiliationKey1].hw) {
+      $('#container').animate({'top':'60%'}, speed);
+      $('header').animate({'top':'60%'}, speed);
+    }
+    // Animate in the bigscreen preview
+    $('#bigscreenPreview').slideUp(speed, function() {
+      // Animate the useBigscreen image
+      $('img#useBigscreen').slideDown(speed, function() {
+        // Finally, unload bigscreen preview (resource heavy)
+        $('#bigscreenPreview').attr('src', 'about:blank');
       });
     });
   }
