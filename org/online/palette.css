@@ -1,0 +1,10 @@
+/* onlines colors are default, mostly */
+
+.title, .titleDropdown {
+  color: #ee861f;
+}
+
+#container #bus {
+  background-color: #000f1d;
+  box-shadow: 0 0 25px #88b;
+}
