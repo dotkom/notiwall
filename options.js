@@ -28,14 +28,6 @@ var loopCreatorName = function() {
   }, 60000);
 }
 
-var testDesktopNotification = function() {
-  News.showNotification();
-}
-
-var testCoffeeSubscription = function() {
-  Coffee.showNotification();
-}
-
 var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
   var id = 'affiliationKey'+number;
   var affiliationKey = ls[id];
@@ -94,8 +86,6 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
       // Symbol
       var symbol = Affiliation.org[affiliationKey].symbol;
       $('#affiliation1Symbol').attr('style', 'background-image:url("'+symbol+'");');
-      // "Popup here"-bubble
-      $('#popupHere img.icon').attr('src', symbol);
       // Website link
       var web = Affiliation.org[affiliationKey].web;
       $('#affiliation1Symbol').unbind('click');
@@ -120,8 +110,6 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
     showSavedNotification();
     // Analytics
     Analytics.trackEvent('clickAffiliation'+number, affiliationKey);
-    // Display popup here with new icon
-    popupHere(3000);
   });
 }
 
@@ -749,19 +737,6 @@ var animateCreatorName = function(line, build) {
   }
 }
 
-var popupHere = function(time) {
-  if (typeof time === 'undefined') {
-    time = 7000;
-  }
-  // Fade in the "popup here"-bubble
-  setTimeout(function() {
-    $('#popupHere').fadeIn('swing');
-    setTimeout(function() {
-      $('#popupHere').fadeOut('fast');
-    }, 7000);
-  }, time);
-}
-
 // Document ready, go!
 $(document).ready(function() {
   if (DEBUG) {
@@ -803,8 +778,6 @@ $(document).ready(function() {
   $('#palette').attr('href', Palettes.get(ls.affiliationPalette));
   // icons
   changeStatusIcons();
-  // popup-here bubble
-  $('#popupHere img.icon').attr('src', symbol1);
 
   restoreChecksToBoxes();
 
@@ -824,9 +797,6 @@ $(document).ready(function() {
     $('#pfText').attr("style", "bottom:9px;");
     $('#pfLink').attr("style", "bottom:9px;");
   }
-  if (Browser.onMac()) {
-    $('#popupHere .subtext b').text('Cmd+Shift+A');
-  }
 
   // Google Analytics
   $('#pfLink').click(function() {
@@ -839,9 +809,6 @@ $(document).ready(function() {
   // Blinking cursor at pageflip
   pageFlipCursorBlinking();
   loopCreatorName();
-
-  // Show the "popup here"-bubble in the top right corner
-  popupHere();
 
   // Allow user to change affiliation and palette
   bindAffiliationSelector('1', true);
@@ -988,18 +955,6 @@ $(document).ready(function() {
         ls.activelySetOffice = 'false';
         Browser.setIcon(Affiliation.org[ls.affiliationKey1].icon);
         Browser.setTitle(ls.extensionName);
-      }
-
-      if (this.id === 'showNotifications' && this.checked === true) {
-        testDesktopNotification();
-      }
-
-      if (this.id === 'coffeeSubscription' && this.checked === true) {
-        ls.activelySetCoffee = 'true';
-        testCoffeeSubscription();
-      }
-      if (this.id === 'coffeeSubscription' && this.checked === false) {
-        ls.activelySetCoffee = 'false';
       }
 
       showSavedNotification();
