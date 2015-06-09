@@ -158,10 +158,7 @@ var Browser = {
     // Is the app in production? If so, there will be an update URL
     try {
       if (this.name === 'Chrome' || this.name === 'Opera') {
-        if (chrome.app.getDetails().id === 'hfgffimlnajpbenfpaofmmffcdmgkllf') {
-          return true;
-        }
-        else if (chrome.app.getDetails().id === 'npnpbddfcaibgnegafofkmffmbmflelj') {
+        if (chrome.app.getDetails().id === 'hfgffimlnajpbenfpaofmmffcdmgkllf') {// FIXME
           return true;
         }
         else if (typeof chrome.app.getDetails().update_url === 'string') {
@@ -176,119 +173,6 @@ var Browser = {
     }
     console.error(this.msgUnsupported);
     return false; // assume dev mode
-  },
-
-  // Things in item:
-  // - feedKey: 'orgx'
-  // - title: 'Hello World'
-  // - description: 'Good day to you World, how are you today?'
-  // - link: 'http://orgx.no/news/helloworld'
-  // Optional things in item:
-  // - image: 'http://orgx.no/media/helloworld.png'
-  // - symbol: 'img/whatever.png'
-  // - longStory: true
-  // - stay: true
-  createNotification: function(item) {
-    // Check required params
-    if (!item) console.error('function takes one object, {feedKey, title, description, link, *image, *symbol, *longStory, *stay} (* == optional)');
-    if (!item.feedKey) console.error('item.feedKey is required');
-    if (!item.title) console.error('item.title is required');
-    if (!item.link) console.error('item.link is required');
-    // Check recommended params
-    if (!item.description) console.warn('item.description is recommended');
-
-    // Do not show any notifications within the first half minute after install
-    if (!DEBUG && (new Date().getTime() - Number(localStorage.installTime)) < 30000) {
-      if (this.debug) console.log('No notifications within the first half minute after install (sent from affiliation "'+item.feedKey+'")');
-      return;
-    }
-
-    var self = this;
-    if (this.name == 'Chrome' || (this.name == 'Opera' && this.version >= 25)) {
-      // Check if browser is "active" or "idle", not "locked"
-      if (chrome.idle) {
-        chrome.idle.queryState(30, function (state) {
-          if (state === 'active' || state === 'idle') {
-
-            // Load affiliation icon if symbol is not provided
-            if (!item.symbol)
-              item.symbol = Affiliation.org[item.feedKey].symbol;
-
-            // Set notification
-            var notification = {
-               type: 'basic',
-               iconUrl: item.symbol,
-               title: item.title,
-               message: item.description,
-               priority: 0,
-            };
-
-            // We'll show an "image"-type notification if image exists and is not a placeholder
-            if (item.image) {
-              if (item.image != Affiliation.org[item.feedKey].placeholder) {
-                notification.type = 'image';
-                notification.imageUrl = item.image;
-              }
-            }
-
-            // Shorten messages to fit nicely (300 because around 250 is max limit anyway)
-            var maxLength = (item.longStory ? 300 : 63);
-            if (maxLength < item.description.length) {
-              notification.message = item.description.substring(0, maxLength) + '...';
-            }
-
-            // If basic type is used, we should also provide expandedMessage
-            if (notification.type == 'basic') {
-              notification.expandedMessage = item.description;
-              var expandedMaxLength = (item.longStory ? 300 : 180);
-              if (expandedMaxLength < item.description.length) {
-                notification.expandedMessage = item.description.substring(0, expandedMaxLength) + '...';
-              }
-            }
-
-            // Generate random ID
-            var id = String(Math.round(Math.random()*100000));
-
-            // Save the link to make the notification clickable. Associating the id with the
-            // window object instead of putting it in localStorage makes sure all links are
-            // cleared every time the background process restarts, rather than filling up
-            // localStorage with links.
-            window[id] = item.link;
-
-            // Show the notification
-            chrome.notifications.create(id, notification, function(notID) {
-              if (self.debug) console.log('Succesfully created notification with ID', notID);
-              Analytics.trackEvent('createNotification', item.feedKey, item.link);
-            });
-            // Choose how long the notification stays around for
-            // if stay? 10 minutes
-            // if longStory? 10 seconds
-            // else 5 seconds
-            // Note: Chrom(e|ium) on Linux doesn't remove the notification,
-            // automatically, so it needs to be manually cleared.
-            var timeout = (item.stay ? 600000 : (item.longStory ? 10000 : 5000));
-            setTimeout(function() {
-              chrome.notifications.clear(id, function(wasCleared) {
-                if (self.debug) console.log('Cleared notification?', wasCleared);
-              });
-            }, timeout);
-          }
-          else {
-            if (self.debug) console.log('Notification not sent, state was', state);
-          }
-        });
-      }
-      else {
-        if (self.debug) console.error('This version of Chrome does not support chrome.idle');
-      }
-    }
-    else if (this.name == 'Opera') {
-      // Desktop Notifications not yet available
-      if (self.debug) console.log('BROWSER.JS: createNotification only supported in Opera 25 and greater. Please upgrade your browser.');
-    }
-    else {
-      console.error(this.msgUnsupported);
-    }
   },
 
 }
