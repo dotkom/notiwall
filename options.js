@@ -9,25 +9,6 @@ var showSavedNotification = function() {
   }, 800);
 }
 
-var pageFlipCursorBlinking = function() {
-  setInterval(function() {
-    $(".pageflipcursor").animate({opacity: 0}, "fast", "swing", function() {
-      $(this).animate({opacity: 1}, "fast", "swing");
-    });
-  }, 600);
-}
-
-var loopCreatorName = function() {
-  setInterval(function() {
-    var namesAsRegex = new RegExp(ls.extensionOwner + '|' + ls.extensionCreator, 'gi');
-    var currentName = $('#pagefliptyping').text().match(namesAsRegex)[0];
-    if (currentName === ls.extensionOwner)
-      changeCreatorName(ls.extensionCreator);
-    else
-      changeCreatorName(ls.extensionOwner);
-  }, 60000);
-}
-
 var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
   var id = 'affiliationKey'+number;
   var affiliationKey = ls[id];
@@ -561,8 +542,7 @@ var bindSuggestions = function() {
 }
 
 var toggleBigscreen = function(activate, type, force) {
-  var run = function() {
-    if (activate) {
+
       // Welcome to callback hell, - be glad it's well commented
       var speed = 400;
       var url = type + '.html';
@@ -592,27 +572,12 @@ var toggleBigscreen = function(activate, type, force) {
           Browser.openBackgroundTab(url);
         });
       });
-    }
-    else {
-      // Refresh office status
-      if (Affiliation.org[ls.affiliationKey1].hw) {
-        Browser.getBackgroundProcess().updateStatusAndMeetings(true);
-      }
-      else {
-        Browser.setIcon(Affiliation.org[ls.affiliationKey1].icon);
-        Browser.setTitle(Affiliation.org[ls.affiliationKey1].name + ' Notifier');
-      }
-      // Animations
-      revertBigscreen();
-    }
-  }
-  // Wait till after the modal is properly closed
-  setTimeout(run, 500);
+
 }
 
-var switchBigScreen = function(type) {
+var switchWall = function(type) {
   if (type !== 'infoscreen' && type !== 'officescreen') {
-    console.error('Unsupported infoscreen mode: "'+type+'"');
+    console.error('Unsupported Notiwall mode: "'+type+'"');
     return;
   }
   // Wait till after the modal is properly closed
@@ -665,51 +630,11 @@ var restoreChecksToBoxes = function() {
   });
 }
 
-var changeCreatorName = function(name) {
-  // Stop previous changeCreatorName instance, if any
-  clearTimeout(Number(ls.animateCreatorNameTimeoutId));
-  // Animate creator name change in the pageflip
-  animateCreatorName(name + " with <3");
-}
-
-var animateCreatorName = function(line, build) {
-  // Animate it
-  var text = $('#pagefliptyping').text();
-  if (text.length === 0) {
-    build = true;
-  }
-  var random = Math.floor(350 * Math.random() + 50);
-  if (!build) {
-    $('#pagefliptyping').text(text.slice(0, text.length-1));
-    ls.animateCreatorNameTimeoutId = setTimeout(function() {
-      animateCreatorName(line);
-    }, random);
-  }
-  else {
-    if (text.length !== line.length) {
-      if (text.length === 0) {
-        $('#pagefliptyping').text(line.slice(0, 1));
-      }
-      else {
-        $('#pagefliptyping').text(line.slice(0, text.length+1));
-      }
-      ls.animateCreatorNameTimeoutId = setTimeout(function() {
-        animateCreatorName(line, true);
-      }, random);
-    }
-  }
-}
-
 // Document ready, go!
 $(document).ready(function() {
   if (DEBUG) {
     // Show the DEBUG affiliation
     $('optgroup.debugAffiliation').show();
-    // Show buttons directly to cantina feeds
-    $('#debugLinks').show();
-    $('button.debug').click(function() {
-      Browser.openTab($(this).attr('data'));
-    });
   }
 
   // Remove hardware features if the affiliation does not have it
@@ -754,24 +679,6 @@ $(document).ready(function() {
       toggleBigscreen(true, type, true);
     }, 300);
   }
-
-  // Minor esthetical adjustments for OS
-  if (Browser.onWindows()) {
-    $('#pfText').attr("style", "bottom:9px;");
-    $('#pfLink').attr("style", "bottom:9px;");
-  }
-
-  // Google Analytics
-  $('#pfLink').click(function() {
-    Analytics.trackEvent('clickPageflip');
-  });
-  // Adding creator name to pageflip
-  setTimeout(function() {
-    changeCreatorName(ls.extensionOwner);
-  }, 2500);
-  // Blinking cursor at pageflip
-  pageFlipCursorBlinking();
-  loopCreatorName();
 
   // Allow user to change affiliation and palette
   bindAffiliationSelector('1', true);
@@ -849,7 +756,7 @@ $(document).ready(function() {
     if (ls.whichScreen !== 'infoscreen') {
       // Is it a bigscreen switch?
       if (ls.whichScreen === 'officescreen') {
-        switchBigScreen('infoscreen');
+        switchWall('infoscreen');
       }
       // From Notifier mode
       else {
@@ -869,7 +776,7 @@ $(document).ready(function() {
     if (ls.whichScreen !== 'officescreen') {
       // Is it a bigscreen switch?
       if (ls.whichScreen === 'infoscreen') {
-        switchBigScreen('officescreen');
+        switchWall('officescreen');
       }
       // From Notifier mode
       else {

@@ -1,6 +1,6 @@
 /* Debugging */
 
-@debug: 0;
+@debug: 1px;
 .debugred {
   border: @debug solid red;
 }
@@ -10,13 +10,6 @@
 .debuglime {
   border: @debug solid lime;
 }
-
-/* Variables */
-
-@header-height: 67px;
-@header-padding: 13px;
-@content-width: 800px;
-@content-height: 413px;
 
 /* Rules */
 
@@ -43,29 +36,35 @@ body {
   }
 }
 
-/* The logo, subtext and saved notifcation */
+/* All options */
 
-header {
+#options {
+  .debuglime;
+  width: 575px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .side {
+    float: left;
+    padding-left: 13px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+}
+
+/* Options logo, subtext and saved notifcation */
+
+#options header {
   .debugred;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  padding: @header-padding;
-  width: @content-width - (@header-padding * 2);
-  height: @header-height;
-  margin-left: -(@content-width / 2);
-  margin-top: -(@content-height / 2) - (@header-height);
-  text-align: center;
-  border-bottom: 1px solid #eee;
-  z-index: 1;
+  width: 575px;
 
   #headerText {
     .debugyellow;
-    width: 100%;
-    text-align: center;
-    margin-top: 1px;
-    font-size: 59px;
+    margin-top: 30px;
+    font-size: 42px;
     font-weight: lighter;
+    text-align: left;
+    padding-left: 94px;
     /* For text that is skewed the same amount as the Online logo:
     - more precise than italic, the Online logo is skewered exactly 15 degrees */
     /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
@@ -105,49 +104,14 @@ header {
   }
 }
 
-/* all the options, main content */
+/* Each option item */
 
-#container {
+#options .item {
   .debuglime;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: @content-width;
-  height: @content-height;
-  margin-left: -(@content-width / 2);
-  margin-top: -(@content-height / 2) + (@header-height / 2);
-  z-index: 10;
+  display: block;
 
-  .side {
-    float: left;
-    z-index: 20;
-    padding-left: 13px;
-    font-size: 15px;
-    white-space: nowrap;
-  }
-
-  #left {
-    .debugyellow;
-    width: 54%;
-    padding-top: 7px;
-  }
-
-  #right {
-    .debugred;
-    width: 42%;
-    /*padding-top: 12px;*/
-    padding-top: 7px;
-  }
-}
-
-/* an option item */
-
-.item {
-  .debuglime;
-  z-index: 2;
-  padding-bottom: 15px;
-  clear: both;
-  -webkit-transition: all .2s ease-out;
+  padding-top: 15px;
+  padding-left: 77px;
 
   /* for icon images */
   .icon {
@@ -196,12 +160,7 @@ header {
   }
 
   &:hover {
-    text-shadow:
-      0 0 10px #fff,
-      0 0 15px #fff,
-      0 0 20px #fff,
-      0 0 30px #fff,
-      0 0 40px #011b36;
+    text-decoration: underline;
   }
 
   /* the affiliation option in particular */
@@ -488,32 +447,6 @@ header {
     height: 103px;
   }
 
-  /* the bigscreen option in particular */
-
-  img#useBigscreen {
-    width: 304px;
-    height: 68px;
-  }
-
-  #bigscreenPreview {
-    overflow: hidden;
-    margin-left: 93px;
-    // The page needs to be a lot larger...
-    height: 6400px;
-    width: 4700px;
-    // ...because in reality it's scaled down
-    zoom: 0.25;
-    -webkit-transform: scale(0.25);
-    -webkit-transform-origin: 0 0;
-  }
-
-  /* the coffee subscription option in particular*/
-
-  img#coffeeSubscriptionImage {
-    width: 304px;
-    height: auto;
-  }
-
 }
 
 /* Suggestions for bus stops */
@@ -521,40 +454,34 @@ header {
 #busSuggestions {
   .debuglime;
   position: fixed;
+  z-index: 10;
+  width: 225px;
+  
+  background-color: white;
   vertical-align: middle;
-  width: 200px;
-  overflow: hidden;
-  vertical-align: middle;
-  display: table-cell;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 13px;
   top: 0;
-  left: 0;
+  right: 0;
   bottom: 0;
   
   .suggestion {
-    font-size: 13px;
+    color: #444;
     line-height: 1.5;
     letter-spacing: 1px;
-    -webkit-transition: all .1s ease-out;
     &:hover {
       cursor: pointer;
-      text-shadow:
-        0 0 13px #bbb,
-        0 0 20px #bbb,
-        0 0 27px #fff,
-        0 0 53px #fff,
-        0 0 20px #fff,
-        0 0 13px #fff,
-        0 0 27px #fff;
+      text-decoration: underline;
     }
     .matched_character {
       font-weight: bold;
     }
   }
   .correct {
-    color: white;
+    color: black;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: lighter;
     line-height: 1.5;
     text-shadow:
       0 0 10px #fff,
@@ -566,171 +493,36 @@ header {
   }
 }
 
-/* logo with link in the top right corner */
-
-/*#logolink {
-  position: fixed;
-  top: 13px;
-  right: 13px;
-  #logo {
-    .debugyellow;
-    width: 160px;
-  }
-}*/
-
 /* Debug affiliation in the top of the affiliation selection lists */
 
 optgroup.debugAffiliation {
   display: none;
 }
 
-/* Debug toolbox in the the top right corner, only shown in debug mode */
+/* Notiwall previews */
 
-#debugLinks {
-  display: none;
+div#notiwalls {
+  .debugyellow;
   position: fixed;
-  top: 13px;
-  right: 13px;
-  opacity: .05;
-  text-align: right;
-  -webkit-transition: all .1s ease-out;
-  button {
-    /* nothing here yet */
-  }
-  &:hover {
-    opacity: 1;
-  }
-}
+  z-index: 5;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 225px;
 
-/* The pageflip at the bottom */
-
-#pageflip {
-  // This is typically tweaked by palettes, be careful when changing it
-  position: fixed;
-  z-index: 200;
-  left: 0;
-  bottom: 0;
-  color: #ccf2cc;
-  width: 185px;
-  height: 98px;
-  font: bold 11px monospace;
-  text-shadow:
-    0 0 5px #68bf70,
-    0 0 10px #60b95e,
-    0 0 15px #368f2c,
-    0 0 20px #25892e,
-    0 0 30px #183e1a;
-
-  #pfBackground {
-    // This is typically tweaked by palettes, be careful when changing it
-    position: fixed;
-    z-index: 201;
-    left: 0;
-    bottom: 0;
-    width: 185px;
-    height: 98px;
-    background: transparent url('/img/pageflip-medium-background.png') no-repeat left bottom;
-  }
-  #pfText {
-    position: fixed;
-    z-index: 202;
-    left: 5px;
-    bottom: 5px;
-    width: 170px;
-    height: 36px;
-  }
-  #pfFlip {
-    position: fixed;
-    z-index: 203;
-    left: 0;
-    bottom: 0;
-    width: 185px;
-    height: 98px;
-    background: transparent url('/img/pageflip-medium.png') no-repeat left bottom;
-  }
-  #pfLink {
-    position: fixed;
-    z-index: 204;
-    left: 5px;
-    bottom: 5px;
-    width: 170px;
-    height: 36px;
-    a {
-      text-decoration: none;
-      color: #ccf2cc;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
-/* "Popup is here"-bubble */
-
-#popupHere {
-  .debugred;
-  position: absolute;
-  display: none;
-  top: 0;
-  right: 0;
-  margin: 20px;
-  padding: 13px;
-  background: white;
-  border-radius: 27px;
-  width: 240px;
-  box-shadow:
-    0 0 20px white,
-    0 0 33px white,
-    0 0 60px white;
-  font-family: helvetica;
-  color: #333;
-  opacity: .9;
-  z-index: 1000;
-  .icon {
+  iframe#infoscreenPreview {
     .debugred;
+    border: 3px solid red;
+  }
+  iframe#officescreenPreview {
+    .debugred;
+    border: 3px solid green;
+    top: -20px;
+  }
+  .preview {
     position: relative;
-    display: inline;
     float: left;
-    width: 40px;
-    height: 40px;
-    margin-right: 4px;
-  }
-  .arrow {
-    .debugred;
-    position: relative;
-    display: inline;
-    float: right;
-    width: 33px;
-    height: 25px;
-    top: -5px;
-    left: -15px;
-  }
-  .text {
-    .debugred;
-    position: relative;
-    display: inline;
-    float: left;
-    font-size: 19px;
-    top: 3px;
-  }
-  .subtext {
-    .debugred;
-    position: relative;
-    display: inline;
-    float: left;
-    font-size: 12px;
-  }
-}
-
-/* Modal bigscreen dialog */
-
-.modal {
-  color: black;
-  
-  button {
-    font-size: 12px;
-  }
-  #modalNotifier {
-    font-weight: bold;
+    width: 100%;
+    height: auto;
   }
 }
