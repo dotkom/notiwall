@@ -9,12 +9,10 @@ var newsLimit = 8; // The most news you can cram into Infoscreen, if other featu
 var mainLoop = function(force) {
   console.log("\n#" + iteration);
 
-  if (ls.showCantina === 'true')
-    if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
-      updateCantinas();
-  if (ls.showAffiliation1 === 'true')
-    if (force || iteration % UPDATE_NEWS_INTERVAL === 0)
-      updateAffiliationNews('1');
+  if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
+    updateCantinas();
+  if (force || iteration % UPDATE_NEWS_INTERVAL === 0)
+    updateAffiliationNews('1');
   if (ls.showAffiliation2 === 'true')
     if (force || iteration % UPDATE_NEWS_INTERVAL === 0)
       updateAffiliationNews('2');
@@ -32,9 +30,8 @@ var mainLoop = function(force) {
     }
   }
   // Always update, tell when offline
-  if (ls.showBus === 'true')
-    if (force || iteration % UPDATE_BUS_INTERVAL === 0)
-      updateBus();
+  if (force || iteration % UPDATE_BUS_INTERVAL === 0)
+    updateBus();
 
   // No reason to count to infinity
   if (10000 < iteration)
@@ -128,10 +125,6 @@ var updateMeeting = function() {
     if (ls.affiliationKey1.match(/online|abakus/g)) {
       Hackerspace.get(function(hackerspace) {
         $('#todays #schedule #meetings').html(htmlMeeting + '<div id="hackerspace">' + hackerspace + '</div>');
-        $('#todays #schedule #meetings #hackerspace span').click(function(elem) {
-          Browser.openTab(Hackerspace.web);
-          window.close();
-        });
       });
     }
     else {
@@ -389,7 +382,7 @@ var updateAffiliationNews = function(number) {
     ls[unreadCountName] = 0;
 
     // Update images some times after news are loaded in case of late image arrivals
-    // which are common when the browser has just started Notifier
+    // which are common when the browser has just started Notiwall
     var times = [100, 500, 1000, 2000, 3000, 5000, 10000];
     for (var i in times) {
       setTimeout(function() {
@@ -614,16 +607,6 @@ $(document).ready(function() {
     // What is the prefered secondary affiliation?
     Analytics.trackEvent('loadAffiliation2', ls.affiliationKey2);
   }
-
-  // Hide stuff that the user has disabled in options
-  if (ls.showStatus !== 'true')
-    $('#office').hide();
-  if (ls.showStatus !== 'true')
-    $('#todays').hide();
-  if (ls.showCantina !== 'true')
-    $('#cantinas').hide();
-  if (ls.showBus !== 'true')
-    $('#bus').hide();
 
   // Applying affiliation graphics
   var key = ls.affiliationKey1;

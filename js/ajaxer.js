@@ -8,7 +8,7 @@ var Ajaxer = {
   ajaxSetup: {
     beforeSend: function (request, fields) {
       if (fields.type === 'GET') {
-        request.setRequestHeader('From', 'https://github.com/appKom/notifier');
+        request.setRequestHeader('From', 'https://github.com/appKom/notiwall');
       }
       return true;
     },
@@ -152,8 +152,7 @@ var Ajaxer = {
 
     // Rename <img> tags to <pic> tags to prevent jQuery from trying to fetch all images.
     // jQuerys behavior is not too problematic, but has some security concerns, also it
-    // will most definitely slow down any slow computer running Notifier, like most
-    // Infoscreen computers out there.
+    // will most definitely slow down any slow computer running Notiwall.
     // When parsing for images, we will just look for the <pic> tags.
     html = html.replace(/<[\s]*?img/gi, '<pic');
     html = html.replace(/<[\s]*?\/[\s]*?img/gi, '</pic');

@@ -65,7 +65,7 @@ body {
     font-size: 42px;
     font-weight: lighter;
     text-align: left;
-    padding-left: 94px;
+    padding-left: 87px;
     /* For text that is skewed the same amount as the Online logo:
     - more precise than italic, the Online logo is skewered exactly 15 degrees */
     /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
@@ -105,11 +105,8 @@ body {
 #options .item {
   .debuglime;
   display: block;
-
   padding-top: 15px;
-  padding-left: 77px;
-
-  -webkit-transition: all .2s ease-out;
+  padding-left: 67px;
 
   /* for icon images */
   .icon {
@@ -118,6 +115,7 @@ body {
     position: relative;
     margin: 0;
     top: 4px;
+    left: -1px;
     -webkit-filter: drop-shadow(0 0 4px black);
     filter: drop-shadow(0 0 4px black);
   }
@@ -126,8 +124,8 @@ body {
     position: relative;
     width: 20px;
     height: 20px;
-    top: -39px;
-    right: 63px;
+    top: -51px;
+    right: 62px;
   }
   /* for logo images */
   .logo {
@@ -144,26 +142,6 @@ body {
   input {
     box-shadow: 0 0 15px #333;
     cursor: pointer;
-  }
-
-  input#showAffiliation1 {
-    opacity: 0;
-    /* Turning off news feed is not allowed since it would
-    turn off the primary purpose of Online Notifier. Don't
-    show the checkbox, it's disabled anyway. */
-  }
-
-  label {
-    cursor: pointer;
-  }
-
-  &:hover {
-    text-shadow:
-      0 0 10px #fff,
-      0 0 15px #fff,
-      0 0 20px #fff,
-      0 0 30px #fff,
-      0 0 40px #011b36;
   }
 
   /* the affiliation option in particular */
@@ -451,6 +429,8 @@ body {
   /* the showStatus option in particular */
 
   img#showStatusImage {
+    position: relative;
+    top: -12px;
     width: 251px;
     height: 103px;
   }
@@ -464,13 +444,13 @@ div#notiwalls {
   position: fixed;
   z-index: 5;
   top: 0px;
-  right: 0px;
+  right: 20px;
   bottom: 0px;
   width: 225px;
 
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #eee;
+  background-color: navajowhite;
   box-shadow: -2px 0px 5px black;
 
   iframe#infoscreenPreview {
@@ -497,7 +477,7 @@ div#busSuggestions {
   position: fixed;
   z-index: 10;
   top: 0;
-  right: 0;
+  right: 20px;
   bottom: 0;
   width: 225px;
   display: none; /* Will slide down when needed */

@@ -9,9 +9,6 @@
   <link rel="stylesheet" type="text/css" href="less/options.css" />
   <link rel="stylesheet" type="text/css" href="less/palettes/blue.css" id="palette" />
 
-  <!-- CSS jQuery Modal -->
-  <link rel="stylesheet" type="text/css" href="libs/modal/jquery.modal.css" />
-
 </head>
 
 <body>
@@ -27,12 +24,7 @@
     </header>
 
     <div class="item">
-      <label for="showAffiliation1">
-        <input type="checkbox" name="showAffiliation1" value="showAffiliation1" id="showAffiliation1" disabled="disabled" />
-        <span>
-          Velg nyhetskilde blant linjeforeninger, studentmedier og mer
-        </span><br />
-      </label>
+      <div class="description">Velg nyhetskilde blant linjeforeninger, studentmedier og mer</div>
       <div id="affiliationBox" class="image">
         <img id="affiliation1Symbol" class="symbol" src="/img/options-gloss.png" />
         <img id="affiliation2Symbol" class="symbol" src="/img/options-gloss.png" />
@@ -239,12 +231,7 @@
     </div>
 
     <div class="item">
-      <label for="showCantina">
-        <input type="checkbox" name="showCantina" value="showCantina" id="showCantina" />
-        <span>
-          Vis middagsmeny og åpningstider fra SiT
-        </span><br />
-      </label>
+      <div class="description">Viser middagsmeny og åpningstider fra SiT</div>
       <div id="cantinaBox" class="image">
         <select id="cantina1">
           <optgroup label="Kantiner">
@@ -275,9 +262,7 @@
             <option value="sito stripa">Sito Stripa</option>
           </optgroup>
         </select>
-        <label for="showCantina">
-          <img id="cantinaLogo" src="/img/logo-sit.png" />
-        </label>
+        <img id="cantinaLogo" src="/img/logo-sit.png" />
         <select id="cantina2">
           <optgroup label="Kantiner">
             <option value="dmmh">DMMH</option>
@@ -311,12 +296,7 @@
     </div>
 
     <div class="item">
-      <label for="showBus">
-        <input type="checkbox" name="showBus" value="showBus" id="showBus" />
-        <span>
-          Vis sanntidsbuss fra AtB
-        </span><br />
-      </label>
+      <div>Viser sanntidsbuss fra AtB</div>
       <div id="busBox" class="image">
         <div id="firstBus" class="busStop">
           <input type="text" placeholder="Busstopp"></input><br />
@@ -328,9 +308,7 @@
             <!-- a wrapping div makes the slide animation smooth for the table that's injected here -->
           </div>
         </div>
-        <label for="showBus">
-          <img id="busLogo" src="/img/logo-atb.png" />
-        </label>
+        <img id="busLogo" src="/img/logo-atb.png" />
         <div id="secondBus" class="busStop">
           <input type="text" placeholder="Busstopp"></input><br />
           <select>
@@ -348,15 +326,13 @@
     </div>
 
     <div class="item iconitem">
-      <label for="showStatus">
-        <input type="checkbox" name="showStatus" value="showStatus" id="showStatus" />
-        <span>
-          Vis kontorstatus:
+        <div>
+          Viser kontorstatus:
           <img class="icon open" src="/org/online/icon-open.png" />Åpent
           <img class="icon closed" src="/org/online/icon-closed.png" />Lukket
           <img class="icon meeting" src="/org/online/icon-meeting.png" />Møte
           <img class="icon waffle" src="/img/icon-waffle.png"/>Vafler
-        </span>
+        </div>
         <br />
         <img id="showStatusImage" class="image" src="/img/options-office-plan.png" />
         <img id="statusOverlay" src="/org/online/icon-open.png" />
@@ -367,8 +343,8 @@
 
   <!-- Notiwall previews -->
   <div id="notiwalls">
-    <img id="infoscreenPreview" class="preview" src="img/preview-infoscreen.png" data-link="infoscreen.html"></img>
-    <img id="officescreenPreview" class="preview" src="img/preview-officescreen.png" data-link="officescreen.html"></img>
+    <img id="infoscreenPreview" class="preview" src="img/preview-infoscreen.png" data-name="infoscreen" data-link="infoscreen.html"></img>
+    <img id="officescreenPreview" class="preview" src="img/preview-officescreen.png" data-name="officescreen" data-link="officescreen.html"></img>
   </div>
 
   <!-- Suggestions for bus stops -->
@@ -379,7 +355,6 @@
 
   <!-- JS No Dependencies -->
   <script src="libs/jquery-2.1.0.min.js"></script>
-  <script src="libs/less.min.js"></script> <!-- Used for debugging only -->
   <script src="js/missing.js"></script>
   <script src="js/hotfix.js"></script>
 
@@ -399,9 +374,6 @@
   <script src="js/favorite.js"></script>
   <script src="js/news.js"></script>
   <script src="js/stops.js"></script>
-
-  <!-- JS jQuery Modal -->
-  <script src="libs/modal/jquery.modal.min.js"></script>
 
   <!-- Document ready sript -->
   <script src="options.js"></script>

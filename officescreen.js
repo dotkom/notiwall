@@ -6,9 +6,8 @@ var iteration = 0;
 var mainLoop = function(force) {
   console.log("\n#" + iteration);
 
-  if (ls.showCantina === 'true')
-    if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
-      updateCantinas();
+  if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
+    updateCantinas();
   // Only if hardware
   if (Affiliation.org[ls.affiliationKey1].hw) {
     if (ls.showStatus === 'true') {
@@ -23,9 +22,8 @@ var mainLoop = function(force) {
     }
   }
   // Always update, tell when offline
-  if (ls.showBus === 'true')
-    if (force || iteration % UPDATE_BUS_INTERVAL === 0)
-      updateBus();
+  if (force || iteration % UPDATE_BUS_INTERVAL === 0)
+    updateBus();
 
   // No reason to count to infinity
   if (10000 < iteration)
@@ -362,16 +360,6 @@ $(document).ready(function() {
     // What is the prefered secondary affiliation?
     Analytics.trackEvent('loadAffiliation2', ls.affiliationKey2);
   }
-
-  // Hide stuff that the user has disabled in options
-  if (ls.showStatus !== 'true')
-    $('#office').hide();
-  if (ls.showStatus !== 'true')
-    $('#todays').hide();
-  if (ls.showCantina !== 'true')
-    $('#cantinas').hide();
-  if (ls.showBus !== 'true')
-    $('#bus').hide();
 
   // Applying affiliation graphics
   var key = ls.affiliationKey1;

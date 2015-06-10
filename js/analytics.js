@@ -29,7 +29,7 @@ else {
 
   // Preventing incorrect bounce statistics
   // A bounce is registered if no event is fired and no other page is visited,
-  // however no page in Notifier leads to other pages and not all pages fire
+  // however no page in Notiwall leads to other pages and not all pages fire
   // events unless necessary. Therefore we fire a 'read'-event after 3 seconds.
   var timeout = 3000;
   setTimeout(function() {

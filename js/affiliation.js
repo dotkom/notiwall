@@ -1601,8 +1601,6 @@ var Affiliation = {
 
   _autoLoadDefaults_: function() {
     var ls = localStorage;
-    if (ls.showAffiliation1 === undefined)
-      ls.showAffiliation1 = 'true';
     if (ls.affiliationKey1 === undefined)
       ls.affiliationKey1 = (DEBUG ? 'DEBUG' : 'online');
     if (ls.showAffiliation2 === undefined)
@@ -1626,9 +1624,7 @@ var Affiliation = {
     // Status
     ls.removeItem('statusData');
     ls.removeItem('statusStrings');
-    // Remove statuses held by background.js, infoscreen.js, officescreen.js
-    ls.removeItem('backgroundLastStatusCode');
-    ls.removeItem('backgroundLastStatusMessage');
+    // Remove statuses held by infoscreen.js, officescreen.js
     ls.removeItem('infoscreenLastStatusCode');
     ls.removeItem('infoscreenLastMessage');
     ls.removeItem('officescreenLastStatusCode');

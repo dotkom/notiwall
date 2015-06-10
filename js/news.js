@@ -82,7 +82,7 @@ var News = {
     }
   },
 
-  // Need to know about the news feeds used in Online Notifier:
+  // Need to know about the news feeds used in Online Notiwall:
   // These RSS fields are always used:
   // - title
   // - link
@@ -318,7 +318,7 @@ var News = {
     // Trim link either way
     post.link = post.link.trim(); // This is muy importanté for everything to work well later on
     // Sometimes we would like to link directly to a link in the news description,
-    // this can help users avoid one step while navigating to links via Notifier
+    // this can help users avoid one step while navigating to links via Notiwall
     post.altLink = this.checkDescriptionForAltLink(post.description);
 
     // Description field

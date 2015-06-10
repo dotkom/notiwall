@@ -39,8 +39,6 @@ var Cantina = {
 
   _autoLoadDefaults_: function() {
     var ls = localStorage;
-    if (ls.showCantina === undefined)
-      ls.showCantina = 'true';
     if (ls.cantina1 === undefined)
       ls.cantina1 = 'hangaren';
     if (ls.cantina2 === undefined)

@@ -75,8 +75,8 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
       });
       // Name to badge title and localstorage
       var name = Affiliation.org[affiliationKey].name;
-      Browser.setTitle(name + ' Notifier');
-      ls.extensionName = name + ' Notifier';
+      Browser.setTitle(name + ' Notiwall');
+      ls.extensionName = name + ' Notiwall';
     }
 
     // Throw out old news
@@ -139,25 +139,6 @@ var enableHardwareFeatures = function(quick) {
   ls.showStatus = 'true';
   ls.coffeeSubscription = 'true';
   restoreChecksToBoxes();
-  if (quick) {
-    $('label[for="showStatus"]').slideDown({duration:0});
-    $('label[for="coffeeSubscription"]').slideDown({duration:0});
-    $('#container').css('top', '50%');
-    $('header').css('top', '50%');
-    // No need to change creator name in pageflip when quick-enabling
-  }
-  else {
-    // Update office status
-    Browser.getBackgroundProcess().updateStatusAndMeetings(true);
-    // Move all content back up
-    $('#container').animate({'top':'50%'}, 300);
-    $('header').animate({'top':'50%'}, 300, function() {
-      // Show office status option
-      $('label[for="showStatus"]').slideDown('slow');
-      // Show coffee subscription option
-      $('label[for="coffeeSubscription"]').slideDown('slow');
-    });
-  }
 }
 
 var changeStatusIcons = function() {
@@ -528,86 +509,6 @@ var bindSuggestions = function() {
   });
 }
 
-var toggleBigscreen = function(activate, type, force) {
-
-      // Welcome to callback hell, - be glad it's well commented
-      var speed = 400;
-      var url = type + '.html';
-      // Load bigscreen preview
-      $('#bigscreenPreview').attr('src', url);
-      // No hw-features? Move content higher up on the page
-      if (!Affiliation.org[ls.affiliationKey1].hw) {
-        $('#container').animate({'top':'50%'}, speed);
-        $('header').animate({'top':'50%'}, speed);
-      }
-      // Animate the useBigscreen image
-      $('img#useBigscreen').slideUp(speed, function() {
-        // Animate in the bigscreen preview
-        $('#bigscreenPreview').slideDown(speed, function() {
-          var name = Affiliation.org[ls.affiliationKey1].name
-          if (type === 'infoscreen') {
-            name = name + ' Infoscreen';
-          }
-          else if (type === 'officescreen') {
-            name = name + ' Officescreen';
-          }
-          // Reset icon, icon title and icon badge
-          Browser.setIcon(Affiliation.org[ls.affiliationKey1].icon);
-          Browser.setTitle(name);
-          Browser.setBadgeText('');
-          // Create Bigscreen in a new tab
-          Browser.openBackgroundTab(url);
-        });
-      });
-
-}
-
-var switchWall = function(type) {
-  if (type !== 'infoscreen' && type !== 'officescreen') {
-    console.error('Unsupported Notiwall mode: "'+type+'"');
-    return;
-  }
-  // Wait till after the modal is properly closed
-  var run = function() {
-    var speed = 600;
-    // Slide away the bigscreen preview
-    $('#bigscreenPreview').slideUp(speed, function() {
-      // Switch bigscreen preview
-      var url = type + '.html';
-      $('#bigscreenPreview').attr('src', url);
-      // Wait for loading (looks better when the bigscreen is properly loaded)
-      setTimeout(function() {
-        // Slide bigscreen preview back down
-        $('#bigscreenPreview').slideDown(speed);
-      }, 500);
-    });
-  }
-  // Wait till after the modal is properly closed
-  setTimeout(run, 500);
-}
-
-var revertBigscreen = function() {
-  // Wait till after the modal is properly closed
-  var run = function() {
-    var speed = 300;
-    // No hw-features? Move content further down the page
-    if (!Affiliation.org[ls.affiliationKey1].hw) {
-      $('#container').animate({'top':'60%'}, speed);
-      $('header').animate({'top':'60%'}, speed);
-    }
-    // Animate in the bigscreen preview
-    $('#bigscreenPreview').slideUp(speed, function() {
-      // Animate the useBigscreen image
-      $('img#useBigscreen').slideDown(speed, function() {
-        // Finally, unload bigscreen preview (resource heavy)
-        $('#bigscreenPreview').attr('src', 'about:blank');
-      });
-    });
-  }
-  // Wait till after the modal is properly closed
-  setTimeout(run, 500);
-}
-
 var restoreChecksToBoxes = function() {
   // Restore checks to boxes from localStorage
   $('input:checkbox').each(function(index, element) {
@@ -615,10 +516,14 @@ var restoreChecksToBoxes = function() {
       element.checked = true;
     }
   });
-}
+}(); // Self executing
 
 var linkToNotiwalls = function() {
   $('img.preview').click(function() {
+    // Store it
+    var name = $(this).attr('data-name');
+    ls.whichScreen = name;
+    // Open it
     var link = $(this).attr('data-link');
     Browser.openTab(link);
   });
@@ -661,18 +566,8 @@ $(document).ready(function() {
   // icons
   changeStatusIcons();
 
-  restoreChecksToBoxes();
-
   // Set focus to affiliation 1 selector
   $('#affiliationKey1').focus();
-
-  // If useBigscreen is on, slide away the rest of the options and switch the logo subtext
-  if (ls.useBigscreen === 'true') {
-    setTimeout(function() {
-      var type = ls.whichScreen;
-      toggleBigscreen(true, type, true);
-    }, 300);
-  }
 
   // Allow user to change affiliation and palette
   bindAffiliationSelector('1', true);
@@ -697,23 +592,6 @@ $(document).ready(function() {
   // Load lists of bus stops
   Stops.load();
 
-  // If Opera, disable and redesign features related to desktop notifications
-  if (Browser.name === 'Opera' && Browser.version < 25) {
-    // The actual features doesn't need to be turned off, they aren't working
-    // anyway, so just uncheck the option to make the user understand it too
-    // Turn off showNotifications feature
-    $('input#showNotifications').prop("disabled", "disabled");
-    $('input#showNotifications').prop("checked", "false");
-    var text = 'Varsle om nyheter';
-    $('label[for=showNotifications] span').html('<del>'+text+'</del> <b>Oppgrader til Opera 25!</b>');
-    // Turn off coffeeSubscription feature
-    $('input#coffeeSubscription').prop("disabled", "disabled");
-    $('input#coffeeSubscription').prop("checked", "false");
-    text = $('label[for=coffeeSubscription] span').text();
-    text = text.trim();
-    $('label[for=coffeeSubscription] span').html('<del>'+text+'</del> <b>Oppgrader til Opera 25!</b>');
-  }
-
   // Adding a hover class to #busBox whenever the mouse is hovering over it
   $('#busBox').hover(function() {
     $(this).addClass('hover');
@@ -728,106 +606,24 @@ $(document).ready(function() {
     $(this).removeClass('hover');
   });
 
-  // Adding handling of buttons in the modal with infoscreen and officescreen
-  $('#modalNotifier').click(function() {
-    $.modal.close();
-    // Check the box
-    $('#useBigscreen').attr('checked', false);
-    // Is there change?
-    if (ls.whichScreen !== 'notifier') {
-      toggleBigscreen(false);
-      // Store it
-      ls.useBigscreen = 'false';
-      ls.whichScreen = 'notifier';
-    }
-  });
-
-  $('#modalInfoscreen').click(function() {
-    $.modal.close();
-    // Check the box
-    $('#useBigscreen').prop('checked', true);
-    // Is there change?
-    if (ls.whichScreen !== 'infoscreen') {
-      // Is it a bigscreen switch?
-      if (ls.whichScreen === 'officescreen') {
-        switchWall('infoscreen');
-      }
-      // From Notifier mode
-      else {
-        toggleBigscreen(true, 'infoscreen');
-      }
-      // Store it
-      ls.useBigscreen = 'true';
-      ls.whichScreen = 'infoscreen';
-    }
-  });
-
-  $('#modalOfficescreen').click(function() {
-    $.modal.close();
-    // Check the box
-    $('#useBigscreen').prop('checked', true);
-    // Is there change?
-    if (ls.whichScreen !== 'officescreen') {
-      // Is it a bigscreen switch?
-      if (ls.whichScreen === 'infoscreen') {
-        switchWall('officescreen');
-      }
-      // From Notifier mode
-      else {
-        toggleBigscreen(true, 'officescreen');
-      }
-      // Store it
-      ls.useBigscreen = 'true';
-      ls.whichScreen = 'officescreen';
-    }
-  });
-
   // Catch new clicks
   $('input:checkbox').click(function() {
+    // Currently, the only checkbox in options is "showAffiliation2"
     var _capitalized = this.id.charAt(0).toUpperCase() + this.id.slice(1);
     Analytics.trackEvent('click'+_capitalized, this.checked);
 
-    // Special case for 'useBigscreen'
-    if (this.id === 'useBigscreen') {
-      // Remove the check/no-check, it will be corrected after the user's coice
-      $('#useBigscreen').prop('checked', !this.checked);
-      // Present the user with a choice between notifier and bigscreen
-      $('.modal').modal({
-        zIndex: 1000,
-        fadeDuration: 250,
-      });
+    ls[this.id] = this.checked;
+
+    if (this.id === 'showAffiliation2' && this.checked === false) {
+      $('#affiliationKey2').attr('disabled', 'disabled');
+      $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(100%)');
+    }
+    if (this.id === 'showAffiliation2' && this.checked === true) {
+      $('#affiliationKey2').removeAttr('disabled');
+      $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(0%)');
     }
 
-    // All the other checkboxes (not Infoscreen)
-    else {
-      ls[this.id] = this.checked;
-
-      if (this.id === 'showAffiliation2' && this.checked === false) {
-        $('#affiliationKey2').attr('disabled', 'disabled');
-        $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(100%)');
-      }
-      if (this.id === 'showAffiliation2' && this.checked === true) {
-        $('#affiliationKey2').removeAttr('disabled');
-        $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(0%)');
-      }
-
-      if (this.id === 'showStatus' && this.checked === true) {
-        ls.activelySetOffice = 'true';
-        Browser.getBackgroundProcess().updateStatusAndMeetings(true);
-      }
-      if (this.id === 'showStatus' && this.checked === false) {
-        ls.activelySetOffice = 'false';
-        Browser.setIcon(Affiliation.org[ls.affiliationKey1].icon);
-        Browser.setTitle(ls.extensionName);
-      }
-
-      showSavedNotification();
-    }
+    showSavedNotification();
   });
-
-  if (ls.everOpenedOptions !== 'true') {
-    // Note the options page as opened so that it won't be opened automatically again
-    ls.everOpenedOptions = 'true'; // Will never be false again
-  }
 
 });

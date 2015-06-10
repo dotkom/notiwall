@@ -56,7 +56,7 @@ body #background {
   font-size: 42px;
   font-weight: lighter;
   text-align: left;
-  padding-left: 94px;
+  padding-left: 87px;
   /* For text that is skewed the same amount as the Online logo:
     - more precise than italic, the Online logo is skewered exactly 15 degrees */
   /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
@@ -92,8 +92,7 @@ body #background {
   border: 0px solid lime;
   display: block;
   padding-top: 15px;
-  padding-left: 77px;
-  -webkit-transition: all 0.2s ease-out;
+  padding-left: 67px;
   /* for icon images */
   /* for logo images */
   /* for regular size images */
@@ -108,6 +107,7 @@ body #background {
   position: relative;
   margin: 0;
   top: 4px;
+  left: -1px;
   -webkit-filter: drop-shadow(0 0 4px black);
   filter: drop-shadow(0 0 4px black);
 }
@@ -116,8 +116,8 @@ body #background {
   position: relative;
   width: 20px;
   height: 20px;
-  top: -39px;
-  right: 63px;
+  top: -51px;
+  right: 62px;
 }
 #options .item .logo {
   box-shadow: 0 0 13px 0 #333;
@@ -131,22 +131,6 @@ body #background {
 #options .item input {
   box-shadow: 0 0 15px #333;
   cursor: pointer;
-}
-#options .item input#showAffiliation1 {
-  opacity: 0;
-  /* Turning off news feed is not allowed since it would
-    turn off the primary purpose of Online Notifier. Don't
-    show the checkbox, it's disabled anyway. */
-}
-#options .item label {
-  cursor: pointer;
-}
-#options .item:hover {
-  text-shadow: 0 0 10px #fff,
-      0 0 15px #fff,
-      0 0 20px #fff,
-      0 0 30px #fff,
-      0 0 40px #011b36;
 }
 #options .item #affiliationBox {
   width: 374px;
@@ -425,6 +409,8 @@ body #background {
   width: 12px;
 }
 #options .item img#showStatusImage {
+  position: relative;
+  top: -12px;
   width: 251px;
   height: 103px;
 }
@@ -434,12 +420,12 @@ div#notiwalls {
   position: fixed;
   z-index: 5;
   top: 0px;
-  right: 0px;
+  right: 20px;
   bottom: 0px;
   width: 225px;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #eee;
+  background-color: navajowhite;
   box-shadow: -2px 0px 5px black;
 }
 div#notiwalls iframe#infoscreenPreview {
@@ -463,7 +449,7 @@ div#busSuggestions {
   position: fixed;
   z-index: 10;
   top: 0;
-  right: 0;
+  right: 20px;
   bottom: 0;
   width: 225px;
   display: none;

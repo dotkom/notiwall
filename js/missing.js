@@ -1,6 +1,6 @@
 "use strict";
 
-// Small function library for Online Notifier
+// Small function library for Online Notiwall
 
 function isEmpty(v) {
   if (typeof v == 'undefined' || v == null) return true;
@@ -21,7 +21,7 @@ function stacktrace() {
   console.log(stack);
 };
 
-// Small prototype library for Online Notifier
+// Small prototype library for Online Notiwall
 
 Date.prototype.getWeekNumber = function () {
     var d = new Date(+this);

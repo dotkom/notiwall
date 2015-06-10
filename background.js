@@ -7,21 +7,13 @@ var intervalId = null;
 var mainLoop = function(force) {
   console.log("\n#" + iteration);
 
-  if (ls.showCantina === 'true')
-    if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
-      updateCantinas();
-  if (ls.showAffiliation1 === 'true')
-    if (force || iteration % UPDATE_NEWS_INTERVAL === 0)
-      updateAffiliationNews('1');
+  if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
+    updateCantinas();
+  if (force || iteration % UPDATE_NEWS_INTERVAL === 0)
+    updateAffiliationNews('1');
   if (ls.showAffiliation2 === 'true')
     if (force || iteration % UPDATE_NEWS_INTERVAL === 0)
       updateAffiliationNews('2');
-  // Only if hardware and not infoscreen
-  if (ls.showStatus === 'true')
-    if (ls.useBigscreen !== 'true')
-      if (Affiliation.org[ls.affiliationKey1].hw)
-        if (force || iteration % UPDATE_AFFILIATION_INTERVAL === 0)
-          updateAffiliation();
 
   // No reason to count to infinity
   if (10000 < iteration)
@@ -46,7 +38,7 @@ var updateAffiliation = function(callback) {
   });
 };
 
-var updateStatusAndMeetings = function(force, callback) {
+var updateStatusAndMeetings = function(callback) {
   console.log('updateStatusAndMeetings');
   
   // Get meeting data
@@ -57,35 +49,6 @@ var updateStatusAndMeetings = function(force, callback) {
   var statusCode = strings.statusCode;
   var statusTitle = strings.statusTitle;
   var statusMessage = strings.statusMessage;
-
-  // Update the icon and icon hover text if data is new
-  if (force || ls.backgroundLastStatusCode !== statusCode || ls.backgroundLastStatusMessage !== statusMessage) {
-    // Save them
-    ls.backgroundLastStatusCode = statusCode;
-    ls.backgroundLastStatusMessage = statusMessage;
-    // Food status
-    if (Object.keys(Affiliation.foods).indexOf(statusCode) > -1) {
-      statusTitle = Affiliation.foods[status].title;
-      Browser.setIcon(Affiliation.foods[statusCode].icon);
-    }
-    // Regular status
-    else {
-      // Set icon
-      var errorIcon = Affiliation.org[ls.affiliationKey1].icon;
-      var statusIcon = Affiliation.org[ls.affiliationKey1].hw.statusIcons[statusCode];
-      if (statusCode === 'error' || typeof(statusIcon) === 'undefined') {
-        Browser.setIcon(errorIcon);
-      }
-      else {
-        Browser.setIcon(statusIcon);
-      }
-    }
-    // Extension title (hovering mouse over icon shows the title text).
-    // This string is padded with one newline top and bottom, as well as two spaces on the left and right side of all strings.
-    var today = '\n  ### Nå  \n  ' + statusTitle + ": " + statusMessage + "  \n\n  ### Resten av dagen  \n  " + meeting.replace(/\n/g, "  \n  ") + "\n";
-    Browser.setTitle(today);
-  }
-  if (typeof callback === 'function') callback();
 }
 
 var updateCoffeeSubscription = function(callback) {
@@ -106,26 +69,7 @@ var updateCoffeeSubscription = function(callback) {
 
       // Check for NaN here
       if (!isNaN(pots) && !isNaN(age)) {
-        var storedPots = Number(ls.coffeePots);
         // New pot number?
-        if (storedPots < pots) {
-          // Not a meeting? Or DEBUG mode.
-          if (ls.backgroundLastStatusCode !== 'meeting') {
-            // Made less than 10 minutes ago?
-            if (age < 10) {
-              // And no meme was served within the last 10 minutes?
-              if ((Date.now() - Number(ls.coffeeMemeTime)) > 600000) {
-                // Send meme to everyone who has a coffee subscription :D
-                Coffee.showNotification(pots, age);
-                ls.coffeeMemeTime = Date.now();
-              }
-              else {console.log('Nope to coffee, last one was less than 10 minutes ago')}
-            }
-            else {console.log('Nope to coffee, not made less than 10 minutes ago')}
-          }
-          else {console.log('Nope to coffee, there is a meeting going on')}
-        }
-        // And remember to update localStorage
         ls.coffeePots = pots;
       }
     }
@@ -232,8 +176,8 @@ var loadAffiliationIcon = function() {
   Browser.setIcon(icon);
   // Set badge title
   var name = Affiliation.org[key].name;
-  Browser.setTitle(name + ' Notifier');
-}
+  Browser.setTitle(name + ' Notiwall');
+}(); // Self executing
 
 // Document ready, go!
 $(document).ready( function() {
@@ -247,8 +191,6 @@ $(document).ready( function() {
   // Turn off hardwarefeatures if they're not available
   var isAvailable = (Affiliation.org[ls.affiliationKey1].hw ? true : false);
   Defaults.setHardwareFeatures(isAvailable);
-
-  loadAffiliationIcon();
 
   // Send some basic statistics once a day
   setInterval( function() {

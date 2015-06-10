@@ -25,7 +25,7 @@ var Defaults = {
     
     // Set default choices if undefined, in the same order as on the options page
 
-    ls.extensionName = 'Online Notifier';
+    ls.extensionName = 'Online Notiwall';
     // These two names will be shown in a loop, both can be max 8 letters because of styling
     ls.extensionOwner = 'Online';
     ls.extensionCreator = 'appKom';
@@ -54,9 +54,6 @@ var Defaults = {
       ls.affiliationNewsList2 = JSON.stringify([]);
     if (ls.affiliationViewedList2 === undefined)
       ls.affiliationViewedList2 = JSON.stringify([]);
-
-    if (ls.showBus === undefined)
-      ls.showBus = 'true';
     
     // Bus - If any of these properties are undefined we'll reset all of them
     var firstBusProps = [
@@ -108,31 +105,19 @@ var Defaults = {
       ls.showStatus = 'true';
     }
     
-    // Notifications
-    if (ls.showNotifications === undefined)
-      ls.showNotifications = 'true';
-    
     // Subscription
     if (ls.coffeeSubscription === undefined)
       ls.coffeeSubscription = 'true';
     if (ls.coffeePots === undefined)
       ls.coffeePots = 0;
-    if (ls.coffeeMemeTime === undefined)
-      ls.coffeeMemeTime = 0;
     if (ls.activelySetCoffee === undefined) {
       ls.activelySetCoffee = 'true';
       ls.coffeeSubscription = 'true';
     }
     
-    // Bigscreen
-    if (ls.useBigscreen === undefined)
-      ls.useBigscreen = 'true';
+    // Notiwall
     if (ls.whichScreen === undefined)
       ls.whichScreen = 'infoscreen';
-    
-    // General
-    if (ls.everOpenedOptions === undefined)
-      ls.everOpenedOptions = 'false';
   }(),
 
   // Whenever we need to remove an existing affiliation,
@@ -143,9 +128,7 @@ var Defaults = {
     var ls = localStorage;
 
     var gotoOptions = function(key) {
-      if (confirm('Online Notifier beklager:\n\n"'+key+'" er borte fra Notifier :(\n\nTrolig fordi foreningens nettside ikke finnes lenger.\n\nDu kan trykke OK for å åpne Notifiers innstillinger.')) {
-        Browser.openTab('options.html');
-      }
+      alert('Online Notiwall beklager:\n\n"'+key+'" er borte fra Notiwall :(\n\nTrolig fordi foreningens nettside ikke finnes lenger.\n\nÅpne innstillingene ved å klikke på Notiwalls ikon øverst til høyre i Chrome, og velg en annen nyhetskilde.');
     }
     if (affiliationKeys.indexOf(key1) === -1) {
       ls.affiliationKey1 = 'online';

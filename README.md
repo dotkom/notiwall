@@ -45,8 +45,8 @@ Use a spare computer, one you don't need for anything else.
   * Find the option for what happens on power-loss, set it to turn power back on
   * This feature is very important for the infoscreen to survive power outages, which are frequent at NTNU due to construction work
 
-Setup development environment
------------------------------
+Development setup
+-----------------
 
 The development environment for Online Notiwall is quite simple.
 
@@ -70,11 +70,11 @@ Features overview
 
 For all the included affiliations
 
-- Displays and notifies about news from the selected "linjeforening"
+- Displays news from the selected "linjeforening"
 - Displays todays dinner menu and opening hours from SiT cantinas, cafés and kiosks
-- Displays bus data from AtB in realtime and through the Oracle
+- Displays bus data from AtB in realtime
 - All pages in the extension are live, they stay updated while open
-- Can be used as an infoscreen (full HD vertical screen) for continous use
+- Best used with a full HD vertical screen (or better) for continous use
 
 Additional features for affiliations who have a [NotiPi](https://github.com/appKom/notipi)
 
@@ -138,10 +138,6 @@ AtB
   - Support for favorite bus lines, simplifying finding a particular bus at a busy stop
   - Smart selection of bus stops at the options page, quickly determining which stop the user wants
   - The complete list of bus stops is fetched and parsed every now and then
-- Oracle
-  - Allows the user access to SiTs bus oracle
-  - The oracle has been improved with a feature that learns what you search for in order to allow intelligent auto-completion
-  - The replies from the Oracle are simplified for better readability
 
 Hardware Features (requires [NotiPi](https://github.com/appKom/notipi))
 
@@ -160,19 +156,12 @@ Hardware Features (requires [NotiPi](https://github.com/appKom/notipi))
 - Coffee
   - Coffee pot status fetched via [Online Notiwire](https://github.com/appKom/notiwire)
   - Push the button on the [Notipi](https://github.com/appKom/notipi) in your organizations office to notify users when someone is cooking a new pot of coffee
-  - Users get a HTML desktop notification with a random coffee meme when the coffee button is clicked
   - Overview shows how fresh the last pot of coffee is and how many pots of coffee has been made today
 
-Options page
+Options
 
-- All options react to changes immediately
-- Github link to the open source repository
-- Google +1 button for Onlines website when affiliation is Online
-
-Injected script
-
-- Automatically switches to the correct clicked cantina from the popup
-- Detects when user is visiting the affiliation website, nullifying the counter badge
+- Easily accessible options page via the extension icon (as a popover)
+- Allows you to tweak most interesting features
 
 Analytics
 
