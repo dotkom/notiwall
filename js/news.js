@@ -379,7 +379,6 @@ var News = {
         if (unreadCount == 1) {
           if (localStorage[lastNotifiedName] != link) {
             localStorage[lastNotifiedName] = item.link;
-            self.showNotification(item);
           }
         }
       }
@@ -414,77 +413,6 @@ var News = {
       if (this.debug) console.error('something went wrong trying to count these items:', items);
     }
     return 0;
-  },
-
-  showNotification: function(item) {
-    // Demo mode
-    if (typeof item == 'undefined') {
-      var key = localStorage.affiliationKey1;
-      item = {
-        title: Affiliation.org[key].name + ' Notifier',
-        description: 'Slik ser et nyhetsvarsel ut.\n"Testing.. 1.. 2.. 3.. *BLASTOFF!*"',
-        link: Affiliation.org[key].web,
-        feedKey: key,
-      }
-      // Need to run it by the background process because the event listeners are there
-      Browser.getBackgroundProcess().Browser.createNotification(item);
-    }
-    // Normal mode
-    else {
-      var showIt = function() {
-        if (typeof item != 'undefined') {
-          if (localStorage.showNotifications == 'true') {
-
-            // Save timestamp
-            localStorage.lastNotifiedTime = new Date().getTime();
-
-            // TODO: For the two methods of getting images below; whenever a broken
-            // image link is used, the notification will never show. A solution to
-            // this (should we ever bother) is to test-load the image first and not
-            // use if it the link is clearly broken.
-
-            // If we already have the image, just go ahead
-            if (!isEmpty(item.image) && item.image != Affiliation.org[item.feedKey].placeholder) {
-              Browser.createNotification(item);
-            }
-            // If the organization has an image API or whatever (scraping), use it
-            else if (typeof Affiliation.org[item.feedKey].getImage != 'undefined') {
-              Affiliation.org[item.feedKey].getImage(item.link, function(link, image) {
-                item.image = image[0];
-                Browser.createNotification(item);
-              });
-            }
-            else if (typeof Affiliation.org[item.feedKey].getImages != 'undefined') {
-              var links = [];
-              links.push(item.link);
-              Affiliation.org[item.feedKey].getImages(links, function(links, images) {
-                item.image = images[0];
-                Browser.createNotification(item);
-              });
-            }
-            // Otherwise, just show it without an image
-            else {
-              Browser.createNotification(item);
-            }
-          }
-        }
-        else {
-          if (this.debug) console.error('notification item was undefined');
-        }
-      }
-      // Make sure notifications are sent with at least 10 seconds inbetween
-      var showTime = 0;
-      if (!DEBUG) {
-        var lastTime = localStorage.lastNotifiedTime;
-        if (isNumber(lastTime)) {
-          var diff = new Date().getTime() - lastTime;
-          if (diff < 10000) { // less than 10 seconds?
-            showTime = 10000;
-          }
-        }
-      }
-      setTimeout(showIt, showTime);
-    }
   },
 
   stripCdata: function(item, tagName, postField) {

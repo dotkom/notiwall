@@ -101,13 +101,15 @@ html {
 }
 
 body {
+  background: #001429;
   color: white;
-  font-family: Helvetica;
+  font-family: 'Helvetica Neue', 'Helvetica';
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 29px;
   overflow: hidden;
   margin: 0;
   padding: 0;
-  font-size: 26px;
-  line-height: 29px;
 }
 
 #overlay {
@@ -155,9 +157,13 @@ body {
 
 #container {
   .debugContainer;
-  position: relative;
-  overflow-y: hidden;
   padding: 40px;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   #office {
     .fullbox;

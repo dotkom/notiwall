@@ -367,23 +367,19 @@
 
   <!-- Notiwall previews -->
   <div id="notiwalls">
-    <a href="infoscreen.html">
-      <img id="infoscreenPreview" class="preview" src="img/preview-infoscreen.png"></img>
-    </a>
-    <a href="officescreen.html">
-    <img id="officescreenPreview" class="preview" src="img/preview-officescreen.png"></img>
-    </a>
+    <img id="infoscreenPreview" class="preview" src="img/preview-infoscreen.png" data-link="infoscreen.html"></img>
+    <img id="officescreenPreview" class="preview" src="img/preview-officescreen.png" data-link="officescreen.html"></img>
   </div>
 
   <!-- Suggestions for bus stops -->
   <div id="busSuggestions">
-    <div id="suggestionTitle"></div>
-    <div id="suggestions">
-    </div>
+    <div id="suggestionTitle">Forslag</div>
+    <div id="suggestions"></div> <!-- Suggestions will be added to this div -->
   </div>
 
   <!-- JS No Dependencies -->
   <script src="libs/jquery-2.1.0.min.js"></script>
+  <script src="libs/less.min.js"></script> <!-- Used for debugging only -->
   <script src="js/missing.js"></script>
   <script src="js/hotfix.js"></script>
 

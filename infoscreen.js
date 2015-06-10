@@ -218,6 +218,10 @@ var updateCantinas = function() {
   update(ls.cantina2, cantina2Data, '.second');
 };
 
+//
+// Update functions: Bus
+//
+
 var updateBus = function() {
   console.log('updateBus');
 
@@ -525,6 +529,32 @@ var loopCreatorName = function() {
   }, 3600000);
 }
 
+var killOtherNotiwalls = function() {
+  // Get all tabs
+  chrome.tabs.query({}, function(list){
+    // Filter away all tabs whose URL does not contain the extensionID
+    var extensionID = chrome.app.getDetails().id;
+    list = list.filter(function(tab) {
+      return tab.url.match(extensionID) !== null;
+    });
+    // Only tabs in Online Notiwall are left
+    var notiwallIDs = [];
+    list = list.filter(function(tab) {
+      return !tab.active;
+    });
+    // Kill all the inactive Notiwalls! There may be only one.
+    for (var i = 0; i < list.length; i++) {
+      if (DEBUG) {
+        console.warn('DEBUG is on, I deferred from killing other Notiwall with ID:', list[i].id, "- There may be room for others.");
+      }
+      else {
+        console.warn('Killing other Notiwall with ID:', list[i].id, "- There may be only one!");
+        chrome.tabs.remove(list[i].id);
+      }
+    };
+  });
+}(); // Self executing
+
 // Document ready, go!
 $(document).ready(function() {
 
@@ -533,7 +563,6 @@ $(document).ready(function() {
     // (allows DOM inspection with the mouse)
     $('html').css('cursor', 'auto');
     $('#container').css('overflow-y', 'auto');
-    $('#container').css('overflow-x', 'hidden');
     $('body').on('keypress', function(e) {
       // <enter> removes the overlay
       if (e.which === 13) {

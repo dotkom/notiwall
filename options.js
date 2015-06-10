@@ -185,7 +185,6 @@ var bindCantinaSelector = function(selector) {
 var bindBusFields = function(busField) {
   var cssSelector = '#' + busField;
   // console.log('Binding bus fields for ' + cssSelector);
-  var fadeTime = 50;
 
   var stop = $(cssSelector + ' input');
   var direction = $(cssSelector + ' select');
@@ -193,13 +192,19 @@ var bindBusFields = function(busField) {
   // Load users saved buses
   loadBus(busField);
 
+  // Stop field -> Focus
+
   $(stop).focus(function() {
+    // Show suggestion sheet
+    $('div#busSuggestions').slideDown();
     // Clear stop field on click
     console.log('focus - clear field and show saved value as placeholder');
     ls.busStopClickedAway = ls[busField+'Name'];
     $(stop).val('');
     $(stop).attr('placeholder', ls.busStopClickedAway);
   });
+
+  // Stop field -> Lose focus
 
   $(stop).focusout(function() {
 
@@ -213,14 +218,18 @@ var bindBusFields = function(busField) {
       if (ls.busStopClickedAway !== null) {
         $(stop).val(ls.busStopClickedAway);
       }
-      $('#busSuggestions').html('');
+      clearSuggestions();
     }
     // 1 suggestion, go for it!
     else if (suggestions.length === 1) {
       console.log('focusout - 1 suggestion, save it');
       var correctStop = suggestions[0];
       $(stop).val(correctStop);
-      $('#busSuggestions').html('');
+      $('div#suggestions').html('<div class="correct">' + correctStop + '</div>');
+      // Show final bus stop in suggestion sheet for a short while
+      setTimeout(function() {
+        clearSuggestions();
+      }, 1500);
       getDirections(busField, correctStop);
       getFavoriteLines(busField);
       saveBus(busField);
@@ -229,15 +238,21 @@ var bindBusFields = function(busField) {
     else if (suggestions.length > 1) {
       console.log('focusout - several suggestions, remove them');
       setTimeout(function() {
-        $('#busSuggestions .suggestion').fadeOut(function() {
-          $('#busSuggestions').html('');
+        $('div#suggestions .suggestion').fadeOut(function() {
+          clearSuggestions();
+          if (ls.busStopClickedAway !== null) {
+            $(stop).val(ls.busStopClickedAway);
+          }
         });
-      }, 5000);
+      }, 500);
     }
     else {
       console.log('focusout - nothing to do');
+      $('div#busSuggestions').slideUp(); // Hide suggestion sheet
     }
   });
+
+  // Stop field -> Key up
 
   $(stop).keyup(function(event) {
 
@@ -245,33 +260,6 @@ var bindBusFields = function(busField) {
     var k = event.keyCode;
     if ((37 <= k && k <= 40) || (17 <= k && k <= 18) || k === 91) {
       console.log('keyup - arrow key or function key, do nothing');
-    }
-
-    // If Enter is clicked, check it and save it
-    else if (event.keyCode === 13) {
-      console.log('keyup - enter, checking input');
-      var possibleStop = $(stop).val();
-      var suggestions = Stops.nameToIds(possibleStop);
-      if (suggestions.length !== 0) {
-        var realStopName = Stops.idToName(suggestions[0]);
-        $(stop).val(realStopName);
-        // then empty the suggestion list
-        $('#busSuggestions').html('');
-        // then show only the correct stop for a little over a second
-        var suggestion = $('<div class="correct">' + realStopName + '</div>').hide();
-        $('#busSuggestions').append(suggestion);
-        $(suggestion).fadeIn();
-        setTimeout(function() {
-          $('#busSuggestions .correct').fadeOut(fadeTime);
-          setTimeout(function() {
-            $('#busSuggestions').html('');
-          }, 300);
-        }, 1200);
-        // and of course, save and get directions
-        getDirections(busField, realStopName);
-        getFavoriteLines(busField);
-        saveBus(busField);
-      }
     }
 
     // If anything else is clicked, get suggestions
@@ -285,13 +273,10 @@ var bindBusFields = function(busField) {
       if (nameStart.length > 0) {
         // Suggestions
         var suggestions = Stops.partialNameToPotentialNames(nameStart);
-        $('#busSuggestions').html('');
+        $('div#suggestions').html('');
         for (var i in suggestions) {
           var _text = suggestions[i];
-          var suggestion = $('<div class="suggestion">' + _text + '</div>').hide();
-
-          $('#busSuggestions').append(suggestion);
-          $(suggestion).fadeIn();
+          $('div#suggestions').append('<div class="suggestion">' + _text + '</div>');
         }
 
         // Only one suggestion? Inject it
@@ -299,16 +284,11 @@ var bindBusFields = function(busField) {
           var correctStop = suggestions[0];
           $(stop).val(correctStop);
           $(stop).blur();
-          $('#busSuggestions').html('');
-          suggestion = $('<div class="correct">' + correctStop + '</div>').hide();
-          $('#busSuggestions').append(suggestion);
-          $(suggestion).fadeIn();
+          $('div#suggestions').html('<div class="correct">' + correctStop + '</div>');
+          // Show final bus stop in suggestion sheet for a short while
           setTimeout(function() {
-            $('#busSuggestions .correct').fadeOut(fadeTime);
-            setTimeout(function() {
-              $('#busSuggestions').html('');
-            }, 300);
-          }, 1200);
+            clearSuggestions();
+          }, 1500);
           getDirections(busField, correctStop);
           getFavoriteLines(busField);
           saveBus(busField);
@@ -316,14 +296,15 @@ var bindBusFields = function(busField) {
       }
       // All characters removed, remove suggestions
       else {
-        $('#busSuggestions .suggestion').fadeOut(fadeTime, function() {
-          $('#busSuggestions').html(''  );
-        });
+        $('div#suggestions').html(''); // Empty suggestion sheet
+        // But don't remove it, because the user still focuses on the field
       }
       // After inserting new results, rebind suggestions, making them clickable
       bindSuggestions();
     }
   });
+
+  // Direction field -> Change
 
   $(direction).change(function() {
     // Get new favorite lines in case they are different, and save changes ofc
@@ -331,6 +312,7 @@ var bindBusFields = function(busField) {
     saveBus(busField);
   });
 
+  // Bind favorite bus lines fields as well
   bindFavoriteBusLines(busField);
 }
 
@@ -350,6 +332,11 @@ var bindFavoriteBusLines = function(busField) {
     }
     saveBus(busField);
   });
+}
+
+var clearSuggestions = function() {
+  $('div#suggestions').html(''); // Empty suggestion sheet
+  $('div#busSuggestions').slideUp(); // Hide suggestion sheet
 }
 
 var getDirections = function(busField, correctStop) {
@@ -534,8 +521,8 @@ var bindSuggestions = function() {
       getDirections(ls.busInFocus, text);
       getFavoriteLines(ls.busInFocus);
       saveBus(ls.busInFocus);
-      $('#busSuggestions .suggestion').fadeOut(50, function() {
-        $('#busSuggestions').html('');
+      $('div#suggestions .suggestion').fadeOut(50, function() {
+        clearSuggestions();
       });
     }
   });
@@ -629,6 +616,13 @@ var restoreChecksToBoxes = function() {
     }
   });
 }
+
+var linkToNotiwalls = function() {
+  $('img.preview').click(function() {
+    var link = $(this).attr('data-link');
+    Browser.openTab(link);
+  });
+}(); // Self executing
 
 // Document ready, go!
 $(document).ready(function() {

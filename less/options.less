@@ -1,6 +1,6 @@
 /* Debugging */
 
-@debug: 1px;
+@debug: 0px;
 .debugred {
   border: @debug solid red;
 }
@@ -40,9 +40,10 @@ body {
 
 #options {
   .debuglime;
-  width: 575px;
+  width: 590px; /* Hides scrollbar under the Notiwalls-sheet, #options is actually just 575px wide */
+  height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   .side {
     float: left;
@@ -73,19 +74,15 @@ body {
 
   #notification {
     position: absolute;
-    left: 140px;
-    top: 10px;
+    left: 90px;
+    top: 25px;
     text-align: center;
-    width: 480px;
+    width: 360px;
     padding: 4px 20px 2px 13px;
     background: #FFFF99;
-    font-size: 59px;
-    /*font-weight: bold;*/
-    /* more precise than italic, the Online logo is skewered exactly 15 degrees */
-    /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
-    transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);*/
+    font-size: 42px;
+    font-weight: lighter;
     color: white;
-    /*box-shadow: 0 0 13px @background-dark, 0 0 20px @background-dark, 0 0 40px @background-dark;*/
     box-shadow:
       0 0 13px White,
       0 0 20px White,
@@ -99,7 +96,6 @@ body {
     }
     .saved {
       color: #ff44f8;
-      /*color: #FFFEA8;*/
     }
   }
 }
@@ -112,6 +108,8 @@ body {
 
   padding-top: 15px;
   padding-left: 77px;
+
+  -webkit-transition: all .2s ease-out;
 
   /* for icon images */
   .icon {
@@ -160,7 +158,12 @@ body {
   }
 
   &:hover {
-    text-decoration: underline;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 15px #fff,
+      0 0 20px #fff,
+      0 0 30px #fff,
+      0 0 40px #011b36;
   }
 
   /* the affiliation option in particular */
@@ -187,7 +190,7 @@ body {
       background-repeat: no-repeat;
       background-image: url(../org/online/symbol.png); /* is switched for affiliation1 logo */
     }
-    
+
     #affiliation1Symbol {
       float: left;
       border-right: 1px solid #aaa;
@@ -211,15 +214,20 @@ body {
       }
     }
 
+    /* Debug affiliation in the top of the affiliation selection lists */
+    optgroup.debugAffiliation {
+      display: none;
+    }
+
     #primary {
       float: left;
       border-right: 1px solid #aaa;
       width: 115px;
-      
+
       select {
         margin-left: 7px;
       }
-      
+
       #affiliationKey1 {
         // nothing here yet
       }
@@ -232,7 +240,7 @@ body {
     #secondary {
       float: right;
       width: 107px;
-      
+
       #affiliationKey2 {
         // nothing here yet
       }
@@ -449,24 +457,69 @@ body {
 
 }
 
-/* Suggestions for bus stops */
+/* Notiwall previews */
 
-#busSuggestions {
+div#notiwalls {
+  .debugyellow;
+  position: fixed;
+  z-index: 5;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 225px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #eee;
+  box-shadow: -2px 0px 5px black;
+
+  iframe#infoscreenPreview {
+    .debugred;
+    border: 3px solid red;
+  }
+  iframe#officescreenPreview {
+    .debugred;
+    border: 3px solid green;
+    top: -20px;
+  }
+  img.preview {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Bus stop suggestions */
+
+div#busSuggestions {
   .debuglime;
   position: fixed;
   z-index: 10;
-  width: 225px;
-  
-  background-color: white;
-  vertical-align: middle;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 13px;
   top: 0;
   right: 0;
   bottom: 0;
-  
+  width: 225px;
+  display: none; /* Will slide down when needed */
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: snow;
+  border-bottom: 2px solid gray;
+  padding-bottom: 15px;
+
+  div#suggestionTitle {
+    .debugyellow;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    font-size: 42px;
+    font-weight: lighter;
+    text-align: left;
+    color: #444;
+  }
   .suggestion {
+    margin-left: 15px;
     color: #444;
     line-height: 1.5;
     letter-spacing: 1px;
@@ -479,50 +532,10 @@ body {
     }
   }
   .correct {
+    margin-left: 15px;
     color: black;
     font-size: 13px;
-    font-weight: lighter;
+    font-weight: bold;
     line-height: 1.5;
-    text-shadow:
-      0 0 10px #fff,
-      0 0 15px #fff,
-      0 0 20px #fff,
-      0 0 30px #fff,
-      0 0 40px #011b36,
-      0 0 40px #011b36;
-  }
-}
-
-/* Debug affiliation in the top of the affiliation selection lists */
-
-optgroup.debugAffiliation {
-  display: none;
-}
-
-/* Notiwall previews */
-
-div#notiwalls {
-  .debugyellow;
-  position: fixed;
-  z-index: 5;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  width: 225px;
-
-  iframe#infoscreenPreview {
-    .debugred;
-    border: 3px solid red;
-  }
-  iframe#officescreenPreview {
-    .debugred;
-    border: 3px solid green;
-    top: -20px;
-  }
-  .preview {
-    position: relative;
-    float: left;
-    width: 100%;
-    height: auto;
   }
 }

@@ -45,6 +45,16 @@ Use a spare computer, one you don't need for anything else.
   * Find the option for what happens on power-loss, set it to turn power back on
   * This feature is very important for the infoscreen to survive power outages, which are frequent at NTNU due to construction work
 
+Setup development environment
+-----------------------------
+
+The development environment for Online Notiwall is quite simple.
+
+1. Install Node JS
+1. Install LESS globally: `sudo npm install -g less`
+1. Install LESS watcher: `sudo npm install -g less-watcher`
+1. Run watcher for continuous compilation of LESS to CSS: `less-watcher -p "" -d less`
+
 Technology stack
 ----------------
 

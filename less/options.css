@@ -1,12 +1,12 @@
 /* Debugging */
 .debugred {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
 }
 .debugyellow {
-  border: 1px solid #ffff00;
+  border: 0px solid yellow;
 }
 .debuglime {
-  border: 1px solid #00ff00;
+  border: 0px solid lime;
 }
 /* Rules */
 body {
@@ -32,10 +32,12 @@ body #background {
 }
 /* All options */
 #options {
-  border: 1px solid #00ff00;
-  width: 575px;
+  border: 0px solid lime;
+  width: 590px;
+  /* Hides scrollbar under the Notiwalls-sheet, #options is actually just 575px wide */
+  height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 #options .side {
   float: left;
@@ -45,11 +47,11 @@ body #background {
 }
 /* Options logo, subtext and saved notifcation */
 #options header {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   width: 575px;
 }
 #options header #headerText {
-  border: 1px solid #ffff00;
+  border: 0px solid yellow;
   margin-top: 30px;
   font-size: 42px;
   font-weight: lighter;
@@ -62,19 +64,15 @@ body #background {
 }
 #options header #notification {
   position: absolute;
-  left: 140px;
-  top: 10px;
+  left: 90px;
+  top: 25px;
   text-align: center;
-  width: 480px;
+  width: 360px;
   padding: 4px 20px 2px 13px;
   background: #FFFF99;
-  font-size: 59px;
-  /*font-weight: bold;*/
-  /* more precise than italic, the Online logo is skewered exactly 15 degrees */
-  /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
-    transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);*/
+  font-size: 42px;
+  font-weight: lighter;
   color: white;
-  /*box-shadow: 0 0 13px @background-dark, 0 0 20px @background-dark, 0 0 40px @background-dark;*/
   box-shadow: 0 0 13px White,
       0 0 20px White,
       0 0 40px White,
@@ -88,14 +86,14 @@ body #background {
 }
 #options header #notification .saved {
   color: #ff44f8;
-  /*color: #FFFEA8;*/
 }
 /* Each option item */
 #options .item {
-  border: 1px solid #00ff00;
+  border: 0px solid lime;
   display: block;
   padding-top: 15px;
   padding-left: 77px;
+  -webkit-transition: all 0.2s ease-out;
   /* for icon images */
   /* for logo images */
   /* for regular size images */
@@ -110,8 +108,8 @@ body #background {
   position: relative;
   margin: 0;
   top: 4px;
-  -webkit-filter: drop-shadow(0 0 4px #000000);
-  filter: drop-shadow(0 0 4px #000000);
+  -webkit-filter: drop-shadow(0 0 4px black);
+  filter: drop-shadow(0 0 4px black);
 }
 #options .item #statusOverlay {
   pointer-events: none;
@@ -144,7 +142,11 @@ body #background {
   cursor: pointer;
 }
 #options .item:hover {
-  text-decoration: underline;
+  text-shadow: 0 0 10px #fff,
+      0 0 15px #fff,
+      0 0 20px #fff,
+      0 0 30px #fff,
+      0 0 40px #011b36;
 }
 #options .item #affiliationBox {
   width: 374px;
@@ -160,9 +162,10 @@ body #background {
   overflow: hidden;
   white-space: nowrap;
   word-wrap: break-word;
+  /* Debug affiliation in the top of the affiliation selection lists */
 }
 #options .item #affiliationBox .symbol {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   white-space: nowrap;
   cursor: pointer;
   width: 59px;
@@ -181,7 +184,7 @@ body #background {
   border-left: 1px solid #aaa;
 }
 #options .item #affiliationBox .box {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   position: relative;
   padding: 5px 6px 6px 6px;
 }
@@ -190,6 +193,9 @@ body #background {
   margin-top: 4px;
   border: 1px solid #7a7a7a;
   word-wrap: initial;
+}
+#options .item #affiliationBox optgroup.debugAffiliation {
+  display: none;
 }
 #options .item #affiliationBox #primary {
   float: left;
@@ -282,7 +288,7 @@ body #background {
   word-wrap: break-word;
 }
 #options .item #cantinaBox select {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   float: left;
   border: 1px solid #8d8d8d;
   position: relative;
@@ -291,7 +297,7 @@ body #background {
   width: 106px;
 }
 #options .item #cantinaBox #cantinaLogo {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   float: left;
   white-space: nowrap;
   width: 116px;
@@ -351,13 +357,13 @@ body #background {
   /* resets inhertied value from parent element */
 }
 #options .item #busBox .busStop .lines table {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   width: 100%;
   table-layout: fixed;
   text-align: center;
 }
 #options .item #busBox .busStop .lines table td {
-  border: 1px solid #ffff00;
+  border: 0px solid yellow;
   padding: 1px 0;
 }
 #options .item #busBox .busStop .lines .active {
@@ -397,7 +403,7 @@ body #background {
   width: 80px;
 }
 #options .item #busBox #busLogo {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   position: relative;
   /* allows the down-arrow to be painted behind this */
   z-index: 10;
@@ -422,71 +428,79 @@ body #background {
   width: 251px;
   height: 103px;
 }
-/* Suggestions for bus stops */
-#busSuggestions {
-  border: 1px solid #00ff00;
-  position: fixed;
-  z-index: 10;
-  width: 225px;
-  background-color: white;
-  vertical-align: middle;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 13px;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-#busSuggestions .suggestion {
-  color: #444;
-  line-height: 1.5;
-  letter-spacing: 1px;
-}
-#busSuggestions .suggestion:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-#busSuggestions .suggestion .matched_character {
-  font-weight: bold;
-}
-#busSuggestions .correct {
-  color: black;
-  font-size: 13px;
-  font-weight: lighter;
-  line-height: 1.5;
-  text-shadow: 0 0 10px #fff,
-      0 0 15px #fff,
-      0 0 20px #fff,
-      0 0 30px #fff,
-      0 0 40px #011b36,
-      0 0 40px #011b36;
-}
-/* Debug affiliation in the top of the affiliation selection lists */
-optgroup.debugAffiliation {
-  display: none;
-}
 /* Notiwall previews */
 div#notiwalls {
-  border: 1px solid #ffff00;
+  border: 0px solid yellow;
   position: fixed;
   z-index: 5;
   top: 0px;
   right: 0px;
   bottom: 0px;
   width: 225px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #eee;
+  box-shadow: -2px 0px 5px black;
 }
 div#notiwalls iframe#infoscreenPreview {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   border: 3px solid red;
 }
 div#notiwalls iframe#officescreenPreview {
-  border: 1px solid #ff0000;
+  border: 0px solid red;
   border: 3px solid green;
   top: -20px;
 }
-div#notiwalls .preview {
+div#notiwalls img.preview {
   position: relative;
   float: left;
   width: 100%;
   height: auto;
+}
+/* Bus stop suggestions */
+div#busSuggestions {
+  border: 0px solid lime;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 225px;
+  display: none;
+  /* Will slide down when needed */
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: snow;
+  border-bottom: 2px solid gray;
+  padding-bottom: 15px;
+}
+div#busSuggestions div#suggestionTitle {
+  border: 0px solid yellow;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  font-size: 42px;
+  font-weight: lighter;
+  text-align: left;
+  color: #444;
+}
+div#busSuggestions .suggestion {
+  margin-left: 15px;
+  color: #444;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+div#busSuggestions .suggestion:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#busSuggestions .suggestion .matched_character {
+  font-weight: bold;
+}
+div#busSuggestions .correct {
+  margin-left: 15px;
+  color: black;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.5;
 }

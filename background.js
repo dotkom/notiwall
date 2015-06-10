@@ -165,12 +165,11 @@ var updateAffiliationNews = function(number, callback) {
       }
       // Empty news items, don't count
       else if (items.length === 0) {
-        updateUnreadCount(0, 0);
+        // Do nothing
       }
       // News is here! NEWS IS HERE! FRESH FROM THE PRESS!
       else {
         saveAndCountNews(items, number);
-        updateUnreadCount();
         fetchAndStoreImageLinks(number);
       }
       if (typeof callback === 'function') callback();
@@ -192,11 +191,6 @@ var saveAndCountNews = function(items, number) {
   var list = JSON.parse(ls[newsList]);
   ls[unreadCount] = News.countNewsAndNotify(items, list, lastNotified);
   ls[newsList] = News.refreshNewsList(items);
-}
-
-var updateUnreadCount = function(count1, count2) {
-  var unreadCount = (Number(ls.affiliationUnreadCount1)) + (Number(ls.affiliationUnreadCount2));
-  Browser.setBadgeText(String(unreadCount));
 }
 
 var fetchAndStoreImageLinks = function(number) {

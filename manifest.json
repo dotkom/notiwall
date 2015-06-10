@@ -27,6 +27,7 @@
   "permissions": [
     "idle",
     "notifications",
+    "tabs",
     "<all_urls>"
   ],
 
