@@ -1,0 +1,38 @@
+{
+  "name": "Online Notiwall",
+  "short_name": "Notiwall",
+  "version": "0.9.0",
+  "manifest_version": 2,
+  "offline_enabled": false,
+	
+  "description": "Linjeforeningsnyheter, middagsmeny, sanntidsbuss og mer.",
+  "homepage_url": "https://online.ntnu.no/",
+  
+  "background": {
+    "page": "background.html"
+  },
+
+  "browser_action": {
+    "default_title": "Notiwall",
+    "default_popup": "options.html"
+  },
+
+  "icons": {
+    "16" : "img/logo-16.png",
+    "48" : "img/logo-48.png",
+    "128" : "img/logo-128.png"
+  },
+	
+  "permissions": [
+    "idle",
+    "notifications",
+    "tabs",
+    "<all_urls>"
+  ],
+
+  "web_accessible_resources": [
+    "org/*/*.png"
+  ],
+
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com https://apis.google.com; object-src 'self'"
+}
