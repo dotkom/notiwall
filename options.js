@@ -117,28 +117,24 @@ var disableHardwareFeatures = function(quick) {
   ls.showStatus = 'false';
   ls.coffeeSubscription = 'false';
   if (quick) {
-    $('label[for="showStatus"]').slideUp({duration:0});
-    $('label[for="coffeeSubscription"]').slideUp({duration:0});
-    $('#container').css('top', '60%');
-    $('header').css('top', '60%');
-    // No need to change creator name in pageflip when quick-disabling
+    $('div#officeStatusSlider').slideUp({duration:0});
   }
   else {
-    // Hide office status option
-    $('label[for="showStatus"]').slideUp('slow');
-    // Hide coffee subscription option
-    $('label[for="coffeeSubscription"]').slideUp('slow', function() {
-      // Move all content back down
-      $('#container').animate({'top':'60%'}, 300);
-      $('header').animate({'top':'60%'}, 300);
-    });
+    $('div#officeStatusSlider').slideUp('slow');
   }
 }
 
 var enableHardwareFeatures = function(quick) {
   ls.showStatus = 'true';
   ls.coffeeSubscription = 'true';
-  restoreChecksToBoxes();
+  if (quick) {
+    $('div#officeStatusSlider').slideDown({duration:0});
+  }
+  else {
+    $('div#officeStatusSlider').slideDown('slow');
+    // Update office status
+    Browser.getBackgroundProcess().updateStatusAndMeetings(true);
+  }
 }
 
 var changeStatusIcons = function() {
@@ -538,7 +534,7 @@ $(document).ready(function() {
 
   // Remove hardware features if the affiliation does not have it
   if (!Affiliation.org[ls.affiliationKey1].hw) {
-    disableHardwareFeatures(true); // true means be quick about it!
+    disableHardwareFeatures(true);
   }
 
   // Apply affiliation specific features

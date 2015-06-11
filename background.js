@@ -38,7 +38,7 @@ var updateAffiliation = function(callback) {
   });
 };
 
-var updateStatusAndMeetings = function(callback) {
+var updateStatusAndMeetings = function(force, callback) {
   console.log('updateStatusAndMeetings');
   
   // Get meeting data
@@ -180,7 +180,7 @@ var loadAffiliationIcon = function() {
 }(); // Self executing
 
 // Document ready, go!
-$(document).ready( function() {
+$(document).ready(function() {
   // Clear values that should start empty
   Affiliation.clearAffiliationData();
 
@@ -191,6 +191,19 @@ $(document).ready( function() {
   // Turn off hardwarefeatures if they're not available
   var isAvailable = (Affiliation.org[ls.affiliationKey1].hw ? true : false);
   Defaults.setHardwareFeatures(isAvailable);
+
+  // Open the desired Notiwall on startup
+  if (ls.whichScreen === 'infoscreen') {
+    Browser.openTab('infoscreen.html');
+    Analytics.trackEvent('loadInfoscreen');
+  }
+  else if (ls.whichScreen === 'officescreen') {
+    Browser.openTab('officescreen.html');
+    Analytics.trackEvent('loadOfficescreen');
+  }
+  else {
+    console.error('No recognised Notiwall. localStorage.whichScreen was "' + ls.whichScreen + '"');
+  }
 
   // Send some basic statistics once a day
   setInterval( function() {

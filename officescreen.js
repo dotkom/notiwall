@@ -59,9 +59,16 @@ var updateStatus = function(debugStatus) {
       $('#now #text #status').html(Affiliation.statuses[statusCode].title);
       $('#now #text #status').css('color', Affiliation.statuses[statusCode].color);
     }
-    $('#now #text #info').html(statusMessage);
+    // Save them
     ls.officescreenLastStatusCode = statusCode;
     ls.officescreenLastMessage = statusMessage;
+    // Check for Affiliation specific status message
+    // Note: overrides 'debugging' message
+    var msgs = Affiliation.org[ls.affiliationKey1].hw.statusMessages;
+    if (msgs)
+      if (msgs[statusCode])
+        statusMessage = msgs[statusCode];
+    $('#now #text #info').html(statusMessage);
   }
 }
 
@@ -336,6 +343,23 @@ $(document).ready(function() {
         $('#logo').toggle();
         $('#pageflip').toggle();
       }
+      // <space> loops through statuses
+      if (e.which === 32) {
+        e.preventDefault();
+        switch (ls.officescreenLastStatusCode) {
+          case 'waffle': updateStatus('error'); break;
+          case 'error': updateStatus('open'); break;
+          case 'open': updateStatus('closed'); break;
+          case 'closed': updateStatus('meeting'); break;
+          case 'meeting': updateStatus('bun'); break;
+          case 'bun': updateStatus('cake'); break;
+          case 'cake': updateStatus('coffee'); break;
+          case 'coffee': updateStatus('pizza'); break;
+          case 'pizza': updateStatus('taco'); break;
+          case 'taco': updateStatus('waffle'); break;
+          default: updateStatus('error');
+        }
+      }
     });
   }
   
@@ -360,6 +384,12 @@ $(document).ready(function() {
     // What is the prefered secondary affiliation?
     Analytics.trackEvent('loadAffiliation2', ls.affiliationKey2);
   }
+
+  // Hide stuff that the user has disabled in options
+  if (ls.showStatus !== 'true')
+    $('#now').hide();
+  if (ls.showStatus !== 'true')
+    $('#todays').hide();
 
   // Applying affiliation graphics
   var key = ls.affiliationKey1;

@@ -1,14 +1,13 @@
 {
   "name": "Online Notiwall",
   "short_name": "Notiwall",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "manifest_version": 2,
   "offline_enabled": false,
 	
   "description": "Linjeforeningsnyheter, middagsmeny, sanntidsbuss og mer.",
   "homepage_url": "https://online.ntnu.no/",
   
-  "options_page": "options.html",
   "background": {
     "page": "background.html"
   },

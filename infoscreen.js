@@ -83,6 +83,7 @@ var updateStatus = function(debugStatus) {
     ls.infoscreenLastStatusCode = statusCode;
     ls.infoscreenLastMessage = statusMessage;
     // Check for Affiliation specific status message
+    // Note: overrides 'debugging' message
     var msgs = Affiliation.org[ls.affiliationKey1].hw.statusMessages;
     if (msgs)
       if (msgs[statusCode])
@@ -607,6 +608,12 @@ $(document).ready(function() {
     // What is the prefered secondary affiliation?
     Analytics.trackEvent('loadAffiliation2', ls.affiliationKey2);
   }
+
+  // Hide stuff that the user has disabled in options
+  if (ls.showStatus !== 'true')
+    $('#office').hide();
+  if (ls.showStatus !== 'true')
+    $('#todays').hide();
 
   // Applying affiliation graphics
   var key = ls.affiliationKey1;

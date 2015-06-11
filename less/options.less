@@ -65,7 +65,7 @@ body {
     font-size: 42px;
     font-weight: lighter;
     text-align: left;
-    padding-left: 87px;
+    padding-left: 57px;
     /* For text that is skewed the same amount as the Online logo:
     - more precise than italic, the Online logo is skewered exactly 15 degrees */
     /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
@@ -106,7 +106,7 @@ body {
   .debuglime;
   display: block;
   padding-top: 15px;
-  padding-left: 67px;
+  padding-left: 37px;
 
   /* for icon images */
   .icon {
@@ -444,29 +444,55 @@ div#notiwalls {
   position: fixed;
   z-index: 5;
   top: 0px;
-  right: 20px;
+  right: 60px;
   bottom: 0px;
-  width: 225px;
+  width: 245px;
 
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: navajowhite;
-  box-shadow: -2px 0px 5px black;
 
-  iframe#infoscreenPreview {
-    .debugred;
-    border: 3px solid red;
+  // This is typically tweaked by palettes, be careful when changing it
+  background-color: #111;
+  box-shadow: 0 0 25px #aaa;
+  color: NavajoWhite;
+
+  div#previewTitle {
+    .debugyellow;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    font-size: 42px;
+    font-weight: lighter;
+    text-align: left;
   }
-  iframe#officescreenPreview {
-    .debugred;
-    border: 3px solid green;
-    top: -20px;
-  }
-  img.preview {
+
+  div.screen {
     position: relative;
     float: left;
-    width: 100%;
-    height: auto;
+    top: -4px; /* Minor hack to make things line up */
+    margin-bottom: 10px;
+
+    div.name {
+      .debugyellow;
+      margin-left: 15px;
+    }
+
+    img#infoscreenPreview {
+      .debugred;
+    }
+
+    img#officescreenPreview {
+      .debugred;
+    }
+
+    img.preview {
+      .debugred;
+      position: relative;
+      float: left;
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
   }
 }
 
@@ -477,16 +503,16 @@ div#busSuggestions {
   position: fixed;
   z-index: 10;
   top: 0;
-  right: 20px;
+  right: 60px;
   bottom: 0;
-  width: 225px;
+  width: 245px;
   display: none; /* Will slide down when needed */
 
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: snow;
-  border-bottom: 2px solid gray;
   padding-bottom: 15px;
+  border-bottom: 2px solid gray;  
+  background-color: snow;
 
   div#suggestionTitle {
     .debugyellow;
