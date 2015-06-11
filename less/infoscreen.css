@@ -247,7 +247,7 @@ body {
 #container #cantinas li.message {
   /*font-style: italic;*/
 }
-#container #bus, div#notiwalls {
+#container #bus {
   border: 1px solid transparent;
   clear: both;
   margin: 0;

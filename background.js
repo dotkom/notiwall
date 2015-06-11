@@ -129,11 +129,10 @@ var saveAndCountNews = function(items, number) {
   var feedItems = 'affiliationNews' + number;
   var newsList = 'affiliationNewsList' + number;
   var unreadCount = 'affiliationUnreadCount' + number;
-  var lastNotified = 'affiliationLastNotified' + number;
 
   ls[feedItems] = JSON.stringify(items);
   var list = JSON.parse(ls[newsList]);
-  ls[unreadCount] = News.countNewsAndNotify(items, list, lastNotified);
+  ls[unreadCount] = News.countNewsAndNotify(items, list);
   ls[newsList] = News.refreshNewsList(items);
 }
 

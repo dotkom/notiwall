@@ -359,7 +359,7 @@ var News = {
     return JSON.stringify(freshList);
   },
 
-  countNewsAndNotify: function(items, newsList, lastNotifiedName) {
+  countNewsAndNotify: function(items, newsList) {
     var unreadCount = 0;
     var maxNewsAmount = this.unreadMaxCount;
     if (items.length-1 < maxNewsAmount)
@@ -375,12 +375,6 @@ var News = {
       // Counting...
       if (newsList.indexOf(link) === -1) {
         unreadCount++;
-        // Send a desktop notification about the first new item
-        if (unreadCount == 1) {
-          if (localStorage[lastNotifiedName] != link) {
-            localStorage[lastNotifiedName] = item.link;
-          }
-        }
       }
       // All counted :)
       else {

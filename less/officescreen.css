@@ -234,7 +234,7 @@ body {
 #container #cantinas .second #dinnerbox li.message {
   /*font-style: italic;*/
 }
-#container #bus, div#notiwalls {
+#container #bus {
   width: 110%;
   margin-left: -5%;
   left: 0;

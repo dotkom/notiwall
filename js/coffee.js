@@ -6,7 +6,6 @@ var Coffee = {
   msgNoCoffee: 'Kaffen har ikke blitt satt på',
   msgConnectionError: 'Frakoblet fra kaffekanna',
   msgComforting: 'Så så, det er sikkert kaffe :)',
-  msgNotification: 'Kaffen er satt på, straks klar :)',
 
   minuteDiff: function(then) {
     // Get now
