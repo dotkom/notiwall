@@ -111,7 +111,6 @@ Student organizations
   - Support for a separate news fetching function specific to an organization, even ones without RSS/Atom feeds
   - Counts unread news and presents unread number in icon badge
   - Separates between new, updated and read items (deprecated)
-  - Serves HTML5 desktop notifications on news / updates
 - Palettes
   - Stored as plain, short CSS stylesheets
   - Override common CSS selectors in options, popup and the infoscreen

@@ -129,11 +129,10 @@ var saveAndCountNews = function(items, number) {
   var feedItems = 'affiliationNews' + number;
   var newsList = 'affiliationNewsList' + number;
   var unreadCount = 'affiliationUnreadCount' + number;
-  var lastNotified = 'affiliationLastNotified' + number;
 
   ls[feedItems] = JSON.stringify(items);
   var list = JSON.parse(ls[newsList]);
-  ls[unreadCount] = News.countNewsAndNotify(items, list, lastNotified);
+  ls[unreadCount] = News.countNewsAndNotify(items, list);
   ls[newsList] = News.refreshNewsList(items);
 }
 
@@ -192,18 +191,25 @@ $(document).ready(function() {
   var isAvailable = (Affiliation.org[ls.affiliationKey1].hw ? true : false);
   Defaults.setHardwareFeatures(isAvailable);
 
-  // Open the desired Notiwall on startup
-  if (ls.whichScreen === 'infoscreen') {
-    Browser.openTab('infoscreen.html');
-    Analytics.trackEvent('loadInfoscreen');
+  // If just installed, wait 5 secs to let things load
+  var delayOpening = 0;
+  if (Number(ls.installTime) + 5000 > Date.now()) {
+    delayOpening = 5000;
   }
-  else if (ls.whichScreen === 'officescreen') {
-    Browser.openTab('officescreen.html');
-    Analytics.trackEvent('loadOfficescreen');
-  }
-  else {
-    console.error('No recognised Notiwall. localStorage.whichScreen was "' + ls.whichScreen + '"');
-  }
+  setTimeout(function() {
+    // Open the desired Notiwall on startup
+    if (ls.whichScreen === 'infoscreen') {
+      Browser.openTab('infoscreen.html');
+      Analytics.trackEvent('loadInfoscreen');
+    }
+    else if (ls.whichScreen === 'officescreen') {
+      Browser.openTab('officescreen.html');
+      Analytics.trackEvent('loadOfficescreen');
+    }
+    else {
+      console.error('No recognised Notiwall. localStorage.whichScreen was "' + ls.whichScreen + '"');
+    }
+  }, delayOpening);
 
   // Send some basic statistics once a day
   setInterval( function() {

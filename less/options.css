@@ -20,7 +20,7 @@ body {
 }
 body #background {
   /* using a div because the background is color shifted by the palette CSS files */
-  background-image: url('/img/background-large-vertical.png');
+  background-image: url('/img/background-options.png');
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
@@ -93,31 +93,11 @@ body #background {
   display: block;
   padding-top: 15px;
   padding-left: 37px;
-  /* for icon images */
   /* for logo images */
   /* for regular size images */
   /* the affiliation option in particular */
   /* the cantina option in particular */
   /* the bus option in particular */
-  /* the showStatus option in particular */
-}
-#options .item .icon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-  margin: 0;
-  top: 4px;
-  left: -1px;
-  -webkit-filter: drop-shadow(0 0 4px black);
-  filter: drop-shadow(0 0 4px black);
-}
-#options .item #statusOverlay {
-  pointer-events: none;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  top: -51px;
-  right: 62px;
 }
 #options .item .logo {
   box-shadow: 0 0 13px 0 #333;
@@ -407,12 +387,6 @@ body #background {
 }
 #options .item #busBox #arrowDown img {
   width: 12px;
-}
-#options .item img#showStatusImage {
-  position: relative;
-  top: -12px;
-  width: 251px;
-  height: 103px;
 }
 /* Notiwall previews */
 div#notiwalls {

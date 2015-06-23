@@ -1,15 +1,42 @@
-/* This file contains infoscreen-additions to common.less */
+/* DEBUG variables, set to colors instead of
+ * transparents for debug borders around everything
+ */
+/*
+@debugRed: red;
+@debugCyan: cyan;
+@debugLime: lime;
+@debugYellow: yellow;
+/*/
+/* Debugging, use bright colors that stand out */
+.debugContainer {
+  border: 1px solid transparent;
+}
+/* Outer containers */
+.debugBox {
+  border: 1px solid transparent;
+}
+/* Inner containers */
+.debugText {
+  border: 1px solid transparent;
+}
+/* Text elements */
+.debugElement {
+  border: 1px solid transparent;
+}
+/* Other elements */
 @font-face {
   font-family: 'Digi';
   src: url('../fonts/digi/digi.ttf') format('truetype');
 }
 .fullbox {
+  border: 1px solid transparent;
   clear: both;
   margin: 0;
   padding: 0;
   width: 100%;
 }
 .title {
+  border: 1px solid transparent;
   font-family: 'Helvetica Neue', 'Helvetica';
   font-weight: 200;
   font-size: 60px;
@@ -17,7 +44,13 @@
   margin-bottom: 18px;
   display: block;
 }
+.subtitle {
+  border: 1px solid transparent;
+  font-weight: bold;
+  margin-top: 10px;
+}
 .emphasized {
+  border: 1px solid transparent;
   font-style: italic;
   margin-top: 22px;
   margin-bottom: 5px;
@@ -153,6 +186,7 @@ body {
   }
 }
 #container #todays {
+  border: 1px solid transparent;
   clear: both;
   margin: 0;
   padding: 0;
@@ -164,6 +198,7 @@ body {
   width: 47.5%;
 }
 #container #todays #schedule #servant {
+  border: 1px solid transparent;
   font-style: italic;
   margin-top: 22px;
   margin-bottom: 5px;
@@ -177,12 +212,14 @@ body {
   width: 47.5%;
 }
 #container #todays #coffee #pots {
+  border: 1px solid transparent;
   font-style: italic;
   margin-top: 22px;
   margin-bottom: 5px;
   color: #cff;
 }
 #container #cantinas {
+  border: 1px solid transparent;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -212,29 +249,29 @@ body {
   margin-left: 20px;
   color: #aaa;
 }
-#container #cantinas .first #dinnerbox,
-#container #cantinas .second #dinnerbox {
+#container #cantinas .first .mealBox,
+#container #cantinas .second .mealBox {
   font-size: 52px;
   line-height: 55px;
   margin-top: 8px;
   width: 100%;
 }
-#container #cantinas .first #dinnerbox li,
-#container #cantinas .second #dinnerbox li {
+#container #cantinas .first .mealBox li,
+#container #cantinas .second .mealBox li {
   position: relative;
   width: 95%;
   list-style-type: none;
   -webkit-transition: text-shadow 0.15s ease-out 0s;
 }
-#container #cantinas .first #dinnerbox li span,
-#container #cantinas .second #dinnerbox li span {
+#container #cantinas .first .mealBox li span,
+#container #cantinas .second .mealBox li span {
   color: #bbb;
 }
-#container #cantinas .first #dinnerbox li.message,
-#container #cantinas .second #dinnerbox li.message {
+#container #cantinas .first .mealBox li.message,
+#container #cantinas .second .mealBox li.message {
   /*font-style: italic;*/
 }
-#container #bus, div#notiwalls {
+#container #bus {
   width: 110%;
   margin-left: -5%;
   left: 0;

@@ -158,7 +158,7 @@ var Browser = {
     // Is the app in production? If so, there will be an update URL
     try {
       if (this.name === 'Chrome' || this.name === 'Opera') {
-        if (chrome.app.getDetails().id === 'hfgffimlnajpbenfpaofmmffcdmgkllf') {// FIXME
+        if (chrome.app.getDetails().id === 'ockmkaidddgbbababholkkhlmppnacjm') {
           return true;
         }
         else if (typeof chrome.app.getDetails().update_url === 'string') {

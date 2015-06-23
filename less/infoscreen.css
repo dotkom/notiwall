@@ -66,21 +66,19 @@
   padding: 0;
   width: 100%;
 }
-.title,
-.titleDropdown {
+.title {
   border: 1px solid transparent;
   color: NavajoWhite;
-  display: block;
   font-weight: bold;
-}
-.title .unread,
-.titleDropdown .unread {
-  color: white;
-}
-.title {
   font-size: 32px;
   margin-top: 33px;
   margin-bottom: 11px;
+  display: block;
+}
+.subtitle {
+  border: 1px solid transparent;
+  font-weight: bold;
+  margin-top: 10px;
 }
 .emphasized {
   border: 1px solid transparent;
@@ -234,7 +232,7 @@ body {
   float: right;
   width: 47.5%;
 }
-#container #cantinas #dinnerbox {
+#container #cantinas .mealBox {
   border: 1px solid transparent;
 }
 #container #cantinas li {
@@ -247,7 +245,7 @@ body {
 #container #cantinas li.message {
   /*font-style: italic;*/
 }
-#container #bus, div#notiwalls {
+#container #bus {
   border: 1px solid transparent;
   clear: both;
   margin: 0;

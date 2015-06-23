@@ -1,5 +1,26 @@
 
-/* This file contains infoscreen-additions to common.less */
+/* DEBUG variables, set to colors instead of
+ * transparents for debug borders around everything
+ */
+
+/*
+@debugRed: red;
+@debugCyan: cyan;
+@debugLime: lime;
+@debugYellow: yellow;
+/*/
+@debugRed: transparent;
+@debugCyan: transparent;
+@debugLime: transparent;
+@debugYellow: transparent;
+//*/
+
+/* Debugging, use bright colors that stand out */
+
+.debugContainer {border: 1px solid @debugCyan;} /* Outer containers */
+.debugBox {border: 1px solid @debugRed;} /* Inner containers */
+.debugText {border: 1px solid @debugYellow;} /* Text elements */
+.debugElement {border: 1px solid @debugLime;} /* Other elements */
 
 // Vars
 
@@ -15,6 +36,7 @@
 // Mixins
 
 .fullbox {
+  .debugContainer;
   clear: both;
   margin: 0;
   padding: 0;
@@ -22,6 +44,7 @@
 }
 
 .title {
+  .debugText;
   font-family: 'Helvetica Neue', 'Helvetica';
   font-weight: 200;
   font-size: 60px;
@@ -30,7 +53,14 @@
   display: block;
 }
 
+.subtitle {
+  .debugText;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 .emphasized {
+  .debugText;
   font-style: italic;
   margin-top: 22px;
   margin-bottom: 5px;
@@ -226,7 +256,7 @@ body {
         }
       }
 
-      #dinnerbox {
+      .mealBox {
         font-size: 52px;
         line-height: 55px;
         margin-top: 8px;
