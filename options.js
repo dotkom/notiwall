@@ -44,7 +44,6 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
       }
       // either way, change the icons shown in the office status feature
       if (new_has_hardware) {
-        changeStatusIcons();
         // Clear and update affiliation data
         Affiliation.clearAffiliationData();
         Browser.getBackgroundProcess().updateAffiliation();
@@ -113,38 +112,15 @@ var bindPaletteSelector = function() {
   });
 }
 
-var disableHardwareFeatures = function(quick) {
+var disableHardwareFeatures = function() {
   ls.showStatus = 'false';
   ls.coffeeSubscription = 'false';
-  if (quick) {
-    $('div#officeStatusSlider').slideUp({duration:0});
-  }
-  else {
-    $('div#officeStatusSlider').slideUp('slow');
-  }
 }
 
 var enableHardwareFeatures = function(quick) {
   ls.showStatus = 'true';
   ls.coffeeSubscription = 'true';
-  if (quick) {
-    $('div#officeStatusSlider').slideDown({duration:0});
-  }
-  else {
-    $('div#officeStatusSlider').slideDown('slow');
-    // Update office status
-    Browser.getBackgroundProcess().updateStatusAndMeetings(true);
-  }
-}
-
-var changeStatusIcons = function() {
-  if (Affiliation.org[ls.affiliationKey1].hw) {
-    var statusIcons = Affiliation.org[ls.affiliationKey1].hw.statusIcons;
-    $('img.icon.open').attr('src', statusIcons.open);
-    $('img.icon.closed').attr('src', statusIcons.closed);
-    $('img.icon.meeting').attr('src', statusIcons.meeting);
-    $('#statusOverlay').attr('src', statusIcons.open);
-  }
+  Browser.getBackgroundProcess().updateStatusAndMeetings(true);
 }
 
 var bindCantinaSelector = function(selector) {
@@ -534,7 +510,7 @@ $(document).ready(function() {
 
   // Remove hardware features if the affiliation does not have it
   if (!Affiliation.org[ls.affiliationKey1].hw) {
-    disableHardwareFeatures(true);
+    disableHardwareFeatures();
   }
 
   // Apply affiliation specific features
@@ -560,7 +536,6 @@ $(document).ready(function() {
   // palette
   $('#palette').attr('href', Palettes.get(ls.affiliationPalette));
   // icons
-  changeStatusIcons();
 
   // Set focus to affiliation 1 selector
   $('#affiliationKey1').focus();

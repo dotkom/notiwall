@@ -147,17 +147,37 @@ var updateCantinas = function() {
 
   var update = function(shortname, data, selector) {
     var name = Cantina.names[shortname];
-    var hours = '#cantinas '+selector+' .hours';
-    var dinners = '#cantinas '+selector+' #dinnerbox';
+    var title = '#cantinas ' + selector + ' .title';
+    var subtitle = '#cantinas ' + selector + ' .subtitle';
+    var hours = '#cantinas ' + selector + ' .hours';
+    var mealBox = '#cantinas ' + selector + ' .mealBox';
 
-    // Set current cantina as selected in the title dropdown
-    var name = Cantina.names[shortname];
-    $('#cantinas '+selector+' .title').html(name);
+    // Default to dinner, be positive
+    var doLunch = false;
+    var noDinnerExists = false;
+
+    // Decide whether to show lunch or dinner
+    var isLunchTime = new Date().getHours() < 14;
+    // Check if either lunch or dinner is empty, if so, and the other has content, show the other
+    var isThereLunch = Array.isArray(data.lunch); // Otherwise just an object with a message
+    var isThereDinner = Array.isArray(data.dinner); // Otherwise just an object with a message
+    // So is it lunch then?
+    if (isLunchTime && isThereLunch) {
+      doLunch = true;
+    }
+    // Also, if there is a lunch menu, but no dinner menu, just show the lunch throughout, whatever the time.
+    if (!isThereDinner && isThereLunch) {
+      doLunch = true;
+      noDinnerExists = true;
+    }
+
+    // Title: Set name of current cantina
+    $(title).text(name);
 
     // If data is just a message
     if (typeof data === 'string') {
       $(hours).html('- ' + data);
-      $(dinners).html('');
+      $(mealBox).html('');
     }
     // Otherwise data has attributes "name", "hours", "menu" and possibly "error"
     else {
@@ -166,21 +186,25 @@ var updateCantinas = function() {
       if (data.hours && data.hours.message) {
         $(hours).html('- ' + data.hours.message);
       }
-      // Set dinners
-      $(dinners).html('');
-      if (data.dinner) {
-        for (var i in data.dinner) {
-          var dinner = data.dinner[i];
-          if (dinner.price !== undefined) {
-            if (dinner.price) {
-              $(dinners).append('<li>' + dinner.price + ',- ' + dinner.text + '</li>');
+      // Set subtitle, lunch or dinner
+      var menuTitle = (doLunch ? 'Lunsjmeny' + (noDinnerExists ? ' (ingen middag)' : '') : 'Middagsmeny');
+      $(subtitle).text(menuTitle);
+      // Set meals
+      $(mealBox).html('');
+      var meals = (doLunch ? data.lunch : data.dinner);
+      if (meals) {
+        for (var i in meals) {
+          var meal = meals[i];
+          if (meal.price !== undefined) {
+            if (meal.price) {
+              $(mealBox).append('<li>' + meal.price + ',- ' + meal.text + '</li>');
             }
             else {
-              $(dinners).append('<li class="message">"' + dinner.text + '"</li>');
+              $(mealBox).append('<li class="message">"' + meal.text + '"</li>');
             }
           }
           else {
-            $(dinners).append('<li class="message">"' + dinner + '"</li>');
+            $(mealBox).append('<li class="message">"' + meal + '"</li>');
           }
         }
       }
@@ -190,10 +214,14 @@ var updateCantinas = function() {
   };
 
   // Load data from cantinas
-  var cantina1Data = JSON.parse(ls.cantina1Data);
-  var cantina2Data = JSON.parse(ls.cantina2Data);
-  update(ls.cantina1, cantina1Data, '.first');
-  update(ls.cantina2, cantina2Data, '.second');
+  try {
+    var cantina1Data = JSON.parse(ls.cantina1Data);
+    var cantina2Data = JSON.parse(ls.cantina2Data);
+    update(ls.cantina1, cantina1Data, '.first');
+    update(ls.cantina2, cantina2Data, '.second');
+  } catch (e) {
+    // Doesn't matter. It will retry soon.
+  }
 };
 
 var updateBus = function() {
