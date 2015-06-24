@@ -148,10 +148,11 @@ var bindBusFields = function(busField) {
   // Stop field -> Focus
 
   $(stop).focus(function() {
-    // Show suggestion sheet
-    $('div#busSuggestions').slideDown();
     // Clear stop field on click
     console.log('focus - clear field and show saved value as placeholder');
+    // Show suggestion sheet
+    $('div#busSuggestions').slideDown();
+    // Keep the stop that has been "clicked away"
     ls.busStopClickedAway = ls[busField+'Name'];
     $(stop).val('');
     $(stop).attr('placeholder', ls.busStopClickedAway);
