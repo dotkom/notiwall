@@ -672,11 +672,6 @@ $(document).ready(function() {
       $(this).animate({opacity: 1}, "fast", "swing");
     });
   }, 600);
-  // Minor esthetical adjustments for Windows
-  if (Browser.onWindows()) {
-    $('#pfText').attr("style", "bottom:9px;");
-    $('#pfLink').attr("style", "bottom:9px;");
-  }
 
   // Randomize font in the office status
   officeFontRotate();
