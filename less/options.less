@@ -80,7 +80,7 @@ body {
 
   #notification {
     position: absolute;
-    left: 11.3vw;
+    left: 6vw;
     top: 3.1vw;
     text-align: center;
     width: 45vw;
@@ -442,26 +442,16 @@ div#notiwalls {
     margin-left: 1.9vw;
     font-size: 5.3vw;
     font-weight: lighter;
-    text-align: left;
   }
 
   div.screen {
     position: relative;
     float: left;
     top: -.5vw; /* Minor hack to make things line up */
-    margin-bottom: 1.9vw;
+    margin-bottom: 2vw;
 
-    div.name {
-      .debugyellow;
-      margin-left: 1.9vw;
-    }
-
-    img#infoscreenPreview {
-      .debugred;
-    }
-
-    img#officescreenPreview {
-      .debugred;
+    span.name {
+      cursor: pointer;
     }
 
     img.preview {
@@ -471,6 +461,12 @@ div#notiwalls {
       width: 100%;
       height: auto;
       cursor: pointer;
+    }
+
+    button {
+      position: absolute;
+      right: 1.6vw;
+      top: .3vw;
     }
   }
 }

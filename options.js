@@ -496,15 +496,20 @@ var restoreChecksToBoxes = function() {
       element.checked = true;
     }
   });
+  // Restore choice of Notiwall to radio buttons
+  $('input:radio').each(function(index, element) {
+    if (ls.whichScreen === element.value) {
+      element.checked = true;
+    }
+  });
 }(); // Self executing
 
 var linkToNotiwalls = function() {
-  $('img.preview').click(function() {
-    // Store it
-    var name = $(this).attr('data-name');
-    ls.whichScreen = name;
+  $('div#notiwalls button.launch').click(function() {
     // Open it
-    var link = $(this).attr('data-link');
+    var link = $(this).attr('data-target');
+    console.warn(link)
+    Analytics.trackEvent('launch', link);
     Browser.openTab(link);
   });
 }(); // Self executing
@@ -585,7 +590,10 @@ $(document).ready(function() {
     $(this).removeClass('hover');
   });
 
+  //
   // Catch new clicks
+  //
+
   $('input:checkbox').click(function() {
     // Currently, the only checkbox in options is "showAffiliation2"
     var _capitalized = this.id.charAt(0).toUpperCase() + this.id.slice(1);
@@ -601,6 +609,14 @@ $(document).ready(function() {
       $('#affiliationKey2').removeAttr('disabled');
       $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(0%)');
     }
+
+    showSavedNotification();
+  });
+
+  $('input:radio').click(function() {
+    // Store it
+    ls.whichScreen = this.id;
+    console.warn('which',ls.whichScreen)
 
     showSavedNotification();
   });
