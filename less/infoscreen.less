@@ -1,3 +1,9 @@
+/*
+ * CRITICAL: This stylesheet uses viewport width (vw) instead of pixels (px).
+ * Do simple conversion that fits this page by splitting px value with 11.
+ * E.g. 66px / 11 = 6vw
+ */
+
 /* DEBUG variables, set to colors instead of
  * transparents for debug borders around everything
  */
@@ -76,22 +82,22 @@
   .debugText;
   color: NavajoWhite;
   font-weight: bold;
-  font-size: 3vw; // 32px;
-  margin-top: 3vw; // 33px;
-  margin-bottom: 1vw; // 11px;
+  font-size: 3vw;
+  margin-top: 3vw;
+  margin-bottom: 1vw;
   display: block;
 }
 
 .subtitle {
   .debugText;
   font-weight: bold;
-  margin-top: .9vw; // 10px;
+  margin-top: .9vw;
 }
 
 .emphasized {
   .debugText;
   font-style: italic;
-  margin-bottom: 1vw; // 11px;
+  margin-bottom: 1vw;
 }
 
 /* Rules */
@@ -105,8 +111,8 @@ body {
   color: white;
   font-family: 'Helvetica Neue', 'Helvetica';
   font-weight: 200;
-  font-size: 2.2vw; // 26px;
-  line-height: 2.7vw; // 29px;
+  font-size: 2.2vw;
+  line-height: 2.7vw;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -133,8 +139,8 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: -.1vw; // -1px;
-  height: 45.9vw; // 505px;
+  bottom: -.1vw;
+  height: 45.9vw;
   z-index: 100;
   background-image: url('/img/background-infoscreen-news-cutoff.png');
   background-repeat: no-repeat;
@@ -155,7 +161,7 @@ body {
 
 #container {
   .debugContainer;
-  padding: 3.6vw; // 40px;
+  padding: 3.6vw;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -172,10 +178,10 @@ body {
 
       #text {
         .debugText;
-        font-size: 22vw; // 250px;
-        line-height: 22vw; // 250px;
-        text-shadow: 0 0 1.8vw black; // 20px
-        padding: 1.8vw 0 0 0; // 27px 0 13px 0;
+        font-size: 22vw;
+        line-height: 22vw;
+        text-shadow: 0 0 1.8vw black;
+        padding: 1.8vw 0 0 0;
       }
       img {
         .debugElement;
@@ -185,11 +191,11 @@ body {
     }
     #subtext {
       .debugText;
-      font-size: 3.3vw; // 42px;
-      line-height: 3.3vw; // 42px;
+      font-size: 3.3vw;
+      line-height: 3.3vw;
       font-weight: bold;
       text-align: center;
-      text-shadow: 0 0 1.8vw black, 0 0 2.3vw black; // 20px 25px
+      text-shadow: 0 0 1.8vw black, 0 0 2.3vw black;
       padding-bottom: 1vw;
     }
   }
@@ -255,36 +261,36 @@ body {
     background-clip: padding-box; /* makes the background color only show on the inside of the border */
     width: 110%;
     margin-left: -5%;
-    top: 4.2vw; // 47px;
-    font-size: 2.2vw; // 24px;
-    line-height: 2.7vw; // 30px;
-    height: 17vw; // 200px;
-    margin-bottom: 5.4vw; // 60px;
+    top: 4.2vw;
+    font-size: 2.2vw;
+    line-height: 2.7vw;
+    height: 17vw;
+    margin-bottom: 5.4vw;
     padding: 0 3%;
 
     // This is typically tweaked by palettes, be careful when changing it
-    box-shadow: 0 0 2.3vw #aaa; // 25px
+    box-shadow: 0 0 2.3vw #aaa;
 
     .name {
       font-weight: bold;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 0.5vw; // 5px;
-      line-height: 2.7vw; // 36px;
+      margin-bottom: 0.5vw;
+      line-height: 2.7vw;
     }
     .loadingLeft {
       position: relative;
       z-index: 100;
       -webkit-transform: scaleX(-1);
-      width: 19vw; // 213px;
-      bottom: 2vw; // 22px;
+      width: 19vw;
+      bottom: 2vw;
     }
     .loadingRight {
       position: relative;
       z-index: 100;
-      width: 19vw; // 213px;
-      bottom: 2vw; // 22px;
+      width: 19vw;
+      bottom: 2vw;
     }
     .first, .second, .third, .fourth, .fifth, .sixth, .seventh, .eighth, .nineth, .tenth {
       .debugText;
@@ -304,7 +310,7 @@ body {
       position: relative;
       float: left;
       text-align: right;
-      padding-top: 1.3vw; // 14px;
+      padding-top: 1.3vw;
       width: 42%;
     }
     #secondBus {
@@ -312,7 +318,7 @@ body {
       position: relative;
       float: left;
       text-align: left;
-      padding-top: 1.3vw; // 14px;
+      padding-top: 1.3vw;
       width: 42%;
     }
     #middle {
@@ -324,38 +330,38 @@ body {
       width: 14%;
       #atbLogo {
         .debugElement;
-        height: 9vw; // 113px;
-        margin-top: .7vw; // 2px;
-        border-radius: 0.5vw; // 6px;
-        border-top-left-radius: 2.7vw; // 30px;
+        height: 9vw;
+        margin-top: .7vw;
+        border-radius: 0.5vw;
+        border-top-left-radius: 2.7vw;
       }
       #clock {
         .debugElement;
         color: #fff;
-        margin-top: 2vw; // 20px;
+        margin-top: 2vw;
         text-align: center;
         text-shadow:
           0 0 .4vw #ddd,
           0 0 .9vw #ccc,
-          0 0 1.4vw #bbb; // 5px 10px 15px
+          0 0 1.4vw #bbb;
         li {
           .debugText;
           display: inline-block;
           font-family: Digi;
-          font-size: 4vw; // 45px;
+          font-size: 4vw;
           list-style: none;
         }
         #hours {
           position: relative;
-          left: .4vw; // 5px;
+          left: .4vw;
         }
         #minutes {
           position: relative;
-          left: -.4vw; // -5px;
+          left: -.4vw;
         }
         #point {
           position: relative;
-          left: -.1vw; // -1px;
+          left: -.1vw;
           -moz-animation: mymove 1s ease infinite;
           -webkit-animation: mymove 1s ease infinite;
           @-webkit-keyframes mymove {
@@ -391,9 +397,9 @@ body {
         img.regular {
           float: left;
           width: 33%;
-          min-height: 16.3vw; // 180px;
-          max-height: 36.3vw; // 400px;
-          margin: 0 1.4vw 0 0; // 15px
+          min-height: 16.3vw;
+          max-height: 36.3vw;
+          margin: 0 1.4vw 0 0;
         }
       }      
     }
@@ -402,7 +408,7 @@ body {
       position: relative;
       width: 47.5%;
       >.title {
-        margin-bottom: -.9vw; // -10px;
+        margin-bottom: -.9vw;
       }
       .title.regular {
         color: LightGrey;
@@ -424,10 +430,10 @@ body {
       clear: both;
       text-overflow: ellipsis;
       overflow: hidden;
-      margin-top: 3vw; // 33px;
-      min-height: 5vw; // 53px;
-      border-top-right-radius: .4vw; // 5px;
-      border-bottom-right-radius: .4vw; // 5px;
+      margin-top: 3vw;
+      min-height: 5vw;
+      border-top-right-radius: .4vw;
+      border-bottom-right-radius: .4vw;
 
       .title {
         position: relative;
@@ -450,18 +456,10 @@ body {
           -.2vw .2vw .2vw #333,
           .2vw -.2vw .2vw #333,
           .2vw .2vw .2vw #333;
-          /*
-          0 0 8px #333,
-          0 0 4px #333,
-          -2px -2px 2px #333,
-          -2px 2px 2px #333,
-          2px -2px 2px #333,
-          2px 2px 2px #333;
-          */
-        font-size: 3.2vw; // 35px;
-        line-height: 3.4vw; // 38px;
-        top: 2vw; // 22px;
-        left: 2vw; // 22px;
+        font-size: 3.2vw;
+        line-height: 3.4vw;
+        top: 2vw;
+        left: 2vw;
       }
 
       .author {
@@ -478,9 +476,9 @@ body {
         color: white;
         font-family: Helvetica;
         font-weight: lighter;
-        font-size: 3vw; // 32px;
-        bottom: 2vw; // 22px;
-        left: 2vw; // 22px;
+        font-size: 3vw;
+        bottom: 2vw;
+        left: 2vw;
         text-shadow:
           0 0 .7vw #333,
           0 0 .3vw #333,
@@ -488,29 +486,21 @@ body {
           -.2vw .2vw .2vw #333,
           .2vw -.2vw .2vw #333,
           .2vw .2vw .2vw #333;
-          /*
-          0 0 8px #333,
-          0 0 4px #333,
-          -2px -2px 2px #333,
-          -2px 2px 2px #333,
-          2px -2px 2px #333,
-          2px 2px 2px #333;
-          */
       }
 
       img {
         width: 100%;
         height: auto;
         background: snow;
-        min-height: 16.3vw; // 180px;
-        max-height: 36.3vw; // 400px;
-        padding: .4vw; // 5px;
-        border-radius: .4vw; // 5px;
+        min-height: 16.3vw;
+        max-height: 36.3vw;
+        padding: .4vw;
+        border-radius: .4vw;
       }
       img.regular {
         float: right;
         width: 33%;
-        margin: .3vw 0 0 .5vw; // 4px 6px
+        margin: .3vw 0 0 .5vw;
       }
       img.flashy {
         float: left;
@@ -519,20 +509,13 @@ body {
       }
     }
     .unread {
-      font-size: 3vw; // 32px;
+      font-size: 3vw;
       text-shadow:
         0 0 .4vw black,
         -.2vw -.2vw .2vw #333,
         -.2vw .2vw .2vw #333,
         .2vw -.2vw .2vw #333,
         .2vw .2vw .2vw #333;
-        /*
-        0 0 5px black,
-        -1px -1px 1px #333,
-        -1px 1px 1px #333,
-        1px -1px 1px #333,
-        1px 1px 1px #333;
-        */
     }
   }
 
@@ -543,9 +526,9 @@ body {
 #logo {
   .debugElement;
   position: fixed;
-  right: 3.6vw; // 40px;
-  bottom: 3.6vw; // 40px;
-  width: 36.3vw; // 400px;
+  right: 3.6vw;
+  bottom: 3.6vw;
+  width: 36.3vw;
   z-index: 110;
 }
 
@@ -558,22 +541,15 @@ body {
   left: 0;
   bottom: 0;
   color: #ccf2cc;
-  width: 32.3vw; // 356px;
-  height: 16.4vw; // 181px;
-  font: bold 2vw monospace; // 22px
+  width: 32.3vw;
+  height: 16.4vw;
+  font: bold 2vw monospace;
   text-shadow:
     0 0 .4vw #68bf70,
     0 0 .9vw #60b95e,
     0 0 1.4vw #368f2c,
     0 0 1.8vw #25892e,
     0 0 2.7vw #183e1a;
-    /*
-    0 0 5px #68bf70,
-    0 0 10px #60b95e,
-    0 0 15px #368f2c,
-    0 0 20px #25892e,
-    0 0 30px #183e1a;
-    */
 
   #pfBackground {
     // This is typically tweaked by palettes, be careful when changing it
@@ -581,36 +557,36 @@ body {
     z-index: 201;
     left: 0;
     bottom: 0;
-    width: 32.3vw; // 356px;
-    height: 16.4vw; // 181px;
+    width: 32.3vw;
+    height: 16.4vw;
     background: transparent url('/img/pageflip-big-background.png') no-repeat left bottom;
-    background-size: 32.36vw 16.45vw; // 356px 181px;
+    background-size: 32.36vw 16.45vw;
   }
   #pfText {
     position: fixed;
     z-index: 202;
-    left: .7vw; // 8px;
-    bottom: .3vw; // 4px;
-    width: 27.2vw; // 300px;
-    height: 7vw; // 76px;
+    left: .7vw;
+    bottom: .3vw;
+    width: 27.2vw;
+    height: 7vw;
   }
   #pfFlip {
     position: fixed;
     z-index: 203;
     left: 0;
     bottom: 0;
-    width: 32.3vw; // 356px;
-    height: 16.4vw; // 181px;
+    width: 32.3vw;
+    height: 16.4vw;
     background: transparent url('/img/pageflip-big.png') no-repeat left bottom;
-    background-size: 32.63vw 15.90vw; // 359px 175px;
+    background-size: 32.63vw 15.90vw;
   }
   #pfLink {
     position: fixed;
     z-index: 204;
-    left: .7vw; // 8px;
-    bottom: .3vw; // 4px;
-    width: 27.2vw; // 300px;
-    height: 7vw; // 76px;
+    left: .7vw;
+    bottom: .3vw;
+    width: 27.2vw;
+    height: 7vw;
     a {
       text-decoration: none;
       color: #ccf2cc;

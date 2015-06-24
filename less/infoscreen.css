@@ -1,3 +1,8 @@
+/*
+ * CRITICAL: This stylesheet uses viewport width (vw) instead of pixels (px).
+ * Do simple conversion that fits this page by splitting px value with 11.
+ * E.g. 66px / 11 = 6vw
+ */
 /* DEBUG variables, set to colors instead of
  * transparents for debug borders around everything
  */
@@ -448,14 +453,6 @@ body {
   font-weight: lighter;
   text-transform: none;
   text-shadow: 0 0 0.7vw #333333, 0 0 0.3vw #333333, -0.2vw -0.2vw 0.2vw #333333, -0.2vw 0.2vw 0.2vw #333333, 0.2vw -0.2vw 0.2vw #333333, 0.2vw 0.2vw 0.2vw #333333;
-  /*
-          0 0 8px #333,
-          0 0 4px #333,
-          -2px -2px 2px #333,
-          -2px 2px 2px #333,
-          2px -2px 2px #333,
-          2px 2px 2px #333;
-          */
   font-size: 3.2vw;
   line-height: 3.4vw;
   top: 2vw;
@@ -476,14 +473,6 @@ body {
   bottom: 2vw;
   left: 2vw;
   text-shadow: 0 0 0.7vw #333333, 0 0 0.3vw #333333, -0.2vw -0.2vw 0.2vw #333333, -0.2vw 0.2vw 0.2vw #333333, 0.2vw -0.2vw 0.2vw #333333, 0.2vw 0.2vw 0.2vw #333333;
-  /*
-          0 0 8px #333,
-          0 0 4px #333,
-          -2px -2px 2px #333,
-          -2px 2px 2px #333,
-          2px -2px 2px #333,
-          2px 2px 2px #333;
-          */
 }
 #container #news article img {
   width: 100%;
@@ -507,13 +496,6 @@ body {
 #container #news .unread {
   font-size: 3vw;
   text-shadow: 0 0 0.4vw black, -0.2vw -0.2vw 0.2vw #333333, -0.2vw 0.2vw 0.2vw #333333, 0.2vw -0.2vw 0.2vw #333333, 0.2vw 0.2vw 0.2vw #333333;
-  /*
-        0 0 5px black,
-        -1px -1px 1px #333,
-        -1px 1px 1px #333,
-        1px -1px 1px #333,
-        1px 1px 1px #333;
-        */
 }
 /* the affiliation logo or sponsor logo */
 #logo {
@@ -539,13 +521,6 @@ body {
     0 0 1.4vw #368f2c,
     0 0 1.8vw #25892e,
     0 0 2.7vw #183e1a;
-  /*
-    0 0 5px #68bf70,
-    0 0 10px #60b95e,
-    0 0 15px #368f2c,
-    0 0 20px #25892e,
-    0 0 30px #183e1a;
-    */
 }
 #pageflip #pfBackground {
   position: fixed;
