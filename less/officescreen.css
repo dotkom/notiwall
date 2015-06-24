@@ -1,3 +1,9 @@
+/*
+ * CRITICAL: This stylesheet uses viewport width (vw) instead of pixels (px).
+ * Do simple conversion that fits this page by splitting px value with 11.
+ * E.g. 66px / 11 = 6vw
+ * Wondering why we do this? Resize the window. Experience awesome scaling.
+ */
 /* DEBUG variables, set to colors instead of
  * transparents for debug borders around everything
  */
@@ -9,19 +15,19 @@
 /*/
 /* Debugging, use bright colors that stand out */
 .debugContainer {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
 }
 /* Outer containers */
 .debugBox {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
 }
 /* Inner containers */
 .debugText {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
 }
 /* Text elements */
 .debugElement {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
 }
 /* Other elements */
 @font-face {
@@ -29,31 +35,31 @@
   src: url('../fonts/digi/digi.ttf') format('truetype');
 }
 .fullbox {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   clear: both;
   margin: 0;
   padding: 0;
   width: 100%;
 }
 .title {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   font-family: 'Helvetica Neue', 'Helvetica';
   font-weight: 200;
-  font-size: 60px;
-  margin-top: 44px;
-  margin-bottom: 18px;
+  font-size: 5vw;
+  margin-top: 4vw;
+  margin-bottom: 1.6vw;
   display: block;
 }
 .subtitle {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: .9vw;
 }
 .emphasized {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   font-style: italic;
-  margin-top: 22px;
-  margin-bottom: 5px;
+  margin-top: 2vw;
+  margin-bottom: .4vw;
   color: #cff;
 }
 html {
@@ -64,8 +70,8 @@ body {
   color: white;
   font-family: 'Helvetica Neue', 'Helvetica';
   font-weight: 200;
-  font-size: 38px;
-  line-height: 42px;
+  font-size: 3vw;
+  line-height: 3.5vw;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -89,7 +95,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 505px;
+  height: 45.9vw;
   z-index: 100;
   background-image: url('/img/background-infoscreen-news-cutoff.png');
   background-repeat: no-repeat;
@@ -110,7 +116,7 @@ body {
 }
 /* This container keeps the content centered */
 #container {
-  padding: 0 40px 40px 40px;
+  padding: 0 3.6vw 3.6vw 3.6vw;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -121,52 +127,52 @@ body {
 }
 #container #now {
   width: 110%;
-  height: 100px;
+  height: 9vw;
   margin-left: -5%;
-  box-shadow: 0 4px 18px #aaa;
+  box-shadow: 0 .3vw 1.6vw #aaa;
   background-color: #000f1f;
   overflow: hidden;
 }
 #container #now #text {
   float: left;
   width: 65%;
-  font-size: 52px;
-  line-height: 44px;
+  font-size: 4.7vw;
+  line-height: 4vw;
   margin-left: 4%;
 }
 #container #now #text #status {
-  margin-top: 30px;
+  margin-top: 2.7vw;
   float: left;
 }
 #container #now #text #info {
-  margin-top: 30px;
+  margin-top: 2.7vw;
   float: left;
-  margin-left: 12px;
+  margin-left: 1.1vw;
   color: #cff;
 }
 #container #now #clock {
-  height: 100px;
+  height: 9vw;
   float: right;
-  margin-top: 30px;
-  margin-right: 30px;
+  margin-top: 2.7vw;
+  margin-right: 2.7vw;
   font-family: 'Digi';
-  text-shadow: 0 0 5px #ddd,
-        0 0 10px #ccc,
-        0 0 15px #bbb;
+  text-shadow: 0 0 .4vw #ddd,
+        0 0 .9vw #ccc,
+        0 0 1.4vw #bbb;
 }
 #container #now #clock li {
   display: inline-block;
   font-family: Digi;
-  font-size: 70px;
+  font-size: 6.4vw;
   list-style: none;
 }
 #container #now #clock #hours {
   position: relative;
-  left: 10px;
+  left: .9vw;
 }
 #container #now #clock #minutes {
   position: relative;
-  left: -10px;
+  left: -0.9vw;
 }
 #container #now #clock #point {
   position: relative;
@@ -186,22 +192,22 @@ body {
   }
 }
 #container #todays {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   clear: both;
   margin: 0;
   padding: 0;
   width: 100%;
-  margin-top: 22px;
+  margin-top: 2vw;
 }
 #container #todays #schedule {
   float: left;
   width: 47.5%;
 }
 #container #todays #schedule #servant {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   font-style: italic;
-  margin-top: 22px;
-  margin-bottom: 5px;
+  margin-top: 2vw;
+  margin-bottom: .4vw;
   color: #cff;
 }
 #container #todays #schedule span {
@@ -212,14 +218,14 @@ body {
   width: 47.5%;
 }
 #container #todays #coffee #pots {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   font-style: italic;
-  margin-top: 22px;
-  margin-bottom: 5px;
+  margin-top: 2vw;
+  margin-bottom: .4vw;
   color: #cff;
 }
 #container #cantinas {
-  border: 1px solid transparent;
+  border: 0.1vw solid transparent;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -233,7 +239,7 @@ body {
 }
 #container #cantinas .first #head,
 #container #cantinas .second #head {
-  margin-top: 44px;
+  margin-top: 4vw;
   width: 100%;
   display: inline-block;
   clear: both;
@@ -246,14 +252,14 @@ body {
 #container #cantinas .first #head .hours,
 #container #cantinas .second #head .hours {
   display: inline;
-  margin-left: 20px;
+  margin-left: 1.8vw;
   color: #aaa;
 }
 #container #cantinas .first .mealBox,
 #container #cantinas .second .mealBox {
-  font-size: 52px;
-  line-height: 55px;
-  margin-top: 8px;
+  font-size: 3.5vw;
+  line-height: 4vw;
+  margin-top: .7vw;
   width: 100%;
 }
 #container #cantinas .first .mealBox li,
@@ -278,17 +284,17 @@ body {
   clear: both;
   display: inline-block;
   background-color: #111;
-  margin-top: 42px;
-  box-shadow: 0 0 33px #ccc;
+  margin-top: 3.8vw;
+  box-shadow: 0 0 3vw #ccc;
 }
 #container #bus .name {
   color: #cf9;
-  font-size: 44px;
-  margin-bottom: 12px;
+  font-size: 4vw;
+  margin-bottom: 1.1vw;
 }
 #container #bus #firstBus,
 #container #bus #secondBus {
-  padding: 32px 0;
+  padding: 3vw 0;
 }
 #container #bus #firstBus .first,
 #container #bus #secondBus .first,
@@ -319,7 +325,7 @@ body {
 }
 #container #bus #firstBus .line {
   float: right;
-  margin-right: 12px;
+  margin-right: 1.1vw;
 }
 #container #bus #firstBus .time {
   float: right;
@@ -335,14 +341,14 @@ body {
 }
 #container #bus #secondBus .line {
   float: left;
-  margin-left: 12px;
+  margin-left: 1.1vw;
 }
 /* the affiliation logo or sponsor logo */
 #logo {
   position: fixed;
-  right: 40px;
-  bottom: 40px;
-  width: 400px;
+  right: 3.6vw;
+  bottom: 3.6vw;
+  width: 36.3vw;
   z-index: 110;
   display: inherit;
 }
@@ -353,48 +359,50 @@ body {
   left: 0;
   bottom: 0;
   color: #ccf2cc;
-  width: 356px;
-  height: 181px;
-  font: bold 22px monospace;
-  text-shadow: 0 0 5px #68bf70,
-    0 0 10px #60b95e,
-    0 0 15px #368f2c,
-    0 0 20px #25892e,
-    0 0 30px #183e1a;
+  width: 32.3vw;
+  height: 16.4vw;
+  font: bold 2vw monospace;
+  text-shadow: 0 0 .4vw #68bf70,
+    0 0 .9vw #60b95e,
+    0 0 1.4vw #368f2c,
+    0 0 1.8vw #25892e,
+    0 0 2.7vw #183e1a;
 }
 #pageflip #pfBackground {
   position: fixed;
   z-index: 201;
   left: 0;
   bottom: 0;
-  width: 356px;
-  height: 181px;
+  width: 32.3vw;
+  height: 16.4vw;
   background: transparent url('/img/pageflip-big-background.png') no-repeat left bottom;
+  background-size: 32.36vw 16.45vw;
 }
 #pageflip #pfText {
   position: fixed;
   z-index: 202;
-  left: 8px;
-  bottom: 4px;
-  width: 300px;
-  height: 76px;
+  left: .7vw;
+  bottom: .3vw;
+  width: 27.2vw;
+  height: 7vw;
 }
 #pageflip #pfFlip {
   position: fixed;
   z-index: 203;
   left: 0;
   bottom: 0;
-  width: 356px;
-  height: 181px;
+  width: 32.3vw;
+  height: 16.4vw;
   background: transparent url('/img/pageflip-big.png') no-repeat left bottom;
+  background-size: 32.63vw 15.90vw;
 }
 #pageflip #pfLink {
   position: fixed;
   z-index: 204;
-  left: 8px;
-  bottom: 4px;
-  width: 300px;
-  height: 76px;
+  left: .7vw;
+  bottom: .3vw;
+  width: 27.2vw;
+  height: 7vw;
 }
 #pageflip #pfLink a {
   text-decoration: none;

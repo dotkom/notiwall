@@ -187,10 +187,6 @@ $(document).ready(function() {
   var keys = Object.keys(Affiliation.org);
   Defaults.resetAffiliationsIfNotExist(ls.affiliationKey1, ls.affiliationKey2, keys);
 
-  // Turn off hardwarefeatures if they're not available
-  var isAvailable = (Affiliation.org[ls.affiliationKey1].hw ? true : false);
-  Defaults.setHardwareFeatures(isAvailable);
-
   // If just installed, wait 5 secs to let things load
   var delayOpening = 0;
   if (Number(ls.installTime) + 5000 > Date.now()) {

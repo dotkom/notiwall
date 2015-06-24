@@ -75,7 +75,6 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
       // Name to badge title and localstorage
       var name = Affiliation.org[affiliationKey].name;
       Browser.setTitle(name + ' Notiwall');
-      ls.extensionName = name + ' Notiwall';
     }
 
     // Throw out old news
@@ -112,14 +111,22 @@ var bindPaletteSelector = function() {
   });
 }
 
-var disableHardwareFeatures = function() {
-  ls.showStatus = 'false';
-  ls.coffeeSubscription = 'false';
+var disableHardwareFeatures = function(quick) {
+  if (quick) {
+    $('div.hardwareFeatures').hide();
+  }
+  else {
+    $('div.hardwareFeatures').slideUp();
+  }
 }
 
 var enableHardwareFeatures = function(quick) {
-  ls.showStatus = 'true';
-  ls.coffeeSubscription = 'true';
+  if (quick) {
+    $('div.hardwareFeatures').show();
+  }
+  else {
+    $('div.hardwareFeatures').slideDown();
+  }
   Browser.getBackgroundProcess().updateStatusAndMeetings(true);
 }
 
@@ -148,10 +155,11 @@ var bindBusFields = function(busField) {
   // Stop field -> Focus
 
   $(stop).focus(function() {
-    // Show suggestion sheet
-    $('div#busSuggestions').slideDown();
     // Clear stop field on click
     console.log('focus - clear field and show saved value as placeholder');
+    // Show suggestion sheet
+    $('div#busSuggestions').slideDown();
+    // Keep the stop that has been "clicked away"
     ls.busStopClickedAway = ls[busField+'Name'];
     $(stop).val('');
     $(stop).attr('placeholder', ls.busStopClickedAway);
@@ -488,15 +496,20 @@ var restoreChecksToBoxes = function() {
       element.checked = true;
     }
   });
+  // Restore choice of Notiwall to radio buttons
+  $('input:radio').each(function(index, element) {
+    if (ls.whichScreen === element.value) {
+      element.checked = true;
+    }
+  });
 }(); // Self executing
 
 var linkToNotiwalls = function() {
-  $('img.preview').click(function() {
-    // Store it
-    var name = $(this).attr('data-name');
-    ls.whichScreen = name;
+  $('div#notiwalls button.launch').click(function() {
     // Open it
-    var link = $(this).attr('data-link');
+    var link = $(this).attr('data-target');
+    console.warn(link)
+    Analytics.trackEvent('launch', link);
     Browser.openTab(link);
   });
 }(); // Self executing
@@ -577,7 +590,10 @@ $(document).ready(function() {
     $(this).removeClass('hover');
   });
 
+  //
   // Catch new clicks
+  //
+
   $('input:checkbox').click(function() {
     // Currently, the only checkbox in options is "showAffiliation2"
     var _capitalized = this.id.charAt(0).toUpperCase() + this.id.slice(1);
@@ -593,6 +609,14 @@ $(document).ready(function() {
       $('#affiliationKey2').removeAttr('disabled');
       $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(0%)');
     }
+
+    showSavedNotification();
+  });
+
+  $('input:radio').click(function() {
+    // Store it
+    ls.whichScreen = this.id;
+    console.warn('which',ls.whichScreen)
 
     showSavedNotification();
   });

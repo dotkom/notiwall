@@ -1,6 +1,14 @@
+/*
+ * CRITICAL: This stylesheet uses viewport width (vw) instead of pixels (px).
+ * Do simple conversion that fits this page by splitting px value with 8.
+ * E.g. 40px / 8 = 5vw
+ * Why 8? Because the viewport is 800px wide, 1vw equals 8px.
+ * Why do this at all? Zoom/Resize the window. Experience awesome scaling.
+ */
+
 /* Debugging */
 
-@debug: 0px;
+@debug: 0vw; // .1vw for debugging
 .debugred {
   border: @debug solid red;
 }
@@ -19,6 +27,8 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  // This width/height is the only place where we use "px" instead of "vw".
+  // That's how we define the "vw"!
   width: 800px;
   height: 600px;
 
@@ -40,15 +50,15 @@ body {
 
 #options {
   .debuglime;
-  width: 590px; /* Hides scrollbar under the Notiwalls-sheet, #options is actually just 575px wide */
+  width: 74vw; /* Hides scrollbar under the Notiwalls-sheet, #options is actually just 71.9vw wide */
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
 
   .side {
     float: left;
-    padding-left: 13px;
-    font-size: 15px;
+    padding-left: 1.6vw;
+    font-size: 1.9vw;
     white-space: nowrap;
   }
 }
@@ -57,39 +67,35 @@ body {
 
 #options header {
   .debugred;
-  width: 575px;
+  width: 71.9vw;
 
   #headerText {
     .debugyellow;
-    margin-top: 30px;
-    font-size: 42px;
+    margin-top: 3.8vw;
+    font-size: 5.3vw;
     font-weight: lighter;
     text-align: left;
-    padding-left: 57px;
-    /* For text that is skewed the same amount as the Online logo:
-    - more precise than italic, the Online logo is skewered exactly 15 degrees */
-    /*-webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);
-    transform: scale(1) rotate(0deg) translate(0px, 0px) skew(-15deg, 0deg);*/
+    padding-left: 7.1vw;
   }
 
   #notification {
     position: absolute;
-    left: 90px;
-    top: 25px;
+    left: 6vw;
+    top: 3.1vw;
     text-align: center;
-    width: 360px;
-    padding: 4px 20px 2px 13px;
+    width: 45vw;
+    padding: .5vw 2.5vw .25vw 1.6vw;
     background: #FFFF99;
-    font-size: 42px;
+    font-size: 5.3vw;
     font-weight: lighter;
     color: white;
     box-shadow:
-      0 0 13px White,
-      0 0 20px White,
-      0 0 40px White,
-      0 0 60px White;
-    border: 1px solid #FFCC99;
-    border-radius: 27px;
+      0 0 1.6vw White,
+      0 0 2.5vw White,
+      0 0 5vw White,
+      0 0 7.5vw White;
+    border: .125vw solid #FFCC99;
+    border-radius: 3.4vw;
     display: none;
     .heart {
       color: #ff44f8;
@@ -105,33 +111,33 @@ body {
 #options .item {
   .debuglime;
   display: block;
-  padding-top: 15px;
-  padding-left: 37px;
+  padding-top: 1.9vw;
+  padding-left: 4.6vw;
 
   /* for logo images */
   .logo {
-    box-shadow: 0 0 13px 0 #333;
-    margin: 7px 0 0 7px;
+    box-shadow: 0 0 1.6vw 0 #333;
+    margin: .9vw 0 0 .9vw;
   }
   /* for regular size images */
   .image {
-    box-shadow: 0 0 7px 0 black;
-    margin: 7px 0 0 23px;
-    border-radius: 5px;
+    box-shadow: 0 0 .9vw 0 black;
+    margin: .9vw 0 0 2.9vw;
+    border-radius: .6vw;
   }
 
   input {
-    box-shadow: 0 0 15px #333;
+    box-shadow: 0 0 1.9vw #333;
     cursor: pointer;
   }
 
   /* the affiliation option in particular */
 
   #affiliationBox {
-    width: 374px;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #7a7a7a;
-    border-radius: 4px;
+    width: 46.8vw;
+    border-top: .125vw solid white;
+    border-bottom: .125vw solid #7a7a7a;
+    border-radius: .5vw;
     background: #e6e5e5; /* Old browsers */
     background: -webkit-linear-gradient(top, #e6e5e5 0%,#cececf 100%); /* Chrome10+,Safari5.1+,Opera15+ */
     background: linear-gradient(to bottom, #e6e5e5 0%, #cececf 100%); /* W3C */
@@ -143,32 +149,32 @@ body {
       .debugred;
       white-space: nowrap;
       cursor: pointer;
-      width: 59px;
+      width: 7.4vw;
       background-position: center center;
-      background-size: 59px 59px;
+      background-size: 7.4vw 7.4vw;
       background-repeat: no-repeat;
       background-image: url(../org/online/symbol.png); /* is switched for affiliation1 logo */
     }
 
     #affiliation1Symbol {
       float: left;
-      border-right: 1px solid #aaa;
+      border-right: .125vw solid #aaa;
     }
 
     #affiliation2Symbol {
       float: right;
-      border-left: 1px solid #aaa;
+      border-left: .125vw solid #aaa;
     }
 
     .box {
       .debugred;
       position: relative;
-      padding: 5px 6px 6px 6px;
+      padding: .6vw .75vw .75vw .75vw;
 
       select {
-        width: 100px;
-        margin-top: 4px;
-        border: 1px solid #7a7a7a;
+        width: 12.5vw;
+        margin-top: .5vw;
+        border: .125vw solid #7a7a7a;
         word-wrap: initial;
       }
     }
@@ -180,11 +186,11 @@ body {
 
     #primary {
       float: left;
-      border-right: 1px solid #aaa;
-      width: 115px;
+      border-right: .125vw solid #aaa;
+      width: 14.4vw;
 
       select {
-        margin-left: 7px;
+        margin-left: .9vw;
       }
 
       #affiliationKey1 {
@@ -198,21 +204,21 @@ body {
 
     #secondary {
       float: right;
-      width: 107px;
+      width: 13.4vw;
 
       #affiliationKey2 {
         // nothing here yet
       }
       #affiliation2Checkbox {
-        margin-top: 3px;
+        margin-top: .4vw;
         input {
           box-shadow: 0 0 0 black;
         }
         label {
           position: relative;
-          left: -2px;
+          left: -.25vw;
           color: black;
-          font-size: 12px;
+          font-size: 1.5vw;
           text-shadow: none; // overrides
         }
       }
@@ -222,27 +228,27 @@ body {
       position: relative;
       float: left;
       display: none;
-      border-top: 1px solid #aaa;
+      border-top: .125vw solid #aaa;
       background: -webkit-linear-gradient(top, #e8e8e8 0%,#c0c0c0 100%); /* Chrome10+,Safari5.1+,Opera15+ */
       background: linear-gradient(to bottom, #e8e8e8 0%,#c0c0c0 100%); /* W3C */
       width: 100%;
-      padding: 9px 11px;
+      padding: 1.1vw 1.4vw;
       color: black;
-      font-size: 12px;
+      font-size: 1.5vw;
 
       img {
         position: relative;
         float: left;
-        border: 1px solid #aaa;
-        width: 80px;
+        border: .125vw solid #aaa;
+        width: 10vw;
         height: auto;
       }
       div {
-        margin-top: 2px;
-        margin-left: 5px;
+        margin-top: .25vw;
+        margin-left: .6vw;
         position: relative;
         float: left;
-        max-width: 260px;
+        max-width: 32.5vw;
         input {
           box-shadow: 0 0 0 black;
         }
@@ -255,10 +261,10 @@ body {
     #arrowDown {
       position: relative; /* paint behind other stuff */
       z-index: 100;  /* paint behind other stuff */
-      left: -6px;
-      top: 45px;
+      left: -.75vw;
+      top: 5.6vw;
       img {
-        width: 12px;
+        width: 1.5vw;
       }
     }
   }
@@ -266,47 +272,47 @@ body {
   /* the cantina option in particular */
 
   #cantinaBox {
-    width: 352px;
+    width: 44vw;
     overflow: hidden;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #7a7a7a;
-    border-radius: 4px;
+    border-top: .125vw solid white;
+    border-bottom: .125vw solid #7a7a7a;
+    border-radius: .5vw;
     background: #e6e5e5; /* Old browsers */
     background: -webkit-linear-gradient(top, #e6e5e5 0%,#cececf 100%); /* Chrome10+,Safari5.1+,Opera15+ */
     background: linear-gradient(to bottom, #e6e5e5 0%, #cececf 100%); /* W3C */
-    padding: 4px 11px;
+    padding: .5vw 1.4vw;
     white-space: nowrap;
     word-wrap: break-word;
     select {
       .debugred;
       float: left;
-      border: 1px solid #8d8d8d;
+      border: .125vw solid #8d8d8d;
       position: relative;
-      margin-top: 3px;
+      margin-top: .4vw;
       white-space: nowrap;
-      width: 106px;
+      width: 13.25vw;
     }
     #cantinaLogo {
       .debugred;
       float: left;
       white-space: nowrap;
-      width: 116px;
-      margin: 0 11px;
+      width: 14.5vw;
+      margin: 0 1.4vw;
     }
   }
 
   /* the bus option in particular */
 
   #busBox {
-    width: 353px;
+    width: 44.1vw;
     overflow: hidden;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #7a7a7a;
-    border-radius: 4px;
+    border-top: .125vw solid white;
+    border-bottom: .125vw solid #7a7a7a;
+    border-radius: .5vw;
     background: #e6e5e5; /* Old browsers */
     background: -webkit-linear-gradient(top, #e6e5e5 0%,#cececf 100%); /* Chrome10+,Safari5.1+,Opera15+ */
     background: linear-gradient(to bottom, #e6e5e5 0%, #cececf 100%); /* W3C */
-    padding: 8px 11px;
+    padding: 1vw 1.4vw;
     white-space: nowrap;
     word-wrap: break-word;
 
@@ -314,29 +320,29 @@ body {
       float: left;
       white-space: nowrap;
       input {
-        width: 136px;
+        width: 17vw;
         box-shadow: 0 0 0 black;
       }
       select {
         z-index: 10; /* allows the down-arrow to be painted behind this */
         position: relative; /* allows the down-arrow to be painted behind this */
-        margin-top: 7px;
-        width: 141px;
+        margin-top: .9vw;
+        width: 17.6vw;
       }
       .lines {
         z-index: 10; /* allows the down-arrow to be painted behind this */
         position: relative; /* allows the down-arrow to be painted behind this */
-        margin-top: 7px;
+        margin-top: .9vw;
         display: none;
-        width: 128px;
-        border-top: 1px solid white;
-        box-shadow: 0 1px 2px #888;
-        border-radius: 4px;
+        width: 16vw;
+        border-top: .125vw solid white;
+        box-shadow: 0 .125vw .25vw #888;
+        border-radius: .5vw;
         background: -webkit-linear-gradient(top, #e8e8e8 0%,#c0c0c0 100%); /* Chrome10+,Safari5.1+,Opera15+ */
         background: linear-gradient(to bottom, #e8e8e8 0%,#c0c0c0 100%); /* W3C */
-        padding: 2px 7px 1px 7px;
+        padding: .25vw .9vw .125vw .9vw;
         text-align: left;
-        font-size: 12px;
+        font-size: 1.5vw;
         text-shadow: 0 0 0 white; /* resets inhertied value from parent element */
 
         table {
@@ -346,7 +352,7 @@ body {
           text-align: center;
           td {
             .debugyellow;
-            padding: 1px 0;
+            padding: .125vw 0;
           }
         }
         .active {
@@ -367,23 +373,23 @@ body {
         .error {
           color: black;
           text-align: center;
-          font-size: 12px;
+          font-size: 1.5vw;
         }
         .retry {
           color: black;
           text-align: center;
-          font-size: 12px;
+          font-size: 1.5vw;
           text-decoration: underline;
           cursor: pointer;
         }
         .loadingLeft {
           position: relative;
-          width: 80px;
+          width: 10vw;
           -webkit-transform: scaleX(-1);
         }
         .loadingRight {
           position: relative;
-          width: 80px;
+          width: 10vw;
         }
       }
     }
@@ -393,16 +399,16 @@ body {
       z-index: 10; /* allows the down-arrow to be painted behind this */
       float: left;
       white-space: nowrap;
-      width: 45px;
-      margin: 0 11px;
+      width: 5.6vw;
+      margin: 0 1.4vw;
     }
     #arrowDown {
       position: relative; /* paint behind other stuff */
       z-index: 2;  /* paint behind other stuff */
-      left: -180px;
-      top: 41px;
+      left: -22.5vw;
+      top: 5.13vw;
       img {
-        width: 12px;
+        width: 1.5vw;
       }
     }
   }
@@ -415,46 +421,37 @@ div#notiwalls {
   .debugyellow;
   position: fixed;
   z-index: 5;
-  top: 0px;
-  right: 60px;
-  bottom: 0px;
-  width: 245px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30.6vw;
+  padding: 0 4.4vw;
 
   overflow-x: hidden;
   overflow-y: auto;
 
   // This is typically tweaked by palettes, be careful when changing it
   background-color: #111;
-  box-shadow: 0 0 25px #aaa;
+  box-shadow: 0 0 3.1vw #aaa;
   color: NavajoWhite;
 
   div#previewTitle {
     .debugyellow;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    font-size: 42px;
+    margin-top: 3.8vw;
+    margin-bottom: 1.9vw;
+    margin-left: 1.9vw;
+    font-size: 5.3vw;
     font-weight: lighter;
-    text-align: left;
   }
 
   div.screen {
     position: relative;
     float: left;
-    top: -4px; /* Minor hack to make things line up */
-    margin-bottom: 10px;
+    top: -.5vw; /* Minor hack to make things line up */
+    margin-bottom: 2vw;
 
-    div.name {
-      .debugyellow;
-      margin-left: 15px;
-    }
-
-    img#infoscreenPreview {
-      .debugred;
-    }
-
-    img#officescreenPreview {
-      .debugred;
+    span.name {
+      cursor: pointer;
     }
 
     img.preview {
@@ -464,6 +461,12 @@ div#notiwalls {
       width: 100%;
       height: auto;
       cursor: pointer;
+    }
+
+    button {
+      position: absolute;
+      right: 1.6vw;
+      top: .3vw;
     }
   }
 }
@@ -475,32 +478,32 @@ div#busSuggestions {
   position: fixed;
   z-index: 10;
   top: 0;
-  right: 60px;
+  right: 7.5vw;
   bottom: 0;
-  width: 245px;
+  width: 30.6vw;
   display: none; /* Will slide down when needed */
 
   overflow-x: hidden;
   overflow-y: auto;
-  padding-bottom: 15px;
-  border-bottom: 2px solid gray;  
+  padding-bottom: 1.9vw;
+  border-bottom: .25vw solid gray;  
   background-color: snow;
 
   div#suggestionTitle {
     .debugyellow;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    font-size: 42px;
+    margin-top: 3.8vw;
+    margin-bottom: 1.9vw;
+    margin-left: 1.9vw;
+    font-size: 5.3vw;
     font-weight: lighter;
     text-align: left;
     color: #444;
   }
   .suggestion {
-    margin-left: 15px;
+    margin-left: 1.9vw;
     color: #444;
     line-height: 1.5;
-    letter-spacing: 1px;
+    letter-spacing: .125vw;
     &:hover {
       cursor: pointer;
       text-decoration: underline;
@@ -510,9 +513,9 @@ div#busSuggestions {
     }
   }
   .correct {
-    margin-left: 15px;
+    margin-left: 1.9vw;
     color: black;
-    font-size: 13px;
+    font-size: 1.6vw;
     font-weight: bold;
     line-height: 1.5;
   }

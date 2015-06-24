@@ -1,4 +1,9 @@
 "use strict";
 
-// This file starts empty, see hotfix.js in the Notifier
-// repository to understand why this file is here
+// Removing some stuff from v0.9
+// REMOVE AFTER JULY 2015
+
+localStorage.removeItem('activelySetOffice');
+localStorage.removeItem('activelySetCoffee');
+localStorage.removeItem('coffeeSubscription');
+localStorage.removeItem('showStatus');

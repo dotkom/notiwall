@@ -31,7 +31,7 @@ Use a spare computer, one you don't need for anything else.
   * Settings -> Do not offer to save passwords
   * Settings -> On startup, open the new tab page (this is important for kiosk mode to work properly)
   * Install Notiwall from the [Chrome Web Store](<LINK>)
-  * Online Notiwall Options -> Enable Infoscreen
+  * Online Notiwall Options -> Choose your settings and choose a Notiwall, e.g. the infoscreen or the officescreen
 1. The launcher
   * Lock the Chrome icon to the launcher
   * Other apps you might want to lock to the launcher

@@ -1,3 +1,10 @@
+/*
+ * CRITICAL: This stylesheet uses viewport width (vw) instead of pixels (px).
+ * Do simple conversion that fits this page by splitting px value with 11.
+ * E.g. 66px / 11 = 6vw
+ * Wondering why we do this? Resize the window. Experience awesome scaling.
+ */
+
 /* DEBUG variables, set to colors instead of
  * transparents for debug borders around everything
  */
@@ -16,10 +23,10 @@
 
 /* Debugging, use bright colors that stand out */
 
-.debugContainer {border: 1px solid @debugCyan;} /* Outer containers */
-.debugBox {border: 1px solid @debugRed;} /* Inner containers */
-.debugText {border: 1px solid @debugYellow;} /* Text elements */
-.debugElement {border: 1px solid @debugLime;} /* Other elements */
+.debugContainer {border: .1vw solid @debugCyan;} /* Outer containers */
+.debugBox {border: .1vw solid @debugRed;} /* Inner containers */
+.debugText {border: .1vw solid @debugYellow;} /* Text elements */
+.debugElement {border: .1vw solid @debugLime;} /* Other elements */
 
 /* Fonts */
 
@@ -76,22 +83,22 @@
   .debugText;
   color: NavajoWhite;
   font-weight: bold;
-  font-size: 32px;
-  margin-top: 33px;
-  margin-bottom: 11px;
+  font-size: 3vw;
+  margin-top: 3vw;
+  margin-bottom: 1vw;
   display: block;
 }
 
 .subtitle {
   .debugText;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: .9vw;
 }
 
 .emphasized {
   .debugText;
   font-style: italic;
-  margin-bottom: 11px;
+  margin-bottom: 1vw;
 }
 
 /* Rules */
@@ -105,8 +112,8 @@ body {
   color: white;
   font-family: 'Helvetica Neue', 'Helvetica';
   font-weight: 200;
-  font-size: 26px;
-  line-height: 29px;
+  font-size: 2.2vw;
+  line-height: 2.7vw;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -133,8 +140,8 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: -1px;
-  height: 505px;
+  bottom: -.1vw;
+  height: 45.9vw;
   z-index: 100;
   background-image: url('/img/background-infoscreen-news-cutoff.png');
   background-repeat: no-repeat;
@@ -143,8 +150,6 @@ body {
 
 #background {
   /* using a div because the background is color shifted by the palette CSS files */
-  /* also - using a div because the background needs to be resized if
-  the display is really big (1500px-2000px in width or height) */
   position: fixed;
   background-image: url('/img/background-large-vertical.png');
   background-repeat: no-repeat;
@@ -157,7 +162,7 @@ body {
 
 #container {
   .debugContainer;
-  padding: 40px;
+  padding: 3.6vw;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -174,10 +179,10 @@ body {
 
       #text {
         .debugText;
-        font-size: 250px;
-        line-height: 250px;
-        text-shadow: 0 0 20px black;
-        padding: 27px 0 13px 0;
+        font-size: 22vw;
+        line-height: 22vw;
+        text-shadow: 0 0 1.8vw black;
+        padding: 1.8vw 0 0 0;
       }
       img {
         .debugElement;
@@ -187,12 +192,12 @@ body {
     }
     #subtext {
       .debugText;
-      font-size: 42px;
-      line-height: 42px;
+      font-size: 3.3vw;
+      line-height: 3.3vw;
       font-weight: bold;
       text-align: center;
-      text-shadow: 0 0 20px black, 0 0 25px black;
-      padding-bottom: 13px;
+      text-shadow: 0 0 1.8vw black, 0 0 2.3vw black;
+      padding-bottom: 1vw;
     }
   }
 
@@ -257,36 +262,36 @@ body {
     background-clip: padding-box; /* makes the background color only show on the inside of the border */
     width: 110%;
     margin-left: -5%;
-    top: 47px;
-    font-size: 24px;
-    line-height: 30px;
-    height: 200px;
-    margin-bottom: 60px;
+    top: 4.2vw;
+    font-size: 2.2vw;
+    line-height: 2.7vw;
+    height: 17vw;
+    margin-bottom: 5.4vw;
     padding: 0 3%;
 
     // This is typically tweaked by palettes, be careful when changing it
-    box-shadow: 0 0 25px #aaa;
+    box-shadow: 0 0 2.3vw #aaa;
 
     .name {
       font-weight: bold;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 5px;
-      line-height: 36px;
+      margin-bottom: 0.5vw;
+      line-height: 2.7vw;
     }
     .loadingLeft {
       position: relative;
       z-index: 100;
       -webkit-transform: scaleX(-1);
-      width: 213px;
-      bottom: 22px;
+      width: 19vw;
+      bottom: 2vw;
     }
     .loadingRight {
       position: relative;
       z-index: 100;
-      width: 213px;
-      bottom: 22px;
+      width: 19vw;
+      bottom: 2vw;
     }
     .first, .second, .third, .fourth, .fifth, .sixth, .seventh, .eighth, .nineth, .tenth {
       .debugText;
@@ -306,7 +311,7 @@ body {
       position: relative;
       float: left;
       text-align: right;
-      padding-top: 14px;
+      padding-top: 1.3vw;
       width: 42%;
     }
     #secondBus {
@@ -314,7 +319,7 @@ body {
       position: relative;
       float: left;
       text-align: left;
-      padding-top: 14px;
+      padding-top: 1.3vw;
       width: 42%;
     }
     #middle {
@@ -326,38 +331,38 @@ body {
       width: 14%;
       #atbLogo {
         .debugElement;
-        height: 113px;
-        margin-top: 2px;
-        border-radius: 6px;
-        border-top-left-radius: 30px;
+        height: 9vw;
+        margin-top: .7vw;
+        border-radius: 0.5vw;
+        border-top-left-radius: 2.7vw;
       }
       #clock {
         .debugElement;
         color: #fff;
-        margin-top: 20px;
+        margin-top: 2vw;
         text-align: center;
         text-shadow:
-          0 0 5px #ddd,
-          0 0 10px #ccc,
-          0 0 15px #bbb;
+          0 0 .4vw #ddd,
+          0 0 .9vw #ccc,
+          0 0 1.4vw #bbb;
         li {
           .debugText;
           display: inline-block;
           font-family: Digi;
-          font-size: 45px;
+          font-size: 4vw;
           list-style: none;
         }
         #hours {
           position: relative;
-          left: 5px;
+          left: .4vw;
         }
         #minutes {
           position: relative;
-          left: -5px;
+          left: -.4vw;
         }
         #point {
           position: relative;
-          left: -1px;
+          left: -.1vw;
           -moz-animation: mymove 1s ease infinite;
           -webkit-animation: mymove 1s ease infinite;
           @-webkit-keyframes mymove {
@@ -393,9 +398,9 @@ body {
         img.regular {
           float: left;
           width: 33%;
-          min-height: 180px;
-          max-height: 400px;
-          margin: 0 15px 0 0;
+          min-height: 16.3vw;
+          max-height: 36.3vw;
+          margin: 0 1.4vw 0 0;
         }
       }      
     }
@@ -404,7 +409,7 @@ body {
       position: relative;
       width: 47.5%;
       >.title {
-        margin-bottom: -10px;
+        margin-bottom: -.9vw;
       }
       .title.regular {
         color: LightGrey;
@@ -426,10 +431,10 @@ body {
       clear: both;
       text-overflow: ellipsis;
       overflow: hidden;
-      margin-top: 33px;
-      min-height: 53px;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
+      margin-top: 3vw;
+      min-height: 5vw;
+      border-top-right-radius: .4vw;
+      border-bottom-right-radius: .4vw;
 
       .title {
         position: relative;
@@ -446,16 +451,16 @@ body {
         font-weight: lighter;
         text-transform: none;
         text-shadow:
-          0 0 8px #333,
-          0 0 4px #333,
-          -2px -2px 2px #333,
-          -2px 2px 2px #333,
-          2px -2px 2px #333,
-          2px 2px 2px #333;
-        font-size: 35px;
-        line-height: 38px;
-        top: 22px;
-        left: 22px;
+          0 0 .7vw #333,
+          0 0 .3vw #333,
+          -.2vw -.2vw .2vw #333,
+          -.2vw .2vw .2vw #333,
+          .2vw -.2vw .2vw #333,
+          .2vw .2vw .2vw #333;
+        font-size: 3.2vw;
+        line-height: 3.4vw;
+        top: 2vw;
+        left: 2vw;
       }
 
       .author {
@@ -472,31 +477,31 @@ body {
         color: white;
         font-family: Helvetica;
         font-weight: lighter;
-        font-size: 32px;
-        bottom: 22px;
-        left: 22px;
+        font-size: 3vw;
+        bottom: 2vw;
+        left: 2vw;
         text-shadow:
-          0 0 8px #333,
-          0 0 4px #333,
-          -2px -2px 2px #333,
-          -2px 2px 2px #333,
-          2px -2px 2px #333,
-          2px 2px 2px #333;
+          0 0 .7vw #333,
+          0 0 .3vw #333,
+          -.2vw -.2vw .2vw #333,
+          -.2vw .2vw .2vw #333,
+          .2vw -.2vw .2vw #333,
+          .2vw .2vw .2vw #333;
       }
 
       img {
         width: 100%;
         height: auto;
         background: snow;
-        min-height: 180px;
-        max-height: 400px;
-        padding: 5px;
-        border-radius: 5px;
+        min-height: 16.3vw;
+        max-height: 36.3vw;
+        padding: .4vw;
+        border-radius: .4vw;
       }
       img.regular {
         float: right;
         width: 33%;
-        margin: 4px 0 0 6px;
+        margin: .3vw 0 0 .5vw;
       }
       img.flashy {
         float: left;
@@ -505,13 +510,13 @@ body {
       }
     }
     .unread {
-      font-size: 32px;
+      font-size: 3vw;
       text-shadow:
-        0 0 5px black,
-        -1px -1px 1px #333,
-        -1px 1px 1px #333,
-        1px -1px 1px #333,
-        1px 1px 1px #333;
+        0 0 .4vw black,
+        -.2vw -.2vw .2vw #333,
+        -.2vw .2vw .2vw #333,
+        .2vw -.2vw .2vw #333,
+        .2vw .2vw .2vw #333;
     }
   }
 
@@ -522,9 +527,9 @@ body {
 #logo {
   .debugElement;
   position: fixed;
-  right: 40px;
-  bottom: 40px;
-  width: 400px;
+  right: 3.6vw;
+  bottom: 3.6vw;
+  width: 36.3vw;
   z-index: 110;
 }
 
@@ -537,15 +542,15 @@ body {
   left: 0;
   bottom: 0;
   color: #ccf2cc;
-  width: 356px;
-  height: 181px;
-  font: bold 22px monospace;
+  width: 32.3vw;
+  height: 16.4vw;
+  font: bold 2vw monospace;
   text-shadow:
-    0 0 5px #68bf70,
-    0 0 10px #60b95e,
-    0 0 15px #368f2c,
-    0 0 20px #25892e,
-    0 0 30px #183e1a;
+    0 0 .4vw #68bf70,
+    0 0 .9vw #60b95e,
+    0 0 1.4vw #368f2c,
+    0 0 1.8vw #25892e,
+    0 0 2.7vw #183e1a;
 
   #pfBackground {
     // This is typically tweaked by palettes, be careful when changing it
@@ -553,34 +558,36 @@ body {
     z-index: 201;
     left: 0;
     bottom: 0;
-    width: 356px;
-    height: 181px;
+    width: 32.3vw;
+    height: 16.4vw;
     background: transparent url('/img/pageflip-big-background.png') no-repeat left bottom;
+    background-size: 32.36vw 16.45vw;
   }
   #pfText {
     position: fixed;
     z-index: 202;
-    left: 8px;
-    bottom: 4px;
-    width: 300px;
-    height: 76px;
+    left: .7vw;
+    bottom: .3vw;
+    width: 27.2vw;
+    height: 7vw;
   }
   #pfFlip {
     position: fixed;
     z-index: 203;
     left: 0;
     bottom: 0;
-    width: 356px;
-    height: 181px;
+    width: 32.3vw;
+    height: 16.4vw;
     background: transparent url('/img/pageflip-big.png') no-repeat left bottom;
+    background-size: 32.63vw 15.90vw;
   }
   #pfLink {
     position: fixed;
     z-index: 204;
-    left: 8px;
-    bottom: 4px;
-    width: 300px;
-    height: 76px;
+    left: .7vw;
+    bottom: .3vw;
+    width: 27.2vw;
+    height: 7vw;
     a {
       text-decoration: none;
       color: #ccf2cc;
@@ -590,4 +597,3 @@ body {
     }
   }
 }
-
