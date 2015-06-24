@@ -75,7 +75,6 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
       // Name to badge title and localstorage
       var name = Affiliation.org[affiliationKey].name;
       Browser.setTitle(name + ' Notiwall');
-      ls.extensionName = name + ' Notiwall';
     }
 
     // Throw out old news
@@ -112,14 +111,22 @@ var bindPaletteSelector = function() {
   });
 }
 
-var disableHardwareFeatures = function() {
-  ls.showStatus = 'false';
-  ls.coffeeSubscription = 'false';
+var disableHardwareFeatures = function(quick) {
+  if (quick) {
+    $('div.hardwareFeatures').hide();
+  }
+  else {
+    $('div.hardwareFeatures').slideUp();
+  }
 }
 
 var enableHardwareFeatures = function(quick) {
-  ls.showStatus = 'true';
-  ls.coffeeSubscription = 'true';
+  if (quick) {
+    $('div.hardwareFeatures').show();
+  }
+  else {
+    $('div.hardwareFeatures').slideDown();
+  }
   Browser.getBackgroundProcess().updateStatusAndMeetings(true);
 }
 

@@ -18,15 +18,13 @@ var mainLoop = function(force) {
       updateAffiliationNews('2');
   // Only if hardware
   if (Affiliation.org[ls.affiliationKey1].hw) {
-    if (ls.showStatus === 'true') {
-      if (force || iteration % UPDATE_AFFILIATION_INTERVAL === 0) {
-        Browser.getBackgroundProcess().updateAffiliation(function() {
-          updateMeeting();
-          updateServant();
-          updateCoffee();
-          updateStatus();
-        });
-      }
+    if (force || iteration % UPDATE_AFFILIATION_INTERVAL === 0) {
+      Browser.getBackgroundProcess().updateAffiliation(function() {
+        updateMeeting();
+        updateServant();
+        updateCoffee();
+        updateStatus();
+      });
     }
   }
   // Always update, tell when offline
@@ -638,10 +636,10 @@ $(document).ready(function() {
   }
 
   // Hide stuff that the user has disabled in options
-  if (ls.showStatus !== 'true')
+  if (!Affiliation.org[ls.affiliationKey1].hw) {
     $('#office').hide();
-  if (ls.showStatus !== 'true')
     $('#todays').hide();
+  }
 
   // Applying affiliation graphics
   var key = ls.affiliationKey1;

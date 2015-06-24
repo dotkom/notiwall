@@ -25,7 +25,6 @@ var Defaults = {
     
     // Set default choices if undefined, in the same order as on the options page
 
-    ls.extensionName = 'Online Notiwall';
     // These two names will be shown in a loop, both can be max 8 letters because of styling
     ls.extensionOwner = 'Online';
     ls.extensionCreator = 'appKom';
@@ -97,23 +96,9 @@ var Defaults = {
       ls.secondBusInactiveLines = JSON.stringify([169]);
     }
     
-    // Office
-    if (ls.showStatus === undefined)
-      ls.showStatus = 'true';
-    if (ls.activelySetOffice === undefined) {
-      ls.activelySetOffice = 'true';
-      ls.showStatus = 'true';
-    }
-    
-    // Subscription
-    if (ls.coffeeSubscription === undefined)
-      ls.coffeeSubscription = 'true';
+    // Coffee
     if (ls.coffeePots === undefined)
       ls.coffeePots = 0;
-    if (ls.activelySetCoffee === undefined) {
-      ls.activelySetCoffee = 'true';
-      ls.coffeeSubscription = 'true';
-    }
     
     // Notiwall
     if (ls.whichScreen === undefined)
@@ -139,32 +124,5 @@ var Defaults = {
       gotoOptions(key2);
     }
   },
-
-  // There is currently no way of knowing whether HardwareFeatures have been
-  // installed recently or not, - if they exist. Therefore we will assume the
-  // user starts out with the features turned on.
-  // Then, the features will be turned off if:
-  // a) the user has explicitly turned them off, or
-  // b) hardwarefeatures are not available (this function called from background process)
-  setHardwareFeatures: function(isAvailable) {
-    
-    var ls = localStorage;
-
-    if (isAvailable) {
-      // office
-      if (ls.activelySetOffice == 'false')
-        ls.showStatus = 'false';
-      else
-        ls.showStatus = 'true';
-      // coffee
-      if (ls.activelySetCoffee == 'false')
-        ls.coffeeSubscription = 'false';
-      else
-        ls.coffeeSubscription = 'true';
-    }
-    else if (!isAvailable) {
-      ls.showStatus = 'false';
-      ls.coffeeSubscription = 'false';
-    }
-  },
+  
 }
