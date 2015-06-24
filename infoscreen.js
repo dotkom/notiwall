@@ -4,7 +4,7 @@ var ls = localStorage;
 var iteration = 0;
 var intervalId = null;
 
-var newsLimit = 8; // The most news you can cram into Infoscreen, if other features are disabled
+var newsLimit = 6; // Any more will never be visible on the screen
 
 var mainLoop = function(force) {
   console.log("\n#" + iteration);
