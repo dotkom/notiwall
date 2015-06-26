@@ -52,7 +52,7 @@ Use a spare computer, one you don't need for anything else.
   * This feature is very important for the infoscreen to survive power outages, which are frequent at NTNU due to construction work
 1. Reboot normally. It should open a Notiwall and keep itself updated on its own. If not, please email us at appkom@online.ntnu.no
 
-Congratulations! Your Notiwall will now turn on automatically if power loss, open Notiwall in fullscreen, keep itself updated, and look good! No pesky infobars asking whether you want to translate from Danish, or any other silly stuff.
+Congratulations! Your Notiwall will now turn on automatically, event after power loss, then open Notiwall in fullscreen, keep itself updated, and look good! No pesky infobars asking whether you want to translate from Norwegian, or any other silly stuff.
 
 Development setup
 -----------------
