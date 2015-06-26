@@ -289,8 +289,9 @@ body {
 }
 #container #bus .name {
   color: #cf9;
-  font-size: 4vw;
+  font-size: 3.5vw;
   margin-bottom: 1.1vw;
+  font-weight: bolder;
 }
 #container #bus #firstBus,
 #container #bus #secondBus {
@@ -319,7 +320,8 @@ body {
   clear: both;
 }
 #container #bus #firstBus {
-  width: 45%;
+  width: 44%;
+  margin-left: 3%;
   float: left;
   text-align: right;
 }
@@ -332,7 +334,8 @@ body {
   color: #bbb;
 }
 #container #bus #secondBus {
-  width: 48%;
+  width: 44%;
+  margin-right: 3%;
   float: right;
 }
 #container #bus #secondBus .time {
