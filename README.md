@@ -1,4 +1,4 @@
-Online Notiwall
+≤Online Notiwall
 ===============
 
 This is a Chrome extension from the student organization Online at NTNU in Trondheim, Norway.
@@ -15,17 +15,23 @@ Use a spare computer, one you don't need for anything else.
 1. Install the latest version of [Ubuntu](http://www.ubuntu.com/desktop)
   * Write down the username and password from the installation!
   * Turn on Autologin when asked about it
-1. Open “System Settings”
+1. Open "System Settings"
   * Displays -> Set rotation to clockwise
   * Brightness & Lock -> Never turn screen off
   * Appearance -> Behavior -> Auto-hide the launcher
-1. Open “Update Manager”
-  * Settings -> Never automatically check updates (unless it's really important to you)
+1. Open "Update Manager"
+  * Settings -> Never automatically check updates (we will get back to security updates)
   * Settings -> Never notify me of a new Ubuntu version
-1. Open “Software Updater”
-  * Install updates this once
 1. Open a terminal
-  * `sudo apt-get install openssh-server unclutter chromium-browser`
+  * `sudo apt-get install openssh-server vim unclutter chromium-browser unattended-upgrades update-notifier-common`
+1. Enable automatic security updates
+  * Go here to find an updated guide: https://help.ubuntu.com/community/AutomaticSecurityUpdates
+  * Follow the guide currently titled "Using the unattended-upgrades package"
+  * The very short version:
+    * `sudo dpkg-reconfigure -plow unattended-upgrades`
+    * `sudo vim /etc/apt/apt.conf.d/50unattended-upgrades`
+      * Uncomment the line `//Unattended-Upgrade::Automatic-Reboot "false";`
+      * And of course change the line to "true"
 1. Open Chrome
   * Settings -> Set Chrome as default browser
   * Settings -> Do not offer to save passwords
@@ -33,10 +39,10 @@ Use a spare computer, one you don't need for anything else.
   * Install Notiwall from the [Chrome Web Store](<LINK>)
   * Online Notiwall Options -> Choose your settings and choose a Notiwall, e.g. the infoscreen or the officescreen
 1. The launcher
-  * Lock the Chrome icon to the launcher
-  * Other apps you might want to lock to the launcher
-    * System Settings, Startup Applications, Software Updater, Terminal
-  * Remove unnecessary icons, yes, Firefox as well
+  * Lock the following icons to the launcher, for easy access:
+    * Chromium, System Settings, Startup Applications, Update Manager, Terminal
+  * Remove unnecessary icons in the launcher
+    * Yes, Firefox as well
 1. Open “Startup Applications”
   * Add `chromium-browser --kiosk --disable-translate`
   * Add `unclutter`
@@ -44,6 +50,9 @@ Use a spare computer, one you don't need for anything else.
 1. Enter the BIOS on startup (typically by clicking F2, F9, F10 or Del like a maniac)
   * Find the option for what happens on power-loss, set it to turn power back on
   * This feature is very important for the infoscreen to survive power outages, which are frequent at NTNU due to construction work
+1. Reboot normally. It should open a Notiwall and keep itself updated on its own. If not, please email us at appkom@online.ntnu.no
+
+Congratulations! Your Notiwall will now turn on automatically if power loss, open Notiwall in fullscreen, keep itself updated, and look good! No pesky infobars asking whether you want to translate from Danish, or any other silly stuff.
 
 Development setup
 -----------------
