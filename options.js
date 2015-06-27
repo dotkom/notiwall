@@ -75,10 +75,10 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
     // Throw out old news
     ls.removeItem('affiliationNews'+number);
 
-    if (ls['showAffiliation'+number] === 'true') {
-      // Update to new feed
-      Browser.getBackgroundProcess().updateAffiliationNews(number);
-    }
+    // Update with fresh news from new feed
+    Browser.getBackgroundProcess().updateAffiliationNews(number, function() {
+      reloadAllNotiwalls();
+    });
 
     // Saved<3
     saveOptions();
@@ -101,6 +101,8 @@ var bindPaletteSelector = function() {
     $('#palette').attr('href', Palettes.get(palette));
     // Saved<3
     saveOptions();
+    // Reload Notiwalls
+    reloadAllNotiwalls();
     // Analytics
     Analytics.trackEvent('clickPalette', palette);
   });
@@ -141,7 +143,11 @@ var bindCantinaSelector = function(selector) {
     var cantina = $(this).prop('value');
     ls[selector] = cantina;
     Analytics.trackEvent('clickCantina', cantina);
-    Browser.getBackgroundProcess().updateCantinas();
+    Browser.getBackgroundProcess().updateCantinas(function() {
+      reloadAllNotiwalls();
+    });
+    // Saved<3
+    saveOptions();
   });
 };
 
@@ -393,6 +399,7 @@ var saveBus = function(busField) {
   console.log('saved inactiveLines '+busField, '"', inactiveLines, '"');
   console.log('saved for busStopId ' + busStopId);
   saveOptions();
+  reloadAllNotiwalls();
   // Analytics? No, we're not running analytics on bus stops, it would have privacy implications.
 };
 
@@ -540,6 +547,13 @@ var saveOptions = function() {
   setTimeout(function() {
     $("#notification").fadeOut(200);
   }, 800);
+};
+
+//
+// Reload Notiwalls
+//
+
+var reloadAllNotiwalls = function() {
   Browser.reloadAllNotiwalls(DEBUG);
 };
 
@@ -643,6 +657,7 @@ $(document).ready(function() {
     }
 
     saveOptions();
+    reloadAllNotiwalls();
   });
 
   $('input:radio').click(function() {
@@ -651,6 +666,7 @@ $(document).ready(function() {
     console.warn('which',ls.whichScreen)
 
     saveOptions();
+    reloadAllNotiwalls();
   });
 
 });
