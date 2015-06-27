@@ -31,6 +31,7 @@ body {
   // That's how we define the "vw"!
   width: 800px;
   height: 600px;
+  font-size: 1.6vw;
 
   #background {
     /* using a div because the background is color shifted by the palette CSS files */
@@ -44,6 +45,15 @@ body {
     height: 100%;
     z-index: -100;
   }
+}
+
+input, select, label, button {
+  /* Notable problem: Current version of Chrome doesn't properly resize input elements
+   * or buttons according to vw-size, hence options will look messy when zoomed.
+   * This problem is likely to solve itself when Chrome matures further.
+   */
+  font-size: 1.4vw;
+  height: auto;
 }
 
 /* All options */
@@ -478,9 +488,11 @@ div#busSuggestions {
   position: fixed;
   z-index: 10;
   top: 0;
-  right: 7.5vw;
+  right: 0;
   bottom: 0;
   width: 30.6vw;
+  padding: 0 4.4vw;
+
   display: none; /* Will slide down when needed */
 
   overflow-x: hidden;
@@ -493,14 +505,12 @@ div#busSuggestions {
     .debugyellow;
     margin-top: 3.8vw;
     margin-bottom: 1.9vw;
-    margin-left: 1.9vw;
     font-size: 5.3vw;
     font-weight: lighter;
     text-align: left;
     color: #444;
   }
   .suggestion {
-    margin-left: 1.9vw;
     color: #444;
     line-height: 1.5;
     letter-spacing: .125vw;
@@ -513,7 +523,6 @@ div#busSuggestions {
     }
   }
   .correct {
-    margin-left: 1.9vw;
     color: black;
     font-size: 1.6vw;
     font-weight: bold;

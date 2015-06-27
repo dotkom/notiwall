@@ -1,6 +1,5 @@
 "use strict";
 
-var ls = localStorage;
 var iteration = 0;
 
 var mainLoop = function(force) {
@@ -280,79 +279,6 @@ var updateBus = function() {
   createBusDataRequest('secondBus', '#secondBus');
 }
 
-var changeCreatorName = function(name) {
-  // Stop previous changeCreatorName instance, if any
-  clearTimeout(ls.changeCreatorNameTimeoutId);
-  // Animate creator name change in the pageflip
-  animateCreatorName(name);
-}
-
-var animateCreatorName = function(name, build) {
-  // Animate it
-  var text = $('#pagefliptyping').text();
-  if (text.length === 0) {
-    build = true;
-    name = name + " with <3";
-  }
-  var random = Math.floor(350 * Math.random() + 50);
-  if (!build) {
-    $('#pagefliptyping').text(text.slice(0, text.length-1));
-    ls.animateCreatorNameTimeoutId = setTimeout(function() {
-      animateCreatorName(name);
-    }, random);
-  }
-  else {
-    if (text.length !== name.length) {
-      if (text.length === 0) {
-        $('#pagefliptyping').text(name.slice(0, 1));
-      }
-      else {
-        $('#pagefliptyping').text(name.slice(0, text.length+1));
-      }
-      ls.animateCreatorNameTimeoutId = setTimeout(function() {
-        animateCreatorName(name, true);
-      }, random);
-    }
-  }
-}
-
-var loopCreatorName = function() {
-  setInterval(function() {
-    var namesAsRegex = new RegExp(ls.extensionOwner + '|' + ls.extensionCreator, 'gi');
-    var currentName = $('#pagefliptyping').text().match(namesAsRegex)[0];
-    if (currentName === ls.extensionOwner)
-      changeCreatorName(ls.extensionCreator);
-    else
-      changeCreatorName(ls.extensionOwner);
-  }, 3600000);
-}
-
-var killOtherNotiwalls = function() {
-  // Get all tabs
-  chrome.tabs.query({}, function(list){
-    // Filter away all tabs whose URL does not contain the extensionID
-    var extensionID = chrome.app.getDetails().id;
-    list = list.filter(function(tab) {
-      return tab.url.match(extensionID) !== null;
-    });
-    // Only tabs in Online Notiwall are left
-    var notiwallIDs = [];
-    list = list.filter(function(tab) {
-      return !tab.active;
-    });
-    // Kill all the inactive Notiwalls! There may be only one.
-    for (var i = 0; i < list.length; i++) {
-      if (DEBUG) {
-        console.warn('DEBUG is on, I deferred from killing other Notiwall with ID:', list[i].id, "- There may be room for others.");
-      }
-      else {
-        console.warn('Killing other Notiwall with ID:', list[i].id, "- There may be only one!");
-        chrome.tabs.remove(list[i].id);
-      }
-    };
-  });
-}(); // Self executing
-
 // Document ready, go!
 $(document).ready(function() {
 
@@ -435,38 +361,6 @@ $(document).ready(function() {
       $('#todays #schedule .title').text(Affiliation.org[ls.affiliationKey1].hw.office);
     }
   }
-  
-  // Adding creator name to pageflip and looping it periodically
-  changeCreatorName(ls.extensionOwner);
-  loopCreatorName();
-  // Blinking cursor at pageflip
-  setInterval(function() {
-    $(".pageflipcursor").animate({opacity: 0}, "fast", "swing", function() {
-      $(this).animate({opacity: 1}, "fast", "swing");
-    });
-  }, 600);
-
-  // Prevent image burn-in by fading to black every half hour
-  var linebreaks = function() {
-    var random = Math.ceil(Math.random() * 25);
-    var br = '';
-    for (var i = 0; i < random; i++) {
-      br += '<br />';
-    };
-    return br;
-  };
-  setInterval(function() {
-    $('#overlay').html(linebreaks() + 'preventing image burn-in...');
-    $('#overlay').css('opacity', 1);
-    setTimeout(function() {
-      $('#overlay').css('opacity', 0);
-    }, 3500);
-  }, 1800000);
-
-  // Reload entirely every 24 hours, in case of app updates
-  setInterval(function() {
-    document.location.reload();
-  }, 86400000);
 
   // Enter main loop, keeping everything up-to-date
   var stayUpdated = function(now) {

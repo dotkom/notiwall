@@ -1,7 +1,5 @@
 "use strict";
 
-var ls = localStorage;
-
 var showSavedNotification = function() {
   $("#notification").fadeIn(200);
   setTimeout(function() {

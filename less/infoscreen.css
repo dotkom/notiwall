@@ -92,10 +92,8 @@
   margin-bottom: 1vw;
 }
 /* Rules */
-html {
-  cursor: none;
-}
 body {
+  cursor: none;
   background: #001429;
   color: white;
   font-family: 'Helvetica Neue', 'Helvetica';
@@ -263,7 +261,7 @@ body {
   margin-left: -5%;
   top: 4.2vw;
   font-size: 2.2vw;
-  line-height: 2.7vw;
+  line-height: 2.5vw;
   height: 17vw;
   margin-bottom: 5.4vw;
   padding: 0 3%;
@@ -275,7 +273,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 0.5vw;
-  line-height: 2.7vw;
 }
 #container #bus .loadingLeft {
   position: relative;
