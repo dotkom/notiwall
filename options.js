@@ -540,7 +540,7 @@ var saveOptions = function() {
   setTimeout(function() {
     $("#notification").fadeOut(200);
   }, 800);
-  Browser.reloadAllNotiwalls();
+  Browser.reloadAllNotiwalls(DEBUG);
 };
 
 //

@@ -175,7 +175,43 @@ var Browser = {
     return false; // assume dev mode
   },
 
-  reloadAllNotiwalls: function() {
+  killOtherNotiwalls: function(DEBUG) {
+    DEBUG = DEBUG || false;
+    try {
+      if (this.name === 'Chrome' || this.name === 'Opera') {
+        // Get all tabs
+        chrome.tabs.query({}, function(list){
+          // Filter away all tabs whose URL does not contain the extensionID
+          var extensionID = chrome.app.getDetails().id;
+          list = list.filter(function(tab) {
+            return tab.url.match(extensionID) !== null;
+          });
+          // Only tabs in Online Notiwall are left
+          list = list.filter(function(tab) {
+            return !tab.active;
+          });
+          // Kill all the inactive Notiwalls! There may be only one.
+          for (var i = 0; i < list.length; i++) {
+            if (DEBUG) {
+              console.warn('DEBUG is on, I deferred from killing other Notiwall with ID:', list[i].id, "- There may be room for others.");
+            }
+            else {
+              if (DEBUG) console.warn('Killing other Notiwall with ID:', list[i].id, "- There may be only one!");
+              chrome.tabs.remove(list[i].id);
+            }
+          };
+        });
+      }
+      else {
+        console.error(this.msgUnsupported);
+      }
+    } catch (err) {
+      // Do nothing
+    }
+  },
+
+  reloadAllNotiwalls: function(DEBUG) {
+    DEBUG = DEBUG || false;
     try {
       if (this.name === 'Chrome' || this.name === 'Opera') {
         chrome.tabs.query({}, function(list){
@@ -188,7 +224,7 @@ var Browser = {
           for (var i = 0; i < list.length; i++) {
             // Send a message to Notiwalls about reloading themselves
             chrome.tabs.reload(list[i]);
-            console.warn('Telling the Notiwalls to reload themselves.');
+            if (DEBUG) console.warn('Telling the Notiwalls to reload themselves.');
           };
         });
       }
