@@ -46,3 +46,31 @@
     }, 1500);
   });
 }());
+
+//
+// Prevent Image Burn In
+// (executes itself once)
+// NOTE: Have a div#overlay in your Notiwall, see other Notiwall's LESS files
+//
+
+(function preventBurnIn() {
+
+  // Prevent image burn-in by fading to black every half hour.
+  // This is important because even LCD screens burn in after a long enough time.
+  var linebreaks = function() {
+    var random = Math.ceil(Math.random() * 25);
+    var br = '';
+    for (var i = 0; i < random; i++) {
+      br += '<br />';
+    };
+    return br;
+  };
+  setInterval(function() {
+    $('#overlay').html(linebreaks() + 'preventing image burn-in...');
+    $('#overlay').css('opacity', 1);
+    setTimeout(function() {
+      $('#overlay').css('opacity', 0);
+    }, 3500);
+  }, 1800000);
+
+}());

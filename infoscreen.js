@@ -659,23 +659,6 @@ $(document).ready(function() {
     });
   }, 600);
 
-  // Prevent image burn-in by fading to black every half hour
-  var linebreaks = function() {
-    var random = Math.ceil(Math.random() * 25);
-    var br = '';
-    for (var i = 0; i < random; i++) {
-      br += '<br />';
-    };
-    return br;
-  };
-  setInterval(function() {
-    $('#overlay').html(linebreaks() + 'preventing image burn-in...');
-    $('#overlay').css('opacity', 1);
-    setTimeout(function() {
-      $('#overlay').css('opacity', 0);
-    }, 3500);
-  }, 1800000);
-
   // Reload entirely every 24 hours, in case of app updates
   setInterval(function() {
     document.location.reload();
