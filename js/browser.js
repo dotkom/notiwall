@@ -223,8 +223,8 @@ var Browser = {
           // Only tabs in Online Notiwall are left
           for (var i = 0; i < list.length; i++) {
             // Send a message to Notiwalls about reloading themselves
-            chrome.tabs.reload(list[i]);
-            if (DEBUG) console.warn('Telling the Notiwalls to reload themselves.');
+            if (DEBUG) console.warn('Telling Notiwall', list[i].id, 'to reload itself.');
+            chrome.tabs.reload(list[i].id);
           };
         });
       }
