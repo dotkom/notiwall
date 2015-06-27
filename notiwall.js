@@ -27,7 +27,6 @@
       return tab.url.match(extensionID) !== null;
     });
     // Only tabs in Online Notiwall are left
-    var notiwallIDs = [];
     list = list.filter(function(tab) {
       return !tab.active;
     });

@@ -175,6 +175,31 @@ var Browser = {
     return false; // assume dev mode
   },
 
+  reloadAllNotiwalls: function() {
+    try {
+      if (this.name === 'Chrome' || this.name === 'Opera') {
+        chrome.tabs.query({}, function(list){
+          // Filter away all tabs whose URL does not contain the extensionID
+          var extensionID = chrome.app.getDetails().id;
+          list = list.filter(function(tab) {
+            return tab.url.match(extensionID) !== null;
+          });
+          // Only tabs in Online Notiwall are left
+          for (var i = 0; i < list.length; i++) {
+            // Send a message to Notiwalls about reloading themselves
+            chrome.tabs.reload(list[i]);
+            console.warn('Telling the Notiwalls to reload themselves.');
+          };
+        });
+      }
+      else {
+        console.error(this.msgUnsupported);
+      }
+    } catch (err) {
+      // Do nothing
+    }
+  },
+
 }
 
 // Detect name and version

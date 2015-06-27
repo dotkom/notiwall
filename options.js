@@ -80,8 +80,8 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
       Browser.getBackgroundProcess().updateAffiliationNews(number);
     }
 
-    // Display Saved<3
-    showSavedHeart();
+    // Saved<3
+    saveOptions();
     // Analytics
     Analytics.trackEvent('clickAffiliation'+number, affiliationKey);
   });
@@ -99,8 +99,8 @@ var bindPaletteSelector = function() {
     // Applying palette to options page
     console.log('Applying chosen palette', palette);
     $('#palette').attr('href', Palettes.get(palette));
-    // Display Saved<3
-    showSavedHeart();
+    // Saved<3
+    saveOptions();
     // Analytics
     Analytics.trackEvent('clickPalette', palette);
   });
@@ -392,7 +392,7 @@ var saveBus = function(busField) {
   console.log('saved activeLines for '+busField, '"', activeLines, '"');
   console.log('saved inactiveLines '+busField, '"', inactiveLines, '"');
   console.log('saved for busStopId ' + busStopId);
-  showSavedHeart();
+  saveOptions();
   // Analytics? No, we're not running analytics on bus stops, it would have privacy implications.
 };
 
@@ -535,11 +535,12 @@ var bindSuggestions = function() {
 // Saved<3
 //
 
-var showSavedHeart = function() {
+var saveOptions = function() {
   $("#notification").fadeIn(200);
   setTimeout(function() {
     $("#notification").fadeOut(200);
   }, 800);
+  Browser.reloadAllNotiwalls();
 };
 
 //
@@ -641,7 +642,7 @@ $(document).ready(function() {
       $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(0%)');
     }
 
-    showSavedHeart();
+    saveOptions();
   });
 
   $('input:radio').click(function() {
@@ -649,7 +650,7 @@ $(document).ready(function() {
     ls.whichScreen = this.id;
     console.warn('which',ls.whichScreen)
 
-    showSavedHeart();
+    saveOptions();
   });
 
 });
