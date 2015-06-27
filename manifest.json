@@ -24,6 +24,7 @@
   },
 	
   "permissions": [
+    "power",
     "tabs",
     "<all_urls>"
   ],

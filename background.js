@@ -168,6 +168,11 @@ var fetchAndStoreImageLinks = function(number) {
   }
 }
 
+//
+// Load Affiliation Icon
+// (executes itself once)
+//
+
 var loadAffiliationIcon = function() {
   var key = ls.affiliationKey1;
   // Set badge icon
@@ -176,7 +181,17 @@ var loadAffiliationIcon = function() {
   // Set badge title
   var name = Affiliation.org[key].name;
   Browser.setTitle(name + ' Notiwall');
-}(); // Self executing
+}();
+
+//
+// Keep Awake
+// (executes itself once)
+//
+
+(function keepAwake() {
+  // Keep this computer and its display turned on.
+  chrome.power.requestKeepAwake("display");
+}());
 
 // Document ready, go!
 $(document).ready(function() {
