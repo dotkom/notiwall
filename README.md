@@ -1,4 +1,4 @@
-≤Online Notiwall
+Online Notiwall
 ===============
 
 This is a Chrome extension from the student organization Online at NTNU in Trondheim, Norway.
@@ -98,8 +98,9 @@ General
 
 - Only HTML5, CSS3 and JavaScript
 - Libraries used: jQuery, LESS
-- Opens options page on first run
-- All pages keep themselves updated while running
+- Notiwalls keep themselves updated while running
+- Automatically makes sure only one Notiwall is open at a time
+- Automatically prevents system and display from sleeping on the job
 - Separate scripts containing constants and defaults, for changeability
 - Runs Google Analytics on all pages, tracking both pages and events anonymously
 - Detects network status, halts all operations and resource usage when offline
@@ -180,26 +181,31 @@ Analytics
 - Categories are split into actions which are either clickSomething, loadSomething or toggleSomething
 - An action may have a label, which is usually the clicked link, the loaded file, and so on
 
-Chronological Credz
--------------------
+People
+------
 
-Key people are annotated with their email address
+Project lead (chronologically descending)
 
-- Michael Johansen <michael@informatikk.org> is the project leader and was the sole developer of the extension itself (not support services) for the first couple of years
-- Christian Duvholt wrote Online Notiwire
-- Tri Minh Nguyen created the API for AtB's realtime bus API
-- Magnus Dysthe has been working on hardware for the infoscreen
-- Tor Håkon Bonsaksen helped with several hardware issues
-- Kristoffer Dalby hacked up scripts that fixed ubuntu screen-to-black issues
+- *New lead developer coming* is the current lead developer
+- Michael Johansen was the lead developer of Notiwall from 2012 - 2015
+
+Credz to (chronologically descending)
+
+- Christian Duvholt wrote the API, [Online Notiwire](https://github.com/appKom/notiwire)
 - Nils Herde fixed hardware issues, kept the infoscreen running and installed the coffee button
-- Eirik Larsen <eirik.larsen93@gmail.com> made the OmegaV NotiPi, which made Notiwall's hardware features accessible to all the student unions in Trondheim
+- Kristoffer Dalby hacked up scripts that fixed ubuntu screen-to-black issues
+- Tor Håkon Bonsaksen helped with several hardware issues
+- Magnus Dysthe worked on hardware for the infoscreen
+- Roy Sindre Norangshol helped with several maintenance issues
+- Tri Minh Nguyen created the API for AtB's realtime bus API
+- René Räisänen designed the background images
 
 Media coverage
 --------------
 
-- None yet, see the Notifier repository.
+- None yet, see the [Online Notifier](https://github.com/appKom/notifier) repository.
 
 Issues submitted to Chromium
 ----------------------------
 
-- None yet, see the Notifier repository.
+- None yet, see the [Online Notifier](https://github.com/appKom/notifier) repository.
