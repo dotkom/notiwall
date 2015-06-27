@@ -1,6 +1,5 @@
 "use strict";
 
-var ls = localStorage;
 var iteration = 0;
 
 var newsLimit = 6; // Any more will never be visible on the screen

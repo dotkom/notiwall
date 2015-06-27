@@ -6,7 +6,8 @@
 //
 
 (function dailyReload() {
-  // Reload entirely every 24 hours, in case of memory leaks (browsers have bugs too)
+  // Reload page entirely every 24 hours, in case of memory
+  // leaks or other problems (browsers have bugs too)
   setInterval(function() {
     document.location.reload();
   }, 86400000);
