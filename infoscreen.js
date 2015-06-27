@@ -2,7 +2,6 @@
 
 var ls = localStorage;
 var iteration = 0;
-var intervalId = null;
 
 var newsLimit = 6; // Any more will never be visible on the screen
 
@@ -486,55 +485,6 @@ var updateAffiliationNews = function(number) {
   }
 };
 
-// Pageflip
-
-var changeCreatorName = function(name) {
-  // Stop previous changeCreatorName instance, if any
-  clearTimeout(ls.changeCreatorNameTimeoutId);
-  // Animate creator name change in the pageflip
-  animateCreatorName(name);
-};
-
-var animateCreatorName = function(name, build) {
-  // Animate it
-  var text = $('#pagefliptyping').text();
-  if (text.length === 0) {
-    build = true;
-    name = name + " with <3";
-  }
-  var random = Math.floor(350 * Math.random() + 50);
-  if (!build) {
-    $('#pagefliptyping').text(text.slice(0, text.length-1));
-    ls.animateCreatorNameTimeoutId = setTimeout(function() {
-      animateCreatorName(name);
-    }, random);
-  }
-  else {
-    if (text.length !== name.length) {
-      if (text.length === 0) {
-        $('#pagefliptyping').text(name.slice(0, 1));
-      }
-      else {
-        $('#pagefliptyping').text(name.slice(0, text.length+1));
-      }
-      ls.animateCreatorNameTimeoutId = setTimeout(function() {
-        animateCreatorName(name, true);
-      }, random);
-    }
-  }
-};
-
-var loopCreatorName = function() {
-  setInterval(function() {
-    var namesAsRegex = new RegExp(ls.extensionOwner + '|' + ls.extensionCreator, 'gi');
-    var currentName = $('#pagefliptyping').text().match(namesAsRegex)[0];
-    if (currentName === ls.extensionOwner)
-      changeCreatorName(ls.extensionCreator);
-    else
-      changeCreatorName(ls.extensionOwner);
-  }, 3600000);
-};
-
 //
 // Rotate Office Status Font
 // (executes itself once)
@@ -648,28 +598,13 @@ $(document).ready(function() {
       $('#todays #schedule .title').text(Affiliation.org[ls.affiliationKey1].hw.office);
     }
   }
-  
-  // Adding creator name to pageflip and looping it periodically
-  changeCreatorName(ls.extensionOwner);
-  loopCreatorName();
-  // Blinking cursor at pageflip
-  setInterval(function() {
-    $(".pageflipcursor").animate({opacity: 0}, "fast", "swing", function() {
-      $(this).animate({opacity: 1}, "fast", "swing");
-    });
-  }, 600);
-
-  // Reload entirely every 24 hours, in case of app updates
-  setInterval(function() {
-    document.location.reload();
-  }, 86400000);
 
   // Enter main loop, keeping everything up-to-date
   var stayUpdated = function(now) {
     console.log(ONLINE_MESSAGE);
     var loopTimeout = (DEBUG ? PAGE_LOOP_DEBUG : PAGE_LOOP);
     // Schedule for repetition
-    intervalId = setInterval(function() {
+    window.intervalId = setInterval(function() {
       mainLoop();
     }, loopTimeout);
     // Run once right now (just wait 2 secs to avoid network-change errors)
@@ -682,7 +617,7 @@ $(document).ready(function() {
   window.addEventListener('online', stayUpdated);
   window.addEventListener('offline', function() {
     console.log(OFFLINE_MESSAGE);
-    clearInterval(intervalId);
+    clearInterval(window.intervalId);
     updateBus();
   });
   // Go

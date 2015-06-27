@@ -1,6 +1,18 @@
 // This file is a utility library for all Notiwalls
 
 //
+// Full Reload
+// (executes itself once)
+//
+
+(function dailyReload() {
+  // Reload entirely every 24 hours, in case of memory leaks (browsers have bugs too)
+  setInterval(function() {
+    document.location.reload();
+  }, 86400000);
+}());
+
+//
 // Kill Other Notiwalls
 // (executes itself once)
 //
@@ -50,7 +62,7 @@
 //
 // Prevent Image Burn In
 // (executes itself once)
-// NOTE: Have a div#overlay in your Notiwall, see other Notiwall's LESS files
+// NOTE: Include the HTML and CSS for a div#overlay in your Notiwall
 //
 
 (function preventBurnIn() {
@@ -72,5 +84,72 @@
       $('#overlay').css('opacity', 0);
     }, 3500);
   }, 1800000);
+
+}());
+
+//
+// Pageflip
+// (executes itself once)
+// NOTE: Include the HTML and CSS for the pageflip in your Notiwall
+//
+
+(function() {
+
+  var changeCreatorName = function(name) {
+    // Stop previous changeCreatorName instance, if any
+    clearTimeout(ls.changeCreatorNameTimeoutId);
+    // Animate creator name change in the pageflip
+    animateCreatorName(name);
+  };
+
+  var animateCreatorName = function(name, build) {
+    // Animate it
+    var text = $('#pagefliptyping').text();
+    if (text.length === 0) {
+      build = true;
+      name = name + " with <3";
+    }
+    var random = Math.floor(350 * Math.random() + 50);
+    if (!build) {
+      $('#pagefliptyping').text(text.slice(0, text.length-1));
+      ls.animateCreatorNameTimeoutId = setTimeout(function() {
+        animateCreatorName(name);
+      }, random);
+    }
+    else {
+      if (text.length !== name.length) {
+        if (text.length === 0) {
+          $('#pagefliptyping').text(name.slice(0, 1));
+        }
+        else {
+          $('#pagefliptyping').text(name.slice(0, text.length+1));
+        }
+        ls.animateCreatorNameTimeoutId = setTimeout(function() {
+          animateCreatorName(name, true);
+        }, random);
+      }
+    }
+  };
+
+  var loopCreatorName = function() {
+    setInterval(function() {
+      var namesAsRegex = new RegExp(ls.extensionOwner + '|' + ls.extensionCreator, 'gi');
+      var currentName = $('#pagefliptyping').text().match(namesAsRegex)[0];
+      if (currentName === ls.extensionOwner)
+        changeCreatorName(ls.extensionCreator);
+      else
+        changeCreatorName(ls.extensionOwner);
+    }, 3600000);
+  };
+
+  // Adding creator name to pageflip and looping it periodically
+  changeCreatorName(ls.extensionOwner);
+  loopCreatorName();
+  // Blinking cursor at pageflip
+  setInterval(function() {
+    $(".pageflipcursor").animate({opacity: 0}, "fast", "swing", function() {
+      $(this).animate({opacity: 1}, "fast", "swing");
+    });
+  }, 600);
 
 }());
