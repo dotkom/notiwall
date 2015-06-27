@@ -36,7 +36,7 @@ var mainLoop = function(force) {
     iteration = 0;
   else
     iteration++;
-}
+};
 
 var updateStatus = function(debugStatus) {
   console.log('updateStatus');
@@ -88,7 +88,7 @@ var updateStatus = function(debugStatus) {
         statusMessage = msgs[statusCode];
     $('#office #subtext').html(statusMessage);
   }
-}
+};
 
 //
 // Update functions: Servant
@@ -104,7 +104,7 @@ var updateServant = function() {
     var servantString = ls.servantString;
     $('#todays #schedule #servant').html('- '+servantString);
   }
-}
+};
 
 //
 // Update functions: Meetings
@@ -130,7 +130,7 @@ var updateMeeting = function() {
       $('#todays #schedule #meetings').html(htmlMeeting);
     }
   }
-}
+};
 
 //
 // Update functions: Coffee
@@ -149,7 +149,7 @@ var updateCoffee = function() {
     $('#todays #coffee #pots').html('- ' + coffeePotsString);
     $('#todays #coffee #age').html(coffeeDateString);
   }
-}
+};
 
 //
 // Update functions: Cantina
@@ -298,7 +298,7 @@ var updateBus = function() {
   // Inner functions are ready, go!
   createBusDataRequest('firstBus', '#firstBus');
   createBusDataRequest('secondBus', '#secondBus');
-}
+};
 
 //
 // Update functions: Affiliation News
@@ -484,21 +484,7 @@ var updateAffiliationNews = function(number) {
       Browser.openTab(Affiliation.org[key].web);
     });
   }
-}
-
-var officeFontRotate = function(font) {
-  var fonts = ['cardo','fondamento','oleoscript','sourcesans'];
-  var chosenFont = null;
-  if (fonts.indexOf(font) > -1) {
-    chosenFont = font;
-  }
-  else {
-    chosenFont = fonts[Math.floor(Math.random() * fonts.length)];
-  }
-  $('#office #status #text').prop('class', chosenFont);
-  if (DEBUG)
-    $('#office #subtext').html(ls.infoscreenLastMessage + '<br />' + chosenFont);
-}
+};
 
 // Pageflip
 
@@ -507,7 +493,7 @@ var changeCreatorName = function(name) {
   clearTimeout(ls.changeCreatorNameTimeoutId);
   // Animate creator name change in the pageflip
   animateCreatorName(name);
-}
+};
 
 var animateCreatorName = function(name, build) {
   // Animate it
@@ -536,7 +522,7 @@ var animateCreatorName = function(name, build) {
       }, random);
     }
   }
-}
+};
 
 var loopCreatorName = function() {
   setInterval(function() {
@@ -547,33 +533,35 @@ var loopCreatorName = function() {
     else
       changeCreatorName(ls.extensionOwner);
   }, 3600000);
-}
+};
 
-var killOtherNotiwalls = function() {
-  // Get all tabs
-  chrome.tabs.query({}, function(list){
-    // Filter away all tabs whose URL does not contain the extensionID
-    var extensionID = chrome.app.getDetails().id;
-    list = list.filter(function(tab) {
-      return tab.url.match(extensionID) !== null;
-    });
-    // Only tabs in Online Notiwall are left
-    var notiwallIDs = [];
-    list = list.filter(function(tab) {
-      return !tab.active;
-    });
-    // Kill all the inactive Notiwalls! There may be only one.
-    for (var i = 0; i < list.length; i++) {
-      if (DEBUG) {
-        console.warn('DEBUG is on, I deferred from killing other Notiwall with ID:', list[i].id, "- There may be room for others.");
-      }
-      else {
-        console.warn('Killing other Notiwall with ID:', list[i].id, "- There may be only one!");
-        chrome.tabs.remove(list[i].id);
-      }
-    };
-  });
-}(); // Self executing
+//
+// Rotate Office Status Font
+// (executes itself once)
+//
+
+(function officeFontRotate() {
+
+  var rotate = function() {
+    var fonts = ['cardo','fondamento','oleoscript','sourcesans'];
+    var chosenFont = fonts[Math.floor(Math.random() * fonts.length)];
+    $('#office #status #text').prop('class', chosenFont);
+    if (DEBUG) {
+      $('#office #subtext').html(ls.infoscreenLastMessage + '<br />' + chosenFont);
+    }
+  }
+
+  // Randomize font in the office status
+  rotate();
+  setInterval(function(rotate) {
+    rotate();
+  }, 1800000);
+  
+}());
+
+//
+// Document ready function
+//
 
 // Document ready, go!
 $(document).ready(function() {
@@ -670,12 +658,6 @@ $(document).ready(function() {
       $(this).animate({opacity: 1}, "fast", "swing");
     });
   }, 600);
-
-  // Randomize font in the office status
-  officeFontRotate();
-  setInterval(function() {
-    officeFontRotate();
-  }, 1800000);
 
   // Prevent image burn-in by fading to black every half hour
   var linebreaks = function() {

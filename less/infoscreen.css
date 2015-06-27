@@ -92,10 +92,8 @@
   margin-bottom: 1vw;
 }
 /* Rules */
-html {
-  cursor: none;
-}
 body {
+  cursor: none;
   background: #001429;
   color: white;
   font-family: 'Helvetica Neue', 'Helvetica';

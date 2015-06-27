@@ -62,10 +62,8 @@
   margin-bottom: .4vw;
   color: #cff;
 }
-html {
-  cursor: none;
-}
 body {
+  cursor: none;
   background: #001429;
   color: white;
   font-family: 'Helvetica Neue', 'Helvetica';
