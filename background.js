@@ -22,6 +22,10 @@ var mainLoop = function(force) {
     iteration++;
 }
 
+//
+// Status (office status, meetings, and servant for affiliation)
+//
+
 var updateAffiliation = function(callback) {
   console.log('updateAffiliation');
   // Fetch
@@ -50,6 +54,10 @@ var updateStatusAndMeetings = function(force, callback) {
   var statusTitle = strings.statusTitle;
   var statusMessage = strings.statusMessage;
 }
+
+//
+// Coffee
+//
 
 var updateCoffeeSubscription = function(callback) {
   console.log('updateCoffeeSubscription');
@@ -80,6 +88,10 @@ var updateCoffeeSubscription = function(callback) {
   }
 }
 
+//
+// Cantina
+//
+
 var updateCantinas = function(callback) {
   console.log('updateCantinas');
   // Fetch
@@ -94,79 +106,43 @@ var updateCantinas = function(callback) {
   });
 }
 
+//
+// Affiliation news
+//
+
 var updateAffiliationNews = function(number, callback) {
   console.log('updateAffiliationNews'+number);
-  // Get affiliation object
+  // Get affiliation
   var affiliationKey = ls['affiliationKey'+number];
-  var affiliationObject = Affiliation.org[affiliationKey];
-  if (affiliationObject) {
-    // Get more news than needed to check for old news that have been updated
-    var newsLimit = 10;
-    News.get(affiliationObject, newsLimit, function(items) {
+  var affiliation = Affiliation.org[affiliationKey];
+  // Get news for this affiliation
+  if (affiliation) {
+    News.get(affiliation, function(posts) {
       // Error message, log it maybe
-      if (typeof items === 'string') {
-        console.error(items);
+      if (typeof posts === 'string') {
+        console.error(posts);
       }
-      // Empty news items, don't count
-      else if (items.length === 0) {
-        // Do nothing
+      // Empty news posts, don't count
+      else if (posts.length === 0) {
+        // Do nothing (Notifier nullifies news count here)
       }
       // News is here! NEWS IS HERE! FRESH FROM THE PRESS!
       else {
-        saveAndCountNews(items, number);
-        fetchAndStoreImageLinks(number);
+        saveNews(posts, number);
       }
       if (typeof callback === 'function') callback();
     });
   }
   else {
-    console.error('Chosen affiliation "' + ls['affiliationKey'+number] + '" is not known');
+    console.error('Chosen affiliation "' + affiliationKey + '" is not known');
     if (typeof callback === 'function') callback();
   }
-}
+};
 
-var saveAndCountNews = function(items, number) {
-  var feedItems = 'affiliationNews' + number;
-  var newsList = 'affiliationNewsList' + number;
-  var unreadCount = 'affiliationUnreadCount' + number;
-
-  ls[feedItems] = JSON.stringify(items);
-  var list = JSON.parse(ls[newsList]);
-  ls[unreadCount] = News.countNewsAndNotify(items, list);
-  ls[newsList] = News.refreshNewsList(items);
-}
-
-var fetchAndStoreImageLinks = function(number) {
-  var key = ls['affiliationKey'+number];
-  var newsList = JSON.parse(ls['affiliationNewsList'+number]);
-  // If the organization has it's own getImage function, use it
-  if (Affiliation.org[key].getImage !== undefined) {
-    for (var i in newsList) {
-      var link = newsList[i];
-      // It's important to get the link from the callback within the function below,
-      // not the above code, - because of race conditions mixing up the news posts, async ftw.
-      Affiliation.org[key].getImage(link, function(link, image) {
-        if (null !== image[0]) {
-          var storedImages = JSON.parse(ls.storedImages);
-          storedImages[link] = image[0];
-          ls.storedImages = JSON.stringify(storedImages);
-        }
-      });
-    }
-  }
-  // If the organization has it's own getImages (plural) function, use it
-  if (Affiliation.org[key].getImages !== undefined) {
-    Affiliation.org[key].getImages(newsList, function(links, images) {
-      var storedImages = JSON.parse(ls.storedImages);
-      for (var i in links) {
-        if (null !== images[i]) {
-          storedImages[links[i]] = images[i];
-        }
-      }
-      ls.storedImages = JSON.stringify(storedImages);
-    });
-  }
-}
+var saveNews = function(items, number) {
+  ls['affiliationNews' + number] = JSON.stringify(items);
+  ls['affiliationNewsList' + number] = News.refreshNewsList(items);
+};
 
 //
 // Load Affiliation Icon
