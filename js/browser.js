@@ -68,37 +68,6 @@ var Browser = {
     }
   },
 
-  getBadgeText: function(callback) {
-    if (typeof callback == 'undefined') {
-      console.error(this.msgCallbackMissing);
-    }
-    else {
-      if (this.name == 'Chrome' || this.name == 'Opera') {
-        chrome.browserAction.getBadgeText({}, function(badgeText) {
-          callback(badgeText);
-        });
-      }
-      else {
-        console.error(this.msgUnsupported);
-      }
-    }
-  },
-
-  setBadgeText: function(text) {
-    if (typeof text == 'undefined' || text == null || isNaN(Number(text)) || Number(text) <= 0) {
-      text = '';
-    }
-    if (this.name == 'Chrome' || this.name == 'Opera') {
-      if (chrome.browserAction != undefined) {
-        text = String(text);
-        chrome.browserAction.setBadgeText({text: text});
-      }
-    }
-    else {
-      console.error(this.msgUnsupported);
-    }
-  },
-
   openTab: function(url) {
     if (this.name == 'Chrome' || this.name == 'Opera') {
       if (chrome.tabs != undefined) {
