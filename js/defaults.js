@@ -34,25 +34,15 @@ var Defaults = {
       ls.installTime = new Date().getTime();
 
     // Primary affiliation
-    if (ls.affiliationUnreadCount1 === undefined)
-      ls.affiliationUnreadCount1 = 0;
     if (ls.affiliationNewsList1 === undefined)
       ls.affiliationNewsList1 = JSON.stringify([]);
-    if (ls.affiliationViewedList1 === undefined)
-      ls.affiliationViewedList1 = JSON.stringify([]);
     
     if (ls.affiliationPalette === undefined)
       ls.affiliationPalette = 'online';
-    if (ls.storedImages === undefined)
-      ls.storedImages = JSON.stringify({});
 
     // Secondary affiliation
-    if (ls.affiliationUnreadCount2 === undefined)
-      ls.affiliationUnreadCount2 = 0;
     if (ls.affiliationNewsList2 === undefined)
       ls.affiliationNewsList2 = JSON.stringify([]);
-    if (ls.affiliationViewedList2 === undefined)
-      ls.affiliationViewedList2 = JSON.stringify([]);
     
     // Bus - If any of these properties are undefined we'll reset all of them
     var firstBusProps = [
