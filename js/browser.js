@@ -68,37 +68,6 @@ var Browser = {
     }
   },
 
-  getBadgeText: function(callback) {
-    if (typeof callback == 'undefined') {
-      console.error(this.msgCallbackMissing);
-    }
-    else {
-      if (this.name == 'Chrome' || this.name == 'Opera') {
-        chrome.browserAction.getBadgeText({}, function(badgeText) {
-          callback(badgeText);
-        });
-      }
-      else {
-        console.error(this.msgUnsupported);
-      }
-    }
-  },
-
-  setBadgeText: function(text) {
-    if (typeof text == 'undefined' || text == null || isNaN(Number(text)) || Number(text) <= 0) {
-      text = '';
-    }
-    if (this.name == 'Chrome' || this.name == 'Opera') {
-      if (chrome.browserAction != undefined) {
-        text = String(text);
-        chrome.browserAction.setBadgeText({text: text});
-      }
-    }
-    else {
-      console.error(this.msgUnsupported);
-    }
-  },
-
   openTab: function(url) {
     if (this.name == 'Chrome' || this.name == 'Opera') {
       if (chrome.tabs != undefined) {
@@ -173,6 +142,67 @@ var Browser = {
     }
     console.error(this.msgUnsupported);
     return false; // assume dev mode
+  },
+
+  killOtherNotiwalls: function(DEBUG) {
+    DEBUG = DEBUG || false;
+    try {
+      if (this.name === 'Chrome' || this.name === 'Opera') {
+        // Get all tabs
+        chrome.tabs.query({}, function(list){
+          // Filter away all tabs whose URL does not contain the extensionID
+          var extensionID = chrome.app.getDetails().id;
+          list = list.filter(function(tab) {
+            return tab.url.match(extensionID) !== null;
+          });
+          // Only tabs in Online Notiwall are left
+          list = list.filter(function(tab) {
+            return !tab.active;
+          });
+          // Kill all the inactive Notiwalls! There may be only one.
+          for (var i = 0; i < list.length; i++) {
+            if (DEBUG) {
+              console.warn('DEBUG is on, I deferred from killing other Notiwall with ID:', list[i].id, "- There may be room for others.");
+            }
+            else {
+              if (DEBUG) console.warn('Killing other Notiwall with ID:', list[i].id, "- There may be only one!");
+              chrome.tabs.remove(list[i].id);
+            }
+          };
+        });
+      }
+      else {
+        console.error(this.msgUnsupported);
+      }
+    } catch (err) {
+      // Do nothing
+    }
+  },
+
+  reloadAllNotiwalls: function(DEBUG) {
+    DEBUG = DEBUG || false;
+    try {
+      if (this.name === 'Chrome' || this.name === 'Opera') {
+        chrome.tabs.query({}, function(list){
+          // Filter away all tabs whose URL does not contain the extensionID
+          var extensionID = chrome.app.getDetails().id;
+          list = list.filter(function(tab) {
+            return tab.url.match(extensionID) !== null;
+          });
+          // Only tabs in Online Notiwall are left
+          for (var i = 0; i < list.length; i++) {
+            // Send a message to Notiwalls about reloading themselves
+            if (DEBUG) console.warn('Telling Notiwall', list[i].id, 'to reload itself.');
+            chrome.tabs.reload(list[i].id);
+          };
+        });
+      }
+      else {
+        console.error(this.msgUnsupported);
+      }
+    } catch (err) {
+      // Do nothing
+    }
   },
 
 }

@@ -4,8 +4,7 @@
   color: #ee861f;
 }
 
-#container #bus, div#notiwalls {
+#container #bus {
   background-color: #000f1d;
-  box-shadow: 0 0 2.3vw #88b;
-  color: white;
+  box-shadow: 0 0 25px #88b;
 }

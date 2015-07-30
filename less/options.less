@@ -343,7 +343,6 @@ input, select, label, button {
         z-index: 10; /* allows the down-arrow to be painted behind this */
         position: relative; /* allows the down-arrow to be painted behind this */
         margin-top: .9vw;
-        display: none;
         width: 16vw;
         border-top: .125vw solid white;
         box-shadow: 0 .125vw .25vw #888;
@@ -405,21 +404,12 @@ input, select, label, button {
     }
     #busLogo {
       .debugred;
-      position: relative; /* allows the down-arrow to be painted behind this */
-      z-index: 10; /* allows the down-arrow to be painted behind this */
+      position: relative;
+      z-index: 10;
       float: left;
       white-space: nowrap;
       width: 5.6vw;
       margin: 0 1.4vw;
-    }
-    #arrowDown {
-      position: relative; /* paint behind other stuff */
-      z-index: 2;  /* paint behind other stuff */
-      left: -22.5vw;
-      top: 5.13vw;
-      img {
-        width: 1.5vw;
-      }
     }
   }
 

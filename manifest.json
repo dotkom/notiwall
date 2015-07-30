@@ -1,7 +1,7 @@
 {
   "name": "Online Notiwall",
   "short_name": "Notiwall",
-  "version": "0.9.4",
+  "version": "1.0.0",
   "manifest_version": 2,
   "offline_enabled": false,
 	

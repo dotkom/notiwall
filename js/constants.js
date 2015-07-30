@@ -27,7 +27,7 @@ var ls = localStorage;
 //
 
 // API servers
-var API_SERVER_1 = 'http://passoa.online.ntnu.no/api/';
+var API_SERVER_1 = 'https://passoa.online.ntnu.no/api/';
 var API_SERVER_2 = 'http://online.duvholt.net/api/';
 
 // Loops & intervals

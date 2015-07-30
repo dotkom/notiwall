@@ -1,11 +1,8 @@
 "use strict";
 
-var showSavedNotification = function() {
-  $("#notification").fadeIn(200);
-  setTimeout(function() {
-    $("#notification").fadeOut(200);
-  }, 800);
-}
+//
+// Affiliation Fields
+//
 
 var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
   var id = 'affiliationKey'+number;
@@ -78,17 +75,17 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
     // Throw out old news
     ls.removeItem('affiliationNews'+number);
 
-    if (ls['showAffiliation'+number] === 'true') {
-      // Update to new feed
-      Browser.getBackgroundProcess().updateAffiliationNews(number);
-    }
+    // Update with fresh news from new feed
+    Browser.getBackgroundProcess().updateAffiliationNews(number, function() {
+      reloadAllNotiwalls();
+    });
 
-    // Display Saved<3
-    showSavedNotification();
+    // Saved<3
+    saveOptions();
     // Analytics
     Analytics.trackEvent('clickAffiliation'+number, affiliationKey);
   });
-}
+};
 
 var bindPaletteSelector = function() {
   // Default values
@@ -102,12 +99,18 @@ var bindPaletteSelector = function() {
     // Applying palette to options page
     console.log('Applying chosen palette', palette);
     $('#palette').attr('href', Palettes.get(palette));
-    // Display Saved<3
-    showSavedNotification();
+    // Saved<3
+    saveOptions();
+    // Reload Notiwalls
+    reloadAllNotiwalls();
     // Analytics
     Analytics.trackEvent('clickPalette', palette);
   });
-}
+};
+
+//
+// Enable/Disable Hardware Features
+//
 
 var disableHardwareFeatures = function(quick) {
   if (quick) {
@@ -116,7 +119,7 @@ var disableHardwareFeatures = function(quick) {
   else {
     $('div.hardwareFeatures').slideUp();
   }
-}
+};
 
 var enableHardwareFeatures = function(quick) {
   if (quick) {
@@ -126,7 +129,11 @@ var enableHardwareFeatures = function(quick) {
     $('div.hardwareFeatures').slideDown();
   }
   Browser.getBackgroundProcess().updateStatusAndMeetings(true);
-}
+};
+
+//
+// Cantina Fields
+//
 
 var bindCantinaSelector = function(selector) {
   // Default values
@@ -136,9 +143,17 @@ var bindCantinaSelector = function(selector) {
     var cantina = $(this).prop('value');
     ls[selector] = cantina;
     Analytics.trackEvent('clickCantina', cantina);
-    Browser.getBackgroundProcess().updateCantinas();
+    Browser.getBackgroundProcess().updateCantinas(function() {
+      reloadAllNotiwalls();
+    });
+    // Saved<3
+    saveOptions();
   });
-}
+};
+
+//
+// Bus Fields
+//
 
 var bindBusFields = function(busField) {
   var cssSelector = '#' + busField;
@@ -273,7 +288,7 @@ var bindBusFields = function(busField) {
 
   // Bind favorite bus lines fields as well
   bindFavoriteBusLines(busField);
-}
+};
 
 var bindFavoriteBusLines = function(busField) {
   var cssSelector = '#' + busField;
@@ -291,12 +306,12 @@ var bindFavoriteBusLines = function(busField) {
     }
     saveBus(busField);
   });
-}
+};
 
 var clearSuggestions = function() {
   $('div#suggestions').html(''); // Empty suggestion sheet
   $('div#busSuggestions').slideUp(); // Hide suggestion sheet
-}
+};
 
 var getDirections = function(busField, correctStop) {
   var cssSelector = '#' + busField;
@@ -309,7 +324,7 @@ var getDirections = function(busField, correctStop) {
     var direction = allDirections[i];
     $(directionField).append('<option>' + direction + '</option>');
   }
-}
+};
 
 var getFavoriteLines = function(busField) {
   var cssSelector = '#' + busField;
@@ -349,15 +364,7 @@ var getFavoriteLines = function(busField) {
     // Make the bus lines clickable
     bindFavoriteBusLines(busField);
   }
-
-  // Hide the favorite lines after a short timeout
-  setTimeout(function() {
-    if (!$('#busBox').hasClass('hover')) {
-      $('#busBox .lines').slideUp();
-      $('#busBox #arrowDown').fadeIn();
-    }
-  }, 2500);
-}
+};
 
 var saveBus = function(busField) {
   var cssSelector = '#' + busField;
@@ -383,9 +390,10 @@ var saveBus = function(busField) {
   console.log('saved activeLines for '+busField, '"', activeLines, '"');
   console.log('saved inactiveLines '+busField, '"', inactiveLines, '"');
   console.log('saved for busStopId ' + busStopId);
-  showSavedNotification();
+  saveOptions();
+  reloadAllNotiwalls();
   // Analytics? No, we're not running analytics on bus stops, it would have privacy implications.
-}
+};
 
 var loadBus = function(busField) {
   var cssSelector = '#' + busField;
@@ -444,33 +452,7 @@ var loadBus = function(busField) {
       $(cssSelector + ' .lines').append('</tr></table>');
     }
   }
-}
-
-var slideFavoriteBusLines = function() {
-  // Hide the favorite bus line spans from the start
-  setTimeout(function() {
-    if (!$('#busBox').hasClass('hover')) {
-      $('#busBox .lines').slideUp();
-      $('#busBox #arrowDown').fadeIn();
-    }
-  }, 1500);
-  // Show favorite bus line spans when hovering
-  $('#busBox').mouseenter(function() {
-    clearTimeout($(this).data('timeoutId'));
-    $('#busBox .lines').slideDown();
-    $('#busBox #arrowDown').fadeOut();
-  });
-  $('#busBox').mouseleave(function() {
-    var timeoutId = setTimeout(function() {
-      if ($('#busBox .lines img').length === 0) { // currently displaying loading gifs?
-        $('#busBox .lines').slideUp();
-        $('#busBox #arrowDown').fadeIn();
-      }
-    }, 500);
-    // Set the timeoutId, allowing us to clear this trigger if the mouse comes back over
-    $('#busBox').data('timeoutId', timeoutId);
-  });
-}
+};
 
 var bindSuggestions = function() {
   $('.suggestion').click(function() {
@@ -485,9 +467,14 @@ var bindSuggestions = function() {
       });
     }
   });
-}
+};
 
-var restoreChecksToBoxes = function() {
+//
+// Restore Checks To Boxes
+// (executes itself once)
+//
+
+(function restoreChecksToBoxes() {
   // Restore checks to boxes from localStorage
   $('input:checkbox').each(function(index, element) {
     if (ls[element.id] === 'true') {
@@ -500,9 +487,14 @@ var restoreChecksToBoxes = function() {
       element.checked = true;
     }
   });
-}(); // Self executing
+}());
 
-var linkToNotiwalls = function() {
+//
+// Link buttons to Notiwalls
+// (executies itself once)
+//
+
+(function linkToNotiwalls() {
   $('div#notiwalls button.launch').click(function() {
     // Open it
     var link = $(this).attr('data-target');
@@ -510,9 +502,31 @@ var linkToNotiwalls = function() {
     Analytics.trackEvent('launch', link);
     Browser.openTab(link);
   });
-}(); // Self executing
+}());
 
-// Document ready, go!
+//
+// Saved<3
+//
+
+var saveOptions = function() {
+  $("#notification").fadeIn(200);
+  setTimeout(function() {
+    $("#notification").fadeOut(200);
+  }, 800);
+};
+
+//
+// Reload Notiwalls
+//
+
+var reloadAllNotiwalls = function() {
+  Browser.reloadAllNotiwalls(DEBUG);
+};
+
+//
+// Document Ready
+//
+
 $(document).ready(function() {
   if (DEBUG) {
     // Show the DEBUG affiliation
@@ -568,9 +582,6 @@ $(document).ready(function() {
   bindBusFields('firstBus');
   bindBusFields('secondBus');
 
-  // Slide away favorite bus lines when not needed to conserve space
-  slideFavoriteBusLines();
-
   // Load lists of bus stops
   Stops.load();
 
@@ -608,7 +619,8 @@ $(document).ready(function() {
       $('#affiliation2Symbol').css('-webkit-filter', 'grayscale(0%)');
     }
 
-    showSavedNotification();
+    saveOptions();
+    reloadAllNotiwalls();
   });
 
   $('input:radio').click(function() {
@@ -616,7 +628,8 @@ $(document).ready(function() {
     ls.whichScreen = this.id;
     console.warn('which',ls.whichScreen)
 
-    showSavedNotification();
+    saveOptions();
+    reloadAllNotiwalls();
   });
 
 });
