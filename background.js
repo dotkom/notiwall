@@ -28,18 +28,17 @@ var mainLoop = function(force) {
 
 var updateAffiliation = function(callback) {
   console.log('updateAffiliation');
-  // Fetch
-  Affiliation.get(ls.affiliationKey1, function() {
-    // Run relevant background updates
-    if (ls.useBigscreen !== 'true') {
-      if (Affiliation.org[ls.affiliationKey1].hw) {
-        updateStatusAndMeetings();
-        updateCoffeeSubscription();
-      }
-    }
-    // Callback
-    if (typeof callback === 'function') callback();
-  });
+  // Note: This function is externally called by the Notiwalls
+  if (Affiliation.org[ls.affiliationKey1].hardware) {
+    // Fetch
+    Affiliation.get(ls.affiliationKey1, function() {
+      // Run relevant background updates
+      updateStatusAndMeetings();
+      updateCoffeeSubscription();
+      // Callback
+      if (typeof callback === 'function') callback();
+    });
+  }
 };
 
 var updateStatusAndMeetings = function(force, callback) {
