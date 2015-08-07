@@ -8,7 +8,7 @@ var mainLoop = function(force) {
   if (force || iteration % UPDATE_CANTINAS_INTERVAL === 0)
     updateCantinas();
   // Only if hardware
-  if (Affiliation.org[ls.affiliationKey1].hw) {
+  if (Affiliation.org[ls.affiliationKey1].hardware) {
     if (force || iteration % UPDATE_AFFILIATION_INTERVAL === 0) {
       Browser.getBackgroundProcess().updateAffiliation(function() {
         updateMeeting();
@@ -61,7 +61,7 @@ var updateStatus = function(debugStatus) {
     ls.officescreenLastMessage = statusMessage;
     // Check for Affiliation specific status message
     // Note: overrides 'debugging' message
-    var msgs = Affiliation.org[ls.affiliationKey1].hw.statusMessages;
+    var msgs = Affiliation.org[ls.affiliationKey1].hardware.statusMessages;
     if (msgs)
       if (msgs[statusCode])
         statusMessage = msgs[statusCode];
@@ -338,7 +338,7 @@ $(document).ready(function() {
   }
 
   // Hide stuff that the user has disabled in options
-  if (!Affiliation.org[ls.affiliationKey1].hw) {
+  if (!Affiliation.org[ls.affiliationKey1].hardware) {
     $('#now').hide();
     $('#todays').hide();
   }
@@ -356,9 +356,9 @@ $(document).ready(function() {
   $('link[rel="shortcut icon"]').attr('href', icon);
 
   // Apply the affiliation's own name for it's office
-  if (Affiliation.org[ls.affiliationKey1].hw) {
-    if (Affiliation.org[ls.affiliationKey1].hw.office) {
-      $('#todays #schedule .title').text(Affiliation.org[ls.affiliationKey1].hw.office);
+  if (Affiliation.org[ls.affiliationKey1].hardware) {
+    if (Affiliation.org[ls.affiliationKey1].hardware.office) {
+      $('#todays #schedule .title').text(Affiliation.org[ls.affiliationKey1].hardware.office);
     }
   }
 

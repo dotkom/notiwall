@@ -29,8 +29,8 @@ var bindAffiliationSelector = function(number, isPrimaryAffiliation) {
     }
     else {
       // Check if switching from or to an affiliation with fancy features
-      var old_has_hardware = (Affiliation.org[oldAffiliation].hw ? true : false);
-      var new_has_hardware = (Affiliation.org[affiliationKey].hw ? true : false);
+      var old_has_hardware = (Affiliation.org[oldAffiliation].hardware ? true : false);
+      var new_has_hardware = (Affiliation.org[affiliationKey].hardware ? true : false);
       if (old_has_hardware && !new_has_hardware) {
         disableHardwareFeatures();
       }
@@ -534,7 +534,7 @@ $(document).ready(function() {
   }
 
   // Remove hardware features if the affiliation does not have it
-  if (!Affiliation.org[ls.affiliationKey1].hw) {
+  if (!Affiliation.org[ls.affiliationKey1].hardware) {
     disableHardwareFeatures();
   }
 

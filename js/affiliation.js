@@ -1,7 +1,8 @@
 "use strict";
 
 var Affiliation = {
-
+  
+  debug: 0,
   // API
   api: API_SERVER_1 + 'affiliation/',
   // Messages
@@ -1669,16 +1670,20 @@ var Affiliation = {
     ls.removeItem('backgroundLastStatusMessage');
   },
 
-  get: function(affiliation, callback) {
-    if (this.org[affiliation] === undefined) {
+  get: function(affiliationKey, callback) {
+    if (this.org[affiliationKey] === undefined) {
       console.error(this.msgUnsupportedAffiliation);
+      return;
+    }
+    if (this.org[affiliationKey].hardware === undefined) {
+      if (this.debug) console.warn('Affiliation: The affiliation', this.org[affiliationKey].name, 'does not have hardware features');
       return;
     }
 
     var self = this;
 
     Ajaxer.getJson({
-      url: this.api + affiliation,
+      url: this.api + affiliationKey,
       success: function(json) {
         self.parse(json, callback);
       },
