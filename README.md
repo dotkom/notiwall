@@ -18,13 +18,14 @@ Use a spare computer, one you don't need for anything else.
 1. Open "System Settings"
   * Displays -> Set rotation to clockwise
   * Brightness & Lock -> Never turn screen off
-  * Appearance -> Behavior -> Auto-hide the launcher
+  * Appearance -> Look -> Set wallpaper to "Notiwallpaper.png" (see wallpaper folder in this repository)
+  * Appearance -> Look -> Set theme to "Radiance"
 1. Open "Update Manager"
-  * Settings -> Never automatically check updates (we will get back to security updates)
+  * <del>Settings -> Never automatically check updates (we will get back to security updates)</del>
   * Settings -> Never notify me of a new Ubuntu version
 1. Open a terminal
-  * `sudo apt-get install openssh-server vim unclutter chromium-browser unattended-upgrades update-notifier-common`
-1. Enable automatic security updates
+  * `sudo apt-get install vim unclutter chromium-browser unattended-upgrades update-notifier-common`
+1. Enable automatic updates
   * Go here to find an updated guide: https://help.ubuntu.com/community/AutomaticSecurityUpdates
   * Follow the guide currently titled "Using the unattended-upgrades package"
   * The very short version:
@@ -36,7 +37,7 @@ Use a spare computer, one you don't need for anything else.
   * Settings -> Set Chrome as default browser
   * Settings -> Do not offer to save passwords
   * Settings -> On startup, open the new tab page (this is important for kiosk mode to work properly)
-  * Install Notiwall from the [Chrome Web Store](<LINK??????????????????????????????????????????????????????????????????????????????????>)
+  * Install Notiwall from the [Chrome Web Store](https://chrome.google.com/webstore/detail/online-notiwall/ockmkaidddgbbababholkkhlmppnacjm)
   * Online Notiwall Options -> Choose your settings and choose a Notiwall, e.g. the infoscreen or the officescreen
 1. The launcher
   * Lock the following icons to the launcher, for easy access:
