@@ -52,40 +52,38 @@ var updateStatus = function(debugStatus) {
     statusCode = debugStatus;
     statusMessage = 'debugging';
   }
-  if (ls.infoscreenLastStatusCode !== statusCode || ls.infoscreenLastMessage !== statusMessage) {
-    if (Object.keys(Affiliation.foods).indexOf(statusCode) > -1) {
-      if (typeof Affiliation.foods[statusCode].image !== 'undefined') {
-        // Food status with image
-        $('#office #status img').attr('src', Affiliation.foods[statusCode].image);
-        $('#office #status #text').hide();
-        $('#office #status img').show();
-      }
-      else {
-        // Food status with just title
-        $('#office #status #text').text(Affiliation.foods[statusCode].title);
-        $('#office #status #text').css('color', Affiliation.foods[statusCode].color);
-        $('#office #status img').hide();
-        $('#office #status #text').show();
-      }
+  if (Object.keys(Affiliation.foods).indexOf(statusCode) > -1) {
+    if (typeof Affiliation.foods[statusCode].image !== 'undefined') {
+      // Food status with image
+      $('#office #status img').attr('src', Affiliation.foods[statusCode].image);
+      $('#office #status #text').hide();
+      $('#office #status img').show();
     }
     else {
-      // Regular status
-      $('#office #status #text').html(Affiliation.statuses[statusCode].title);
-      $('#office #status #text').css('color', Affiliation.statuses[statusCode].color);
+      // Food status with just title
+      $('#office #status #text').text(Affiliation.foods[statusCode].title);
+      $('#office #status #text').css('color', Affiliation.foods[statusCode].color);
       $('#office #status img').hide();
       $('#office #status #text').show();
     }
-    // Save them
-    ls.infoscreenLastStatusCode = statusCode;
-    ls.infoscreenLastMessage = statusMessage;
-    // Check for Affiliation specific status message
-    // Note: overrides 'debugging' message
-    var msgs = Affiliation.org[ls.affiliationKey1].hardware.statusMessages;
-    if (msgs)
-      if (msgs[statusCode])
-        statusMessage = msgs[statusCode];
-    $('#office #subtext').html(statusMessage);
   }
+  else {
+    // Regular status
+    $('#office #status #text').html(Affiliation.statuses[statusCode].title);
+    $('#office #status #text').css('color', Affiliation.statuses[statusCode].color);
+    $('#office #status img').hide();
+    $('#office #status #text').show();
+  }
+  // Save them
+  ls.infoscreenLastStatusCode = statusCode;
+  ls.infoscreenLastMessage = statusMessage;
+  // Check for Affiliation specific status message
+  // Note: overrides 'debugging' message
+  var msgs = Affiliation.org[ls.affiliationKey1].hardware.statusMessages;
+  if (msgs)
+    if (msgs[statusCode])
+      statusMessage = msgs[statusCode];
+  $('#office #subtext').html(statusMessage);
 };
 
 //
