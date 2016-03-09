@@ -31,7 +31,7 @@ var mainLoop = function(force) {
 
 var updateStatus = function(debugStatus) {
   console.log('updateStatus');
-  
+
   // Get meeting data
   var meeting = ls.meetingString;
 
@@ -98,20 +98,7 @@ var updateMeeting = function() {
   else {
     var meetingString = ls.meetingString;
     var htmlMeeting = meetingString.replace(/\n/g, '<br />');
-
-    // Online and Abakus gets the Hackerspace info as well as meetings
-    if (ls.affiliationKey1.match(/online|abakus/g)) {
-      Hackerspace.get(function(hackerspace) {
-        $('#todays #schedule #meetings').html(htmlMeeting + '<div id="hackerspace">' + hackerspace + '</div>');
-        $('#todays #schedule #meetings #hackerspace span').click(function(elem) {
-          Browser.openTab(Hackerspace.web);
-          window.close();
-        });
-      });
-    }
-    else {
-      $('#todays #schedule #meetings').html(htmlMeeting);
-    }
+    $('#todays #schedule #meetings').html(htmlMeeting);
   }
 }
 
@@ -246,7 +233,7 @@ var updateBus = function() {
       $(busStop+' .'+spans[i]+' .time').html('');
     }
     $(busStop+' .error').html('');
-    
+
     // if lines is an error message
     if (typeof lines === 'string') {
       $(busStop+' .error').html(lines);
@@ -314,7 +301,7 @@ $(document).ready(function() {
       }
     });
   }
-  
+
   // Clear values that should start empty
   Affiliation.clearAffiliationData();
 

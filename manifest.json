@@ -1,13 +1,13 @@
 {
   "name": "Online Notiwall",
   "short_name": "Notiwall",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "manifest_version": 2,
   "offline_enabled": false,
-	
+
   "description": "Viser linjeforeningsnyheter, SiT kantinemenyer, AtB sanntidsbuss og mer til Trondheimsstudenter via infoskjermer.",
   "homepage_url": "https://online.ntnu.no/",
-  
+
   "background": {
     "page": "background.html"
   },
@@ -22,7 +22,7 @@
     "48" : "img/logo-48.png",
     "128" : "img/logo-128.png"
   },
-	
+
   "permissions": [
     "power",
     "tabs",
