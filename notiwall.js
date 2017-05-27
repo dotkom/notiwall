@@ -122,11 +122,4 @@ Browser.killOtherNotiwalls(DEBUG);
   // Adding creator name to pageflip and looping it periodically
   changeCreatorName(ls.extensionOwner);
   loopCreatorName();
-  // Blinking cursor at pageflip
-  setInterval(function() {
-    $(".pageflipcursor").animate({opacity: 0}, "fast", "swing", function() {
-      $(this).animate({opacity: 1}, "fast", "swing");
-    });
-  }, 600);
-
 }());
