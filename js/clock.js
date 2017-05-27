@@ -18,8 +18,12 @@ var Clock = {
 		if (hour < 10) { hour = "0" + hour; }
 		if (minute < 10) { minute = "0" + minute; }
 
-		$("#hours").html(hour);
-		$("#minutes").html(minute);
+		if($("#hours").html() != hour) {
+			$("#hours").html(hour);
+		}
+		if($("#minutes").html() != minute) {
+			$("#minutes").html(minute);
+		}
 	},
 
 }.start();
