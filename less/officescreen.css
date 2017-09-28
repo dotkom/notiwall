@@ -281,6 +281,7 @@ body {
   left: 0;
   clear: both;
   display: inline-block;
+  display: none;
   background-color: #111;
   margin-top: 3.8vw;
   box-shadow: 0 0 3vw #ccc;
