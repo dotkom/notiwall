@@ -1,0 +1,9 @@
+.Header {
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 68.8vw solid transparent;
+  border-left: 100vw solid #000040;
+}

@@ -2,17 +2,19 @@ import { version } from 'inferno';
 import Component from 'inferno-component';
 import './registerServiceWorker';
 import './App.css';
+import Header from './components/Header';
+import Bus from './components/Bus';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="head">
+        <Header>
           <h2>Notiwall v2</h2>
-        </header>
-        <main className="content">
-
-        </main>
+          <div className="triangle">
+          </div>
+        </Header>
+        <Bus />
       </div>
     );
   }
