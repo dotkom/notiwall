@@ -5,7 +5,7 @@ class Bus extends Component {
   render() {
     return (
       <div className="Bus">
-        Heu
+        Hei
       </div>
     );
   }

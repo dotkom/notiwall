@@ -4,10 +4,12 @@ body {
   color: #ddd;
   background-color: #121280;
   font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif;
+  
 }
+
 .content {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: #004b80;
+    background-color: #000040;
 }
