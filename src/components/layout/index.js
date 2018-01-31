@@ -1,5 +1,7 @@
 import Section from './Section';
+import Template from './Template';
 
 export {
-    Section
+    Section,
+    Template,
 };
