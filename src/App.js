@@ -14,11 +14,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header>
-          <div className="triangle">
-          </div>
-        </Header>
-        <Vakter />
+        <Section>
+          <Header>
+            <div className="triangle">
+            </div>
+          </Header>
+        </Section>
+        <Section>
+          <Vakter />
+        </Section>
         <Section>
           <Bus />
         </Section>
