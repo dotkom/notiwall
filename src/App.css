@@ -1,11 +1,8 @@
 .App {
   text-align: center;
   display: flex;
-  flex-flow: column wrap;
-}
-
-.App-logo {
-  height: 80px;
+  flex-flow: row wrap;
+  min-height: 100vh;
 }
 
 .App-header {
@@ -13,12 +10,4 @@
   height: 150px;
   padding: 20px;
   color: #3d464d;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-code {
-  color: #e73a37;
 }
