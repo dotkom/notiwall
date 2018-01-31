@@ -1,12 +1,13 @@
 import Component from 'inferno-component';
+import { Template } from '../layout';
 import './Vakter.css';
 
 class Vakter extends Component {
   render() {
     return (
-      <div className="Vakter">
+      <Template className="Vakter">
         Vakter e her
-      </div>
+      </Template>
     );
   }
 }

@@ -1,12 +1,13 @@
 import Component from 'inferno-component';
+import { Template } from '../layout';
 import './Bus.css';
 
 class Bus extends Component {
   render() {
     return (
-      <div className="Bus">
+      <Template className="Bus">
         Bussen er her
-      </div>
+      </Template>
     );
   }
 }

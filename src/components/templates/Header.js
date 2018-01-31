@@ -1,12 +1,13 @@
 import Component from 'inferno-component';
+import { Template } from '../layout';
 import './Header.css';
 
 class Header extends Component {
   render() {
     return (
-      <div className="Header">
+      <Template className="Header">
         {this.props.children}
-      </div>
+      </Template>
     );
   }
 }
