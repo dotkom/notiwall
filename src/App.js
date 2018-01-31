@@ -13,10 +13,10 @@ import {
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
           <Header>
-            <div className="triangle">
+            <div className="trianglee">
             </div>
           </Header>
         </Section>
