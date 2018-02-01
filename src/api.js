@@ -7,12 +7,7 @@ export const API = {
     });
     req.method = 'POST';
     req.headers = new Headers(req.headers);
-
-    if (!req.body) {
-      req.body = {};
-    }
-
-    req.body = JSON.stringify(req.body);
+    req.body = JSON.stringify(req.body || {});
 
     return fetch(new Request(API.transformURL(url), req))
       .then(res => res.json())
@@ -34,6 +29,6 @@ export const API = {
   transformURL(url) {
       return /^https?:\/\//.test(url)
         ? url
-        : this.joinPath(API_ROOT, url)
+        : this.joinPath(API_ROOT, url);
   },
 };
