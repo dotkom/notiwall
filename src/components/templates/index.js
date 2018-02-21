@@ -1,11 +1,4 @@
-import Bus from './Bus';
-import Events from './Events';
-import Header from './Header';
-import Vakter from './Vakter';
-
-export {
-    Bus,
-    Events,
-    Header,
-    Vakter,
-};
+export { default as Bus } from './Bus';
+export { default as Events } from './Events';
+export { default as Header } from './Header';
+export { default as Vakter } from './Vakter';

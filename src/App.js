@@ -1,31 +1,38 @@
 import Component from 'inferno-component';
 import './registerServiceWorker';
 import './App.css';
-import {
-  Bus,
-  Header,
-  Vakter,
-} from './components/templates';
-import {
-  Section,
-} from './components/layout';
+import * as Template from './components/templates';
+import { Section } from './components/layout';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      components: ['Vakter', 'Bus', 'Vakter'],
+    };
+  }
+
   render() {
+    let componentElements = this.state.components.map(e => {
+      const Element = Template[e];
+
+      return (
+        <Section>
+          <Element />
+        </Section>
+      );
+    });
+
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
-          <Header>
-            <div className="trianglee">
+          <Template.Header>
+            <div className="triangle">
             </div>
-          </Header>
+          </Template.Header>
         </Section>
-        <Section>
-          <Vakter />
-        </Section>
-        <Section>
-          <Bus />
-        </Section>
+        {componentElements}
       </div>
     );
   }
