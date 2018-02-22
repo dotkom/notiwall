@@ -5,7 +5,8 @@
   "dependencies": {
     "inferno": "^3.9.0",
     "inferno-component": "^3.9.0",
-    "inferno-scripts": "4.2.0"
+    "inferno-scripts": "4.2.0",
+    "moment": "^2.20.1"
   },
   "scripts": {
     "start": "inferno-scripts start",
