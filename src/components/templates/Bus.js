@@ -6,7 +6,7 @@ class Bus extends Component {
   render() {
     return (
       <Template className="Bus">
-        Bussen er her
+        Bussen er her {this.props.coffeeTime}
       </Template>
     );
   }
