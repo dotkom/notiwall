@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   color: #ddd;
+  overflow-x: hidden;
   background-color: #121280;
   font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif;
   
