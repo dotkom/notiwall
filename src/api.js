@@ -3,7 +3,7 @@ import { API_ROOT } from './constants';
 export const API = {
   postRequest(url, req, callback = () => {}, error = console.error) {
     req.headers = Object.assign({}, req.headers, {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     });
     req.method = 'POST';
     req.headers = new Headers(req.headers);
@@ -16,7 +16,13 @@ export const API = {
   },
 
   getRequest(url, callback = () => {}, error = console.error) {
-    return fetch(API.transformURL(url))
+    let req = {
+      headers: new Headers({
+      'Content-Type': 'application/json',
+      })
+    }
+
+    return fetch(new Request(API.transformURL(url), req))
       .then(res => res.json())
       .then(callback)
       .catch(error);
