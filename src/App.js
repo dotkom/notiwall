@@ -10,40 +10,65 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      components: [
-        {
-          template: 'Vakter',
-          title: 'Vakts',
-        },
-        {
-          template: 'Bus',
-          title: 'This is bus',
-        },
-        {
-          template: 'Coffee',
-          title: 'Coffee was made',
-          coffeeTime: 0,
-        },
-        {
-          template: 'Vakter',
-          title: 'Vaktsss',
-        },
-      ],
-      noe: 2213
+    let apis = {
+      affiliation: {
+        interval: 10,
+        url: `${API_URL}/affiliation/online`,
+      },
+      coffeePots: {
+        url: `${API_URL}/coffee/online`,
+      },
     };
 
-    // Fetch new data each 10th second
-    this.fetchData();
-    setInterval(() => {
-      this.fetchData();
-    }, 10000);
+    let components = [
+      {
+        template: 'Vakter',
+        title: 'Vakts',
+      },
+      {
+        template: 'Bus',
+        title: 'This is bus',
+      },
+      {
+        apis: [ 'affiliation', 'coffeePots' ],
+        template: 'Coffee',
+        title: 'Kaffe ble laget',
+      },
+      {
+        template: 'Vakter',
+        title: 'Vaktsss',
+      },
+    ];
+
+    this.state = {
+      apis,
+      components,
+    };
+
+    this.startAPI('affiliation');
+  }
+  
+  startAPI(api) {
+    this.fetchData(api);
+
+    let interval = this.state.apis[api].interval;
+
+    if (interval && interval > 0) {
+      setInterval(() => {
+        this.fetchData(api);
+      }, interval * 1000);
+    }
   }
 
-  fetchData () {
-    API.getRequest(`${API_URL}/affiliation/online`, data => {
+  fetchData(api) {
+    API.getRequest(this.state.apis[api].url, data => {
       let components = this.state.components.slice();
-      components[2].coffeeTime = new Date(data.coffee.date).getTime();
+
+      for (let component of components) {
+        if ('apis' in component && component.apis.indexOf(api) !== -1) {
+          component.data = data;
+        }
+      }
 
       this.setState(Object.assign({}, this.state, {
         components: components,
