@@ -1,4 +1,5 @@
 import moment from 'moment';
+import 'moment/locale/nb';
 
 export const formatDate = (date) => {
     if (!date) {
