@@ -1,6 +1,7 @@
 import Component from 'inferno-component';
 import { Template } from '../layout';
-import { formatDate } from '../../common'
+import { distanceInWordsToNow, format } from 'date-fns';
+import * as locale from 'date-fns/locale/nb';
 
 class Coffee extends Component {
   constructor() {
@@ -8,26 +9,28 @@ class Coffee extends Component {
 
     this.state = {
       coffeeTime: 0,
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
       this.setState(Object.assign({}, this.state, {
-        coffeeTime: new Date(nextProps.data.coffee.date).getTime()
+        coffeeTime: new Date(nextProps.data.coffee.date).getTime(),
       }));
     }
   }
 
   render() {
-    let dateFormatted = '';
-    if ('coffeeTime' in this.state) {
-      dateFormatted = formatDate(this.state.coffeeTime);
+    let coffeeInfo = 'Henter kaffastatus...';
+    if ('coffeeTime' in this.state && this.state.coffeeTime > 0) {
+      let dateFormatted = distanceInWordsToNow(new Date(this.state.coffeeTime), { locale });
+      let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
+      coffeeInfo = `Kaffe ble laget ${dateFormatted} siden. (${timeFormatted})`;
     }
 
     return (
       <Template className="Coffee">
-        {this.props.title} {dateFormatted}
+        {coffeeInfo}
       </Template>
     );
   }

@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "date-fns": "^1.29.0",
     "inferno": "^3.9.0",
     "inferno-component": "^3.9.0",
-    "inferno-scripts": "4.2.0",
-    "moment": "^2.20.1"
+    "inferno-scripts": "4.2.0"
   },
   "scripts": {
     "start": "inferno-scripts start",
