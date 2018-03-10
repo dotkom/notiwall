@@ -47,19 +47,25 @@ class App extends Component {
       components,
     };
 
-    this.startAPI('affiliation');
-  }
-  
-  startAPI(api) {
-    this.fetchData(api);
-
-    let interval = this.state.apis[api].interval;
-
-    if (interval && interval > 0) {
-      setInterval(() => {
-        this.fetchData(api);
-      }, interval * 1000);
+    for (let api in this.state.apis) {
+      this.startAPI(api);
     }
+  }
+
+  startAPI(api) {
+    let delay = this.state.apis[api].delay || 0;
+
+    setTimeout(() => {
+      this.fetchData(api);
+
+      let interval = this.state.apis[api].interval;
+
+      if (interval && interval > 0) {
+        setInterval(() => {
+          this.fetchData(api);
+        }, interval * 1000);
+      }
+    }, delay * 1000);
   }
 
   fetchData(api) {
@@ -75,15 +81,15 @@ class App extends Component {
       this.setState(Object.assign({}, this.state, {
         components: components,
       }));
-    }, console.log);
+    });
   }
 
   render() {
-    let componentElements = this.state.components.map(element => {
+    let componentElements = this.state.components.map((element, i) => {
       const Element = Template[element.template];
 
       return (
-        <Section>
+        <Section key={i}>
           <Element {...element} />
         </Section>
       );
