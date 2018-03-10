@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "date-fns": "^1.29.0",
+    "object-path": "^0.11.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",

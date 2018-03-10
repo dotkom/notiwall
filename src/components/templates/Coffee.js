@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Template } from '../layout';
 import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
+import { get } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
 
 class Coffee extends Component {
@@ -13,10 +14,19 @@ class Coffee extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      this.setState(Object.assign({}, this.state, {
-        coffeeTime: new Date(nextProps.data.coffee.date).getTime(),
-      }));
+    let nextDate = get(nextProps, 'data.coffee.date');
+    let date = get(this.props, 'data.coffee.date');
+
+    if (nextDate !== date) {
+      if (nextDate === null) {
+        this.setState(Object.assign({}, this.state, {
+          coffeeTime: -1,
+        }));
+      } else {
+        this.setState(Object.assign({}, this.state, {
+          coffeeTime: new Date(nextDate).getTime(),
+        }));
+      }
     }
   }
 
@@ -34,6 +44,8 @@ class Coffee extends Component {
         let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
         coffeeInfo = `Kaffe ble laget ${dateFormatted} siden (${timeFormatted})`;
       }
+    } else if (this.state.coffeeTime === -1) {
+      coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
     }
 
     return (
