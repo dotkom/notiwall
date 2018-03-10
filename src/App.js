@@ -1,5 +1,4 @@
-import Component from 'inferno-component';
-import './registerServiceWorker';
+import React, { Component } from 'react';
 import './App.css';
 import * as Template from './components/templates';
 import { Section } from './components/layout';
@@ -33,6 +32,9 @@ class App extends Component {
         apis: [ 'affiliation', 'coffeePots' ],
         template: 'Coffee',
         title: 'Kaffe ble laget',
+        css: `
+          .Coffee { background-color: red; }
+        `,
       },
       {
         template: 'Vakter',

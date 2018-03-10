@@ -1,4 +1,4 @@
-import Component from 'inferno-component';
+import React, { Component } from 'react';
 import { Template } from '../layout';
 import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
 import * as locale from 'date-fns/locale/nb';
@@ -22,7 +22,8 @@ class Coffee extends Component {
 
   render() {
     let coffeeInfo = 'Henter kaffastatus...';
-    if ('coffeeTime' in this.state && this.state.coffeeTime > 0) {
+
+    if (this.state.coffeeTime > 0) {
       let coffeeDate = new Date(this.state.coffeeTime);
 
       if (differenceInHours(new Date(), coffeeDate) > 1) {
@@ -36,7 +37,7 @@ class Coffee extends Component {
     }
 
     return (
-      <Template className="Coffee">
+      <Template className="Coffee" {...this.props}>
         {coffeeInfo}
       </Template>
     );

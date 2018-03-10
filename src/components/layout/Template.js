@@ -1,14 +1,30 @@
-import Component from 'inferno-component';
+import React, { Component } from 'react';
+import Style from 'style-it';
 import './Template.css';
 
 class Template extends Component {
   render() {
-    this.props.className = `${this.props.className || ''} Template`;
+    let props = Object.assign({}, this.props);
+
+    props.className = `${props.className || ''} Template`;
+
+    let modularCSS = '';
+    if ('css' in props) {
+      modularCSS = props.css;
+      delete props.css;
+    }
+
+    delete props.apis;
+    delete props.data;
+    delete props.template;
 
     return (
-      <div {...this.props}>
-        {this.props.children}
-      </div>
+      <Style>
+        {modularCSS}
+        <div {...props}>
+          {this.props.children}
+        </div>
+      </Style>
     );
   }
 }

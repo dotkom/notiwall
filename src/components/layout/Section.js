@@ -1,4 +1,4 @@
-import Component from 'inferno-component';
+import React, { Component } from 'react';
 import './Section.css';
 
 class Section extends Component {
