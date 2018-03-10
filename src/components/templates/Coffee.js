@@ -1,6 +1,6 @@
 import Component from 'inferno-component';
 import { Template } from '../layout';
-import { distanceInWordsToNow, format } from 'date-fns';
+import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
 import * as locale from 'date-fns/locale/nb';
 
 class Coffee extends Component {
@@ -23,9 +23,16 @@ class Coffee extends Component {
   render() {
     let coffeeInfo = 'Henter kaffastatus...';
     if ('coffeeTime' in this.state && this.state.coffeeTime > 0) {
-      let dateFormatted = distanceInWordsToNow(new Date(this.state.coffeeTime), { locale });
-      let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
-      coffeeInfo = `Kaffe ble laget ${dateFormatted} siden. (${timeFormatted})`;
+      let coffeeDate = new Date(this.state.coffeeTime);
+
+      if (differenceInHours(new Date(), coffeeDate) > 1) {
+        let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
+        coffeeInfo = `Kaffe ble laget kl. ${timeFormatted}`;
+      } else {
+        let dateFormatted = distanceInWordsToNow(coffeeDate, { locale });
+        let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
+        coffeeInfo = `Kaffe ble laget ${dateFormatted} siden (${timeFormatted})`;
+      }
     }
 
     return (
