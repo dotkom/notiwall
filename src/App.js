@@ -18,10 +18,14 @@ class App extends Component {
       coffeePots: {
         url: `${API_URL}/coffee/online`,
       },
-      bus: {
+      busFromCity: {
         interval: 10,
         url: 'https://atbapi.tar.io/api/v1/departures/16010265',
-      }
+      },
+      busToCity: {
+        interval: 10,
+        url: 'https://atbapi.tar.io/api/v1/departures/16010266',
+      },
     };
 
     let components = [
@@ -44,7 +48,8 @@ class App extends Component {
       },
       {
         apis: {
-          'bus.departures': 'departures',
+          'busFromCity.departures': 'fromCity',
+          'busToCity.departures': 'toCity',
         },
         template: 'Bus',
       },
