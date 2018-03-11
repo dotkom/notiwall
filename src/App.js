@@ -33,13 +33,13 @@ class App extends Component {
         template: 'Vakter',
       },
       {
+        template: 'Coffee',
         apis: {
           // Format:
           // apiName.path.to.api.value: objectPath.to.save.value
           'affiliation.coffee.date': 'coffeeTime',
           'coffeePots.pots': 'pots',
         },
-        template: 'Coffee',
         css: `
           .Coffee {
             background-color: #f80;
@@ -47,11 +47,11 @@ class App extends Component {
         `,
       },
       {
+        template: 'Bus',
         apis: {
           'busFromCity.departures': 'fromCity',
           'busToCity.departures': 'toCity',
         },
-        template: 'Bus',
       },
     ];
 
