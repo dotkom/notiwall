@@ -27,7 +27,6 @@ class App extends Component {
     let components = [
       {
         template: 'Vakter',
-        title: 'Vakts',
       },
       {
         apis: {
@@ -37,18 +36,17 @@ class App extends Component {
           'coffeePots.pots': 'pots',
         },
         template: 'Coffee',
-        title: 'Kaffe ble laget',
         css: `
-          .Coffee { background-color: #f80; }
+          .Coffee {
+            background-color: #f80;
+          }
         `,
       },
       {
-        apis: [ 'bus' ],
+        apis: {
+          'bus.departures': 'departures',
+        },
         template: 'Bus',
-      },
-      {
-        template: 'Vakter',
-        title: 'Vaktsss',
       },
     ];
 
