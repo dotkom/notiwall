@@ -5,7 +5,7 @@ import './Events.css';
 class Events extends Component {
   render() {
     return (
-      <Template className="Events">
+      <Template className={this.constructor.name}>
       </Template>
     );
   }

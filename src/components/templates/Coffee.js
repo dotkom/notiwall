@@ -49,7 +49,7 @@ class Coffee extends Component {
     }
 
     return (
-      <Template className="Coffee" {...this.props}>
+      <Template className={this.constructor.name} {...this.props}>
         {coffeeInfo}
       </Template>
     );

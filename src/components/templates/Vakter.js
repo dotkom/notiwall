@@ -5,8 +5,8 @@ import './Vakter.css';
 class Vakter extends Component {
   render() {
     return (
-      <Template className="Vakter">
-        Vakter e her
+      <Template className={this.constructor.name}>
+        Vakter her
       </Template>
     );
   }
