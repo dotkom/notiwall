@@ -8,7 +8,7 @@ class Template extends Component {
 
     props.className = `${props.className || ''} Template`;
 
-    let modularCSS = '';
+    let modularCSS = ' ';
     if ('css' in props) {
       modularCSS = props.css;
       delete props.css;
