@@ -18,7 +18,7 @@ export const API = {
   getRequest(url, callback = () => {}, error = console.error) {
     let req = {
       headers: new Headers({
-      'Content-Type': 'application/json',
+        //'Content-Type': 'application/json',
       })
     }
 

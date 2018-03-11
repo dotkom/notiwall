@@ -4,6 +4,7 @@ import * as Template from './components/templates';
 import { Section } from './components/layout';
 import { API } from './api';
 import { API_URL } from './constants';
+import { get, set } from 'object-path';
 
 class App extends Component {
   constructor() {
@@ -17,6 +18,10 @@ class App extends Component {
       coffeePots: {
         url: `${API_URL}/coffee/online`,
       },
+      bus: {
+        interval: 10,
+        url: 'https://atbapi.tar.io/api/v1/departures/16010265',
+      }
     };
 
     let components = [
@@ -25,16 +30,21 @@ class App extends Component {
         title: 'Vakts',
       },
       {
-        template: 'Bus',
-        title: 'This is bus',
-      },
-      {
-        apis: [ 'affiliation', 'coffeePots' ],
+        apis: {
+          // Format:
+          // apiName.path.to.api.value: objectPath.to.save.value
+          'affiliation.coffee.date': 'coffeeTime',
+          'coffeePots.pots': 'pots',
+        },
         template: 'Coffee',
         title: 'Kaffe ble laget',
         css: `
-          .Coffee { background-color: red; }
+          .Coffee { background-color: #f80; }
         `,
+      },
+      {
+        apis: [ 'bus' ],
+        template: 'Bus',
       },
       {
         template: 'Vakter',
@@ -73,8 +83,14 @@ class App extends Component {
       let components = this.state.components.slice();
 
       for (let component of components) {
-        if ('apis' in component && component.apis.indexOf(api) !== -1) {
-          component.data = data;
+        if ('apis' in component) {
+          for (let apiPath in component.apis) {
+            let [ apiKey, ...deepPath ] = apiPath.split('.');
+
+            if (apiKey === api) {
+              set(component, [ 'data', component.apis[apiPath] ], get(data, deepPath));
+            }
+          }
         }
       }
 

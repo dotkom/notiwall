@@ -14,8 +14,8 @@ class Coffee extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let nextDate = get(nextProps, 'data.coffee.date');
-    let date = get(this.props, 'data.coffee.date');
+    let nextDate = get(nextProps, 'data.coffeeTime');
+    let date = get(this.props, 'data.coffeeTime');
 
     if (nextDate !== date) {
       if (nextDate === null) {
