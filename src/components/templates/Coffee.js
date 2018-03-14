@@ -36,19 +36,18 @@ class Coffee extends Component {
         coffeeInfo = `Kaffe ble laget kl. ${timeFormatted}`;
       } else {
         let dateFormatted = distanceInWordsToNow(coffeeDate, { locale });
-        let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
-        coffeeInfo = `Kaffe ble laget ${dateFormatted} siden (${timeFormatted})`;
+        coffeeInfo = `Kaffe ble laget ${dateFormatted} siden`;
       }
     } else if (this.state.coffeeTime === -1) {
       coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
     }
 
-    let pots = null;
+    let pots = [];
     if (this.state.pots) {
       pots = this.state.pots
       .filter(e => getDay(new Date()) === getDay(e))
       .map((e, i) => {
-        return <div key={i}>{format(e, 'ddd HH:mm', { locale })}</div>;
+        return <div key={i}>{format(e, 'HH:mm', { locale })}</div>;
       });
     }
 
@@ -56,7 +55,7 @@ class Coffee extends Component {
       <Template className={this.constructor.name} {...this.props}>
         <h3>Kaffe</h3>
         {coffeeInfo}
-        <h3>Kaffe hittil i dag</h3>
+        {pots.length && <h3>Kaffe hittil i dag</h3>}
         {pots}
       </Template>
     );
