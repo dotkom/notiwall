@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Template } from '../layout';
 import './Bus.css';
-import { distanceInWords, format } from 'date-fns';
+import { distanceInWords, format, addMilliseconds, differenceInMilliseconds } from 'date-fns';
 import { get } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
 
@@ -12,7 +12,12 @@ class Bus extends Component {
     this.state = {
       toCity: [],
       fromCity: [],
+      lastTick: new Date().getTime(),
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => this.tick(), 1000);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -20,6 +25,30 @@ class Bus extends Component {
       toCity: get(nextProps, 'data.toCity', []),
       fromCity: get(nextProps, 'data.fromCity', []),
     }))
+  }
+
+  tick() {
+    let toCity = this.state.toCity.slice();
+    let fromCity = this.state.fromCity.slice();
+    let diff = differenceInMilliseconds(new Date(), this.state.lastTick);
+    console.log(diff)
+
+    for (let departure of toCity) {
+      departure.registeredDepartureTime = this.addTime(departure.registeredDepartureTime, diff);
+      departure.scheduledDepartureTime = this.addTime(departure.scheduledDepartureTime, diff);
+    }
+
+    for (let departure of fromCity) {
+      departure.registeredDepartureTime = this.addTime(departure.registeredDepartureTime, diff);
+      departure.scheduledDepartureTime = this.addTime(departure.scheduledDepartureTime, diff);
+    }
+
+    this.setState(Object.assign({}, this.state, { toCity, fromCity, lastTick: new Date().getTime() }));
+  }
+
+  addTime(time, add, strFormat = 'YYYY-MM-DDTHH:mm:ss') {
+    let newTime = addMilliseconds(time, add);
+    return format(newTime, strFormat);
   }
 
   getDepartureList(departures) {
