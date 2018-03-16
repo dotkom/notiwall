@@ -78,9 +78,9 @@ class Bus extends Component {
 
     return (
       <Template className={this.constructor.name} {...this.props}>
-        <h3>Gløshaugen syd (fra byen)</h3>
+        <h3>{this.props.name} (fra byen)</h3>
         {fromCity}
-        <h3>Gløshaugen syd (mot byen)</h3>
+        <h3>{this.props.name} (mot byen)</h3>
         {toCity}
       </Template>
     );

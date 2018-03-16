@@ -16,10 +16,12 @@ class App extends Component {
         url: `${API_URL}/affiliation/online`,
       },
       coffeePots: {
+        interval: 60,
         url: `${API_URL}/coffee/online`,
       },
       busFromCity: {
         interval: 10,
+        // api.entur.org is also an option for the whole country
         url: 'https://atbapi.tar.io/api/v1/departures/16010265',
       },
       busToCity: {
@@ -52,6 +54,7 @@ class App extends Component {
           'busFromCity.departures': 'fromCity',
           'busToCity.departures': 'toCity',
         },
+        name: 'Gløshaugen syd',
       },
     ];
 
