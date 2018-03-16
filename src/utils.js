@@ -6,9 +6,25 @@ import { get, has } from 'object-path';
 /**
  * List all matching object paths by using a simple string.
  * 
- * Example:
- * findObjectPaths({ a: { b: { c: 'first' }, c: { c: 'second' } } }, 'a.*.c')
- * Should output: [ 'a.b.c', 'a.c.c' ]
+ * Examples:
+ * 
+ * object = {
+ *   a: {
+ *     b: {
+ *       c: 'first'
+ *     },
+ *     c: {
+ *       c: 'second'
+ *     }
+ *   }
+ * }
+ * 
+ * findObjectPaths(object, 'a.b.c') => [ 'a.b.c' ]
+ * findObjectPaths(object, 'a.*.c') => [ 'a.b.c', 'a.c.c' ]
+ * findObjectPaths(object, 'a.b,c|a.c.*') => [ 'a.b', 'a.c', 'a.c.c' ]
+ * 
+ * @param {object} object Object to search through
+ * @param {string} schema Filter to select what to return from object
  */
 export const findObjectPaths = (object, schema = '') => {
 
