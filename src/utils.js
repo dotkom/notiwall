@@ -25,6 +25,8 @@ import { get, has } from 'object-path';
  * 
  * @param {object} object Object to search through
  * @param {string} schema Filter to select what to return from object
+ * 
+ * @returns {array} Array of matching paths
  */
 export const findObjectPaths = (object, schema = '') => {
 
@@ -82,4 +84,41 @@ export const findObjectPaths = (object, schema = '') => {
     }
 
     return results.map(result => result.join('.'));
-}
+};
+
+/**
+ * Return all matches found in a string encapsulated by substrings.
+ * 
+ * Examples:
+ * getStringParams('test{{one}}') => [ 'one' ]
+ * getStringParams('{{two}}test') => [ 'two' ]
+ * getStringParams('{{three}}test{{four}}') => [ 'three', 'four' ]
+ * 
+ * @param {string} string The String to search through
+ * @param {string} start Start of match
+ * @param {string} end End of match
+ * 
+ * @returns {array} Array of matches
+ */
+export const getStringParams = (string, start = '{{', end = '}}') => {
+    let chars = string.split('');
+    let offsetStart = start.length;
+    let offsetEnd = end.length;
+    let indexStart = string.indexOf(start);
+    let index = indexStart;
+    let result = [];
+
+    while (indexStart !== -1) {
+        let indexEnd = string.slice(index + offsetStart).indexOf(end);
+
+        if (indexEnd === -1) {
+            break;
+        }
+
+        result.push(string.slice(index + offsetStart, index + indexEnd + offsetEnd));
+        indexStart = string.slice(index + indexEnd + offsetEnd).indexOf(start);
+        index += indexEnd + offsetEnd + indexStart;
+    }
+
+    return result;
+};
