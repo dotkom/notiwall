@@ -33,6 +33,7 @@ class App extends Component {
     let components = [
       {
         template: 'Vakter',
+        props: {},
       },
       {
         template: 'Coffee',
@@ -47,6 +48,7 @@ class App extends Component {
             background-color: #f80;
           }
         `,
+        props: {},
       },
       {
         template: 'Bus',
@@ -55,6 +57,7 @@ class App extends Component {
           'busToCity.departures': 'toCity',
         },
         name: 'Gløshaugen syd',
+        props: {},
       },
     ];
 

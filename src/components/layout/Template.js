@@ -4,19 +4,14 @@ import './Template.css';
 
 class Template extends Component {
   render() {
-    let props = Object.assign({}, this.props);
+    let props = Object.assign({}, this.props.props);
 
-    props.className = `${props.className || ''} Template`;
+    props.className = `${this.props.className || ''} Template ${props.className || ''}`;
 
     let modularCSS = ' ';
-    if ('css' in props) {
-      modularCSS = props.css;
-      delete props.css;
+    if ('css' in this.props) {
+      modularCSS = this.props.css;
     }
-
-    delete props.apis;
-    delete props.data;
-    delete props.template;
 
     return (
       <Style>
