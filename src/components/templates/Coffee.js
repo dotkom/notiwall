@@ -42,7 +42,7 @@ class Coffee extends Component {
       coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
     }
 
-    let pots = [];
+    let pots = null;
     if (this.state.pots) {
       pots = this.state.pots
       .filter(e => getDay(new Date()) === getDay(e))
@@ -55,7 +55,7 @@ class Coffee extends Component {
       <Template className={this.constructor.name} {...this.props}>
         <h3>Kaffe</h3>
         {coffeeInfo}
-        {pots.length && <h3>Kaffe hittil i dag</h3>}
+        {pots && <h3>Kaffe hittil i dag</h3>}
         {pots}
       </Template>
     );
