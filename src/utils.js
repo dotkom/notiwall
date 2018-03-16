@@ -115,9 +115,9 @@ export const getStringParams = (string, start = '{{', end = '}}') => {
             break;
         }
 
-        result.push(string.slice(index + offsetStart, index + indexEnd + offsetEnd));
-        indexStart = string.slice(index + indexEnd + offsetEnd).indexOf(start);
-        index += indexEnd + offsetEnd + indexStart;
+        result.push(string.slice(index + offsetStart, index + offsetStart + indexEnd));
+        indexStart = string.slice(index + offsetStart + indexEnd + offsetEnd).indexOf(start);
+        index += indexEnd + offsetEnd + indexStart + offsetStart;
     }
 
     return result;

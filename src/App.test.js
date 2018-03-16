@@ -47,4 +47,10 @@ it('Get string params', () => {
   expect(getStringParams('test{{eleven}}{{twelve')).toEqual([ 'eleven' ]);
   expect(getStringParams('te}}st{{13{{14}}')).toEqual([ '13{{14' ]);
   expect(getStringParams('te}}st{{}}')).toEqual([ '' ]);
+  expect(getStringParams('test(15)test', '(', ')')).toEqual([ '15' ]);
+  expect(getStringParams('test(16))))test', '(', '))))')).toEqual([ '16' ]);
+  expect(getStringParams('test((17)test', '((', ')')).toEqual([ '17' ]);
+  expect(getStringParams('test|18|test', '|', '|')).toEqual([ '18' ]);
+  expect(getStringParams('test|19|||20||', '|', '||')).toEqual([ '19', '20' ]);
+  expect(getStringParams('test||21|||22||', '|', '|||')).toEqual([ '|21' ]);
 });
