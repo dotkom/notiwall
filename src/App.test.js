@@ -9,7 +9,7 @@ it('Renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-it('Finds object paths', () => {
+it('Find object paths', () => {
   let obj = {
     a: {
       b: {
@@ -30,4 +30,9 @@ it('Finds object paths', () => {
   expect(findObjectPaths(obj, '*.*')).toEqual([ 'a.b', 'a.c', 'b.b' ]);
   expect(findObjectPaths(obj, '*.*.c')).toEqual([ 'a.b.c', 'a.c.c' ]);
   expect(findObjectPaths(obj, '*.*.*')).toEqual([ 'a.b.c', 'a.c.c' ]);
+  expect(findObjectPaths(obj, '*.*|a.b.c')).toEqual([ 'a.b', 'a.c', 'b.b', 'a.b.c' ]);
+  expect(findObjectPaths(obj, 'a.b,c')).toEqual([ 'a.b', 'a.c' ]);
+  expect(findObjectPaths(obj, 'a.b,c.c')).toEqual([ 'a.b.c', 'a.c.c' ]);
+  expect(findObjectPaths(obj, 'a.b,c.d')).toEqual([]);
+  expect(findObjectPaths(obj, '*.*|a.b,c.c')).toEqual([ 'a.b', 'a.c', 'b.b', 'a.b.c', 'a.c.c' ]);
 });
