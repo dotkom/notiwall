@@ -31,7 +31,6 @@ class Bus extends Component {
     let toCity = this.state.toCity.slice();
     let fromCity = this.state.fromCity.slice();
     let diff = differenceInMilliseconds(new Date(), this.state.lastTick);
-    console.log(diff)
 
     for (let departure of toCity) {
       departure.registeredDepartureTime = this.addTime(departure.registeredDepartureTime, diff);
