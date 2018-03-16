@@ -101,7 +101,6 @@ export const findObjectPaths = (object, schema = '') => {
  * @returns {array} Array of matches
  */
 export const getStringParams = (string, start = '{{', end = '}}') => {
-    let chars = string.split('');
     let offsetStart = start.length;
     let offsetEnd = end.length;
     let indexStart = string.indexOf(start);
