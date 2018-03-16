@@ -47,7 +47,11 @@ export const findObjectPaths = (object, schema = '') => {
                     }
                 }
             }
-        } else {
+        }
+
+        // If there are finite possibilities we know the
+        // paths to search through.
+        else {
             for (let option of key.split(',')) {
                 for (let index in results) {
                     let path = results[index].concat([option]);
