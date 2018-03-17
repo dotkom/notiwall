@@ -55,7 +55,7 @@ class Coffee extends Component {
       <Template className={this.constructor.name} {...this.props}>
         <h3>Kaffe</h3>
         {coffeeInfo}
-        {pots && <h3>Kaffe hittil i dag</h3>}
+        {pots && pots.length ? <h3>Kaffe hittil i dag</h3> : null}
         {pots}
       </Template>
     );
