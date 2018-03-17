@@ -19,7 +19,7 @@ class App extends Component {
           online: 'online',
           abakus: 'abakus',
           delta: 'delta',
-        }
+        },
       },
       coffeePots: {
         interval: 60,
@@ -37,8 +37,8 @@ class App extends Component {
           samf: {
             fromCity: '16010265',
             toCity: '16010266',
-          }
-        }
+          },
+        },
       },
     };
 
@@ -123,6 +123,29 @@ class App extends Component {
   }
 
   startAPI(api, url = '', deep = '') {
+    // Check if any components has this API, else we should not fetch data
+    let components = this.state.components.slice();
+    let object = api + (deep ? '.' + deep : '');
+    let apiIsInUse = false;
+    for (let component of components) {
+      if ('apis' in component) {
+        for (let apiPath in component.apis) {
+          if (apiPath.indexOf(object) === 0) {
+            apiIsInUse = true;
+            break;
+          }
+        }
+      }
+      if (apiIsInUse) {
+        break;
+      }
+    }
+
+    if (!apiIsInUse) {
+      return;
+    }
+
+    // Run API
     let delay = this.state.apis[api].delay || 0;
 
     setTimeout(() => {
@@ -149,7 +172,7 @@ class App extends Component {
       for (let component of components) {
         if ('apis' in component) {
           for (let apiPath in component.apis) {
-            if (apiPath.indexOf(api) !== -1) {
+            if (apiPath.indexOf(api) === 0) {
               let deepPath = apiPath.split(api + '.')[1];
               set(component, component.apis[apiPath], get(data, deepPath));
             }
