@@ -26,17 +26,17 @@ class App extends Component {
         url: `${API_URL}/coffee/online`,
       },
       bus: {
-        interval: 0,
+        interval: 10,
         // api.entur.org is also an option for the whole country
         url: 'https://atbapi.tar.io/api/v1/departures/{{stops.*.fromCity,toCity}}',
         stops: {
           glos: {
             fromCity: '16010265',
-            toCity: '16010266',
+            toCity: '16011265',
           },
           samf: {
-            fromCity: '16010265',
-            toCity: '16010266',
+            fromCity: '16010476',
+            toCity: '16011476',
           },
         },
       },
@@ -64,11 +64,20 @@ class App extends Component {
       },
       {
         template: 'Bus',
+        name: 'Gløshaugen syd',
         apis: {
           'bus.stops.glos.fromCity.departures': 'fromCity',
           'bus.stops.glos.toCity.departures': 'toCity',
         },
-        name: 'Gløshaugen syd',
+        props: {},
+      },
+      {
+        template: 'Bus',
+        name: 'Samfundet',
+        apis: {
+          'bus.stops.samf.fromCity.departures': 'fromCity',
+          'bus.stops.samf.toCity.departures': 'toCity',
+        },
         props: {},
       },
     ];
