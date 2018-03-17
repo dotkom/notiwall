@@ -14,7 +14,12 @@ class App extends Component {
     let apis = {
       affiliation: {
         interval: 10,
-        url: `${API_URL}/affiliation/online`,
+        url: `${API_URL}/affiliation/{{org.*}}`,
+        org: {
+          online: 'online',
+          abakus: 'abakus',
+          delta: 'delta',
+        }
       },
       coffeePots: {
         interval: 60,
@@ -47,7 +52,7 @@ class App extends Component {
         apis: {
           // Format:
           // apiName.path.to.api.value: objectPath.to.save.value
-          'affiliation.coffee.date': 'coffeeTime',
+          'affiliation.org.online.coffee.date': 'coffeeTime',
           'coffeePots.pots': 'pots',
         },
         css: `
@@ -60,8 +65,8 @@ class App extends Component {
       {
         template: 'Bus',
         apis: {
-          'bus.stops.glos.fromCity.tests.departures': 'fromCity',
-          'bus.stops.glos.toCity.tests.departures': 'toCity',
+          'bus.stops.glos.fromCity.departures': 'fromCity',
+          'bus.stops.glos.toCity.departures': 'toCity',
         },
         name: 'Gløshaugen syd',
         props: {},
