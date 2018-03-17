@@ -15,11 +15,11 @@ class Coffee extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let nextDate = get(nextProps, 'data.coffeeTime');
+    let nextDate = get(nextProps, 'coffeeTime');
 
     let state = Object.assign({}, this.state, {
       coffeeTime: nextDate === null ? -1 : new Date(nextDate).getTime(),
-      pots: get(nextProps, 'data.pots'),
+      pots: get(nextProps, 'pots'),
     });
 
     this.setState(state);

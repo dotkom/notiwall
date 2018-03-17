@@ -22,8 +22,8 @@ class Bus extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState(Object.assign({}, this.state, {
-      toCity: get(nextProps, 'data.toCity', []),
-      fromCity: get(nextProps, 'data.fromCity', []),
+      toCity: get(nextProps, 'toCity', []),
+      fromCity: get(nextProps, 'fromCity', []),
     }))
   }
 
