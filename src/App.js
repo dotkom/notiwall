@@ -85,7 +85,10 @@ class App extends Component {
     this.state = {
       apis,
       components,
+      edit: false,
     };
+
+    this.updateComponent = this.updateComponent.bind(this);
 
     // Start the APIs and resolve template URLs
     for (let api in this.state.apis) {
@@ -189,10 +192,20 @@ class App extends Component {
         }
       }
 
-      this.setState(Object.assign({}, this.state, {
-        components: components,
-      }));
+      this.setState(Object.assign({}, this.state, { components }));
     });
+  }
+
+  updateComponent(index, key, value) {
+    let components = this.state.components.slice();
+    components[index][key] = value;
+    this.setState(Object.assign({}, this.state, { components }));
+  }
+
+  toggleEdit() {
+    this.setState(Object.assign({}, this.state, {
+      edit: !this.state.edit,
+    }))
   }
 
   render() {
@@ -201,7 +214,12 @@ class App extends Component {
 
       return (
         <Section key={i}>
-          <Element {...element} />
+          <Element
+            {...element}
+            edit={this.state.edit}
+            updateComponent={this.updateComponent}
+            index={i}
+          />
         </Section>
       );
     });
@@ -210,7 +228,7 @@ class App extends Component {
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
           <Template.Header>
-            <div className="triangle">
+            <div className="triangle" onClick={() => this.toggleEdit()}>
             </div>
           </Template.Header>
         </Section>

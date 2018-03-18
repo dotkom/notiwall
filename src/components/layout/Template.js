@@ -3,6 +3,27 @@ import Style from 'style-it';
 import './Template.css';
 
 class Template extends Component {
+  constructor() {
+    super();
+
+    this.updateProp = this.updateProp.bind(this);
+    this.apiInput = this.apiInput.bind(this);
+  }
+
+  updateProp(prop, value) {
+    this.props.updateComponent(this.props.index, prop, value);
+  }
+
+  apiInput(apis) {
+    let apiElements = Object.keys(apis).map((api, i) => {
+      return <div key={i}>{api}</div>
+    })
+
+    return (
+      <div>{apiElements}</div>
+    )
+  }
+
   render() {
     let props = Object.assign({}, this.props.props);
 
@@ -13,11 +34,64 @@ class Template extends Component {
       modularCSS = this.props.css;
     }
 
+    let content = this.props.children;
+    if (this.props.edit) {
+      let newContent = Object.entries(this.props)
+      .filter(entry => [
+          'children',
+          'className',
+          'edit',
+          'props',
+          'index',
+          'updateComponent',
+        ].indexOf(entry[0]) === -1
+        && entry[0] in (this.props.templateVars || {})
+      )
+      .map((entry, i) => {
+        let inputElement = null
+        switch (this.props.templateVars[entry[0]]) {
+          case 'apis':
+          inputElement = this.apiInput(entry[1]);
+          break;
+
+          case 'css': // In the future: Make user also able to choose theme from a list
+          inputElement = (
+            <textarea
+              defaultValue={entry[1] || ''}
+              onChange={evt => this.updateProp(entry[0], evt.target.value)}
+            />
+          );
+          break;
+
+          default:
+          inputElement = (
+            <input
+              type="text"
+              defaultValue={entry[1] || ''}
+              onChange={evt => this.updateProp(entry[0], evt.target.value)}
+            />
+          );
+          break;
+        }
+
+        return (
+          <React.Fragment key={i}>
+            <div key={i}>{entry[0]}</div>
+            {inputElement}
+          </React.Fragment>
+        );
+      });
+
+      if (newContent.length) {
+        content = newContent;
+      }
+    }
+
     return (
       <Style>
         {modularCSS}
         <div {...props}>
-          {this.props.children}
+          {content}
         </div>
       </Style>
     );

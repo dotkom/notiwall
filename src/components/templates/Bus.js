@@ -14,6 +14,11 @@ class Bus extends Component {
       fromCity: [],
       lastTick: new Date().getTime(),
     };
+
+    this.templateVars = {
+      name: 'string',
+      apis: 'apis',
+    }
   }
 
   componentDidMount() {
@@ -24,7 +29,7 @@ class Bus extends Component {
     this.setState(Object.assign({}, this.state, {
       toCity: get(nextProps, 'toCity', []),
       fromCity: get(nextProps, 'fromCity', []),
-    }))
+    }));
   }
 
   tick() {
@@ -76,7 +81,7 @@ class Bus extends Component {
     let fromCity = this.getDepartureList(this.state.fromCity);
 
     return (
-      <Template className={this.constructor.name} {...this.props}>
+      <Template className={this.constructor.name} {...this.props} templateVars={this.templateVars}>
         <h3>{this.props.name} (fra byen)</h3>
         {fromCity}
         <h3>{this.props.name} (mot byen)</h3>

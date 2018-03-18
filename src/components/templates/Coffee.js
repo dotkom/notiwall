@@ -12,6 +12,10 @@ class Coffee extends Component {
       coffeeTime: 0,
       pots: [],
     };
+
+    this.templateVars = {
+      css: 'css',
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,7 +56,7 @@ class Coffee extends Component {
     }
 
     return (
-      <Template className={this.constructor.name} {...this.props}>
+      <Template className={this.constructor.name} {...this.props} templateVars={this.templateVars}>
         <h3>Kaffe</h3>
         {coffeeInfo}
         {pots && pots.length ? <h3>Kaffe hittil i dag</h3> : null}
