@@ -1,9 +1,17 @@
 .Header {
+  position: relative;
+}
+
+.Header > button {
+  position: absolute;
+  bottom: 0;
+  margin: auto;
 }
 
 .triangle {
-  width: 0;
-  height: 0;
-  border-top: 68.8vw solid transparent;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-top: 200px solid transparent;
   border-left: 100vw solid #000040;
 }

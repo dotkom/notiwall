@@ -225,10 +225,11 @@ class App extends Component {
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
-          {/*<Template.Header>
-            <div className="triangle" onClick={() => this.toggleEdit()}>
+          <Template.Header>
+            <div className="triangle">
             </div>
-          </Template.Header>*/}
+            <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
+          </Template.Header>
         </Section>
         {componentElements}
       </div>
