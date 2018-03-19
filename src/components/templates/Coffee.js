@@ -14,7 +14,6 @@ class Coffee extends Component {
     };
 
     this.templateVars = {
-      css: 'css',
     }
   }
 

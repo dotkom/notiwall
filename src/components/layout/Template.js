@@ -24,6 +24,17 @@ class Template extends Component {
     )
   }
 
+  getTemplateTypes(props, prop) {
+    if ('templateVars' in props && prop in props.templateVars) {
+      return props.templateVars[prop];
+    }
+
+    switch (prop) {
+      case 'css': return 'css';
+      default: return 'string';
+    }
+  }
+
   render() {
     let props = Object.assign({}, this.props.props);
 
@@ -37,19 +48,21 @@ class Template extends Component {
     let content = this.props.children;
     if (this.props.edit) {
       let newContent = Object.entries(this.props)
-      .filter(entry => [
-          'children',
-          'className',
-          'edit',
-          'props',
-          'index',
-          'updateComponent',
-        ].indexOf(entry[0]) === -1
-        && entry[0] in (this.props.templateVars || {})
+      .filter(entry => (
+          [
+            'children',
+            'className',
+            'edit',
+            'props',
+            'index',
+            'updateComponent',
+          ].indexOf(entry[0]) === -1
+          && entry[0] in (this.props.templateVars || {})
+        ) || entry[0] === 'css'
       )
       .map((entry, i) => {
         let inputElement = null
-        switch (this.props.templateVars[entry[0]]) {
+        switch (this.getTemplateTypes(this.props, entry[0])) {
           case 'apis':
           inputElement = this.apiInput(entry[1]);
           break;
@@ -59,6 +72,8 @@ class Template extends Component {
             <textarea
               defaultValue={entry[1] || ''}
               onChange={evt => this.updateProp(entry[0], evt.target.value)}
+              rows={4}
+              cols={40}
             />
           );
           break;
@@ -82,9 +97,12 @@ class Template extends Component {
         );
       });
 
-      if (newContent.length) {
-        content = newContent;
-      }
+      content = (
+        <React.Fragment>
+          <h2>{this.props.template}</h2>
+          {newContent}
+        </React.Fragment>
+      );
     }
 
     return (

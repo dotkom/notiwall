@@ -5,7 +5,7 @@ import './Vakter.css';
 class Vakter extends Component {
   render() {
     return (
-      <Template className={this.constructor.name}>
+      <Template className={this.constructor.name} {...this.props}>
         Vakter her
       </Template>
     );

@@ -18,7 +18,7 @@ class Bus extends Component {
     this.templateVars = {
       name: 'string',
       apis: 'apis',
-    }
+    };
   }
 
   componentDidMount() {

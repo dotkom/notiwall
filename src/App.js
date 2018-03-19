@@ -55,11 +55,6 @@ class App extends Component {
           'affiliation.org.online.coffee.date': 'coffeeTime',
           'coffeePots.pots': 'pots',
         },
-        css: `
-          .Coffee {
-            background-color: #f80;
-          }
-        `,
         props: {},
       },
       {
@@ -211,6 +206,9 @@ class App extends Component {
   render() {
     let componentElements = this.state.components.map((element, i) => {
       const Element = Template[element.template];
+      element.css = element.css || `.${element.template} {
+  /* Add custom styles here */
+}`;
 
       return (
         <Section key={i}>
@@ -227,10 +225,10 @@ class App extends Component {
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
-          <Template.Header>
+          {/*<Template.Header>
             <div className="triangle" onClick={() => this.toggleEdit()}>
             </div>
-          </Template.Header>
+          </Template.Header>*/}
         </Section>
         {componentElements}
       </div>
