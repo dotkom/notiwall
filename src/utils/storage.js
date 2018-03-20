@@ -17,7 +17,6 @@ export default class Storage {
         }
       }
     } catch (err) {
-      console.error('Cannot access localStorage in your browser. Using onetime session instead');
       this.data = data || {};
     }
   }
@@ -53,12 +52,12 @@ export default class Storage {
   /**
    * Update the storage at a key and return the new storage state.
    * 
-   * @param {string} value The value to set the key to.
    * @param {string} key The key to set in the storage object.
+   * @param {string} value The value to set the key to.
    * @param {bool} save Save the storage to device storage.
    * @returns {object} The updated storage object state.
    */
-  set(value, key, save = false) {
+  set(key, value, save = false) {
     let oldValue = undefined;
 
     if (key) {
