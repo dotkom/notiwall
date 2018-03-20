@@ -1,18 +1,18 @@
-import { findObjectPaths, getStringParams } from './utils';
+import { findObjectPaths, getStringParams } from './algorithms';
 
 it('Find object paths', () => {
   let obj = {
     a: {
       b: {
-        c: 'first'
+        c: 'first',
       },
       c: {
-        c: 'second'
-      }
+        c: 'second',
+      },
     },
     b: {
-      b: 1
-    }
+      b: 1,
+    },
   };
 
   expect(findObjectPaths(obj, 'a.b.c')).toEqual([ 'a.b.c' ]);
