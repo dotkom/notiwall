@@ -4,3 +4,27 @@
     flex: 1 1 420px;
     min-height: 200px;
 }
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.width-full {
+    flex-basis: 100%;
+}
+
+.width-2 {
+    flex-basis: calc(2 * 420px);
+}
+
+.width-3 {
+    flex-basis: calc(3 * 420px);
+}
+
+.width-4 {
+    flex-basis: calc(4 * 420px);
+}
