@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Template } from '../layout';
-import { distanceInWordsToNow, format, differenceInHours, getDay } from 'date-fns';
+import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
 import { get } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
 
@@ -30,6 +30,7 @@ class Coffee extends Component {
 
   render() {
     let coffeeInfo = 'Henter kaffestatus...';
+    let { offline } = this.props;
 
     if (this.state.coffeeTime > 0) {
       let coffeeDate = this.state.coffeeTime;
@@ -43,12 +44,14 @@ class Coffee extends Component {
       }
     } else if (this.state.coffeeTime === -1) {
       coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
+    } else if (offline.find(a => a.split('.')[0] === 'affiliation')) {
+      coffeeInfo = 'API\'et er utilgjengelig';
     }
 
     let pots = null;
     if (this.state.pots) {
       pots = this.state.pots
-      .filter(e => getDay(new Date()) === getDay(e))
+      .filter(e => differenceInHours(new Date(), e) <= 24)
       .map((e, i) => {
         return <div key={i}>{format(e, 'HH:mm', { locale })}</div>;
       });
