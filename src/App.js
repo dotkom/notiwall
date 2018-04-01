@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as Template from './components/templates';
+import { ChangeAPIs } from './components/forms';
 import { Section } from './components/layout';
+import * as Template from './components/templates';
 import {
   API,
   Storage,
@@ -112,6 +113,7 @@ class App extends Component {
     };
 
     this.updateComponent = this.updateComponent.bind(this);
+    this.updateApi = this.updateApi.bind(this);
 
     // Start the APIs and resolve template URLs
     for (let api in this.state.apis) {
@@ -256,7 +258,7 @@ class App extends Component {
 
   goOnline(api = null) {
     let apis = Object.assign({}, this.state.apis);
-    
+
     if (api === null) {
       for (let root in apis) {
         delete apis[root].fails;
@@ -310,8 +312,14 @@ class App extends Component {
 
   updateComponent(index, key, value) {
     let components = this.state.components.slice();
-    components[index][key] = value;
+    set(components[index], key, value);
     this.setState(Object.assign({}, this.state, { components }));
+  }
+
+  updateApi(api, key, value) {
+    let apis = Object.assign({}, this.state.apis);
+    set(apis[api], key, value);
+    this.setState(Object.assign({}, this.state, { apis }));
   }
 
   toggleEdit() {
@@ -332,8 +340,8 @@ class App extends Component {
       element.css = element.css || `.${element.template} {
   /* Add custom styles here */
 }`;
-      let offline = Object.keys(apis)
-      .filter(api => apis[api].offline);
+
+      let offline = Object.keys(apis).filter(api => apis[api].offline);
 
       return (
         <Section key={i}>
@@ -349,6 +357,8 @@ class App extends Component {
       );
     });
 
+    let editApisElement = edit ? <ChangeAPIs apis={apis} updateApi={this.updateApi} /> : null;
+
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
@@ -361,6 +371,7 @@ class App extends Component {
             </button>}
           </Template.Header>
         </Section>
+        {editApisElement}
         {componentElements}
       </div>
     );
