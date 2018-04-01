@@ -108,8 +108,8 @@ class Template extends Component {
     let controlElement = null;
     if (this.props.apis) {
       controlElement = Object.keys(this.props.apis)
-      .map(api => api.split('.')[0])
-      .filter(api => this.props.offline.indexOf(api) !== -1)
+      .map(api => api.split(':')[0])
+      .filter(api => this.props.offline.indexOf(api.split('.')[0]) !== -1)
       .map((api, i) => {
         return <button onClick={() => this.props.goOnline(api)} key={i} title={api}>Start API</button>
       });

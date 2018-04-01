@@ -1,7 +1,7 @@
-import { API_ROOT } from './constants';
+import { API_ROOT } from '../constants';
 
 export const API = {
-  postRequest(url, req, callback = () => {}, error = console.error) {
+  postRequest(url, req, callback = () => {}, error = () => { /*console.error*/ }) {
     req.headers = Object.assign({}, req.headers, {
       'Content-Type': 'application/json',
     });
@@ -15,7 +15,7 @@ export const API = {
       .catch(error);
   },
 
-  getRequest(url, callback = () => {}, error = console.error) {
+  getRequest(url, callback = () => {}, error = () => { /*console.error*/ }) {
     let req = {
       headers: new Headers({
         //'Content-Type': 'application/json',
