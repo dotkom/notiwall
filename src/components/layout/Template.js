@@ -16,12 +16,19 @@ class Template extends Component {
 
   apiInput(apis) {
     let apiElements = Object.keys(apis).map((api, i) => {
-      return <div key={i}>{api}</div>
-    })
+      let [ apiName, path ] = api.split(':');
+
+      return (
+        <div key={i}>
+          {apis[api]} = <input defaultValue={apiName} />
+          :<input defaultValue={path} />
+        </div>
+      );
+    });
 
     return (
       <div>{apiElements}</div>
-    )
+    );
   }
 
   getTemplateTypes(props, prop) {
