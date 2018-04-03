@@ -4,7 +4,7 @@ import { getStringParams } from '../../utils';
 
 class ChangeAPIs extends Component {
   render() {
-    let { apis, updateApi } = Object.assign({}, this.props);
+    let { apis, updateApi } = Object.assign({}, this.props);
 
     let apisElement = Object.entries(apis).map(([name, api]) => {
       let paramsInUrl = getStringParams(api.url);
@@ -37,7 +37,7 @@ class ChangeAPIs extends Component {
     });
 
     return (
-      <Section column size={2}>
+      <Section column size={'full'}>
         <h2>Change APIs</h2>
         {apisElement}
       </Section>

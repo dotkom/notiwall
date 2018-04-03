@@ -340,11 +340,12 @@ class App extends Component {
       element.css = element.css || `.${element.template} {
   /* Add custom styles here */
 }`;
+      element.size = element.size || 1;
 
       let offline = Object.keys(apis).filter(api => apis[api].offline);
 
       return (
-        <Section key={i}>
+        <Section key={i} size={element.size}>
           <Element
             {...element}
             edit={edit}
@@ -357,7 +358,9 @@ class App extends Component {
       );
     });
 
-    let editApisElement = edit ? <ChangeAPIs apis={apis} updateApi={this.updateApi} /> : null;
+    let editApisElement = edit
+      ? <ChangeAPIs apis={apis} updateApi={this.updateApi} />
+      : null;
 
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
