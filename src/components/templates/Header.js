@@ -5,7 +5,7 @@ import './Header.css';
 class Header extends Component {
   render() {
     return (
-      <Template className={this.constructor.name}>
+      <Template className={this.constructor.name} {...this.props}>
         {this.props.children}
       </Template>
     );
