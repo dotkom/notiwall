@@ -14,7 +14,8 @@ class Coffee extends Component {
     };
 
     this.templateVars = {
-    }
+      apis: 'apis',
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,10 +52,10 @@ class Coffee extends Component {
     let pots = null;
     if (this.state.pots) {
       pots = this.state.pots
-      .filter(e => differenceInHours(new Date(), e) <= 24)
-      .map((e, i) => {
-        return <div key={i}>{format(e, 'HH:mm', { locale })}</div>;
-      });
+        .filter(e => differenceInHours(new Date(), e) <= 24)
+        .map((e, i) => {
+          return <div key={i}>{format(e, 'HH:mm', { locale })}</div>;
+        });
     }
 
     return (
