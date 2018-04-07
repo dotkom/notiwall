@@ -17,11 +17,26 @@ class Template extends Component {
   apiInput(apis) {
     let apiElements = Object.keys(apis).map((api, i) => {
       let [apiName, path] = api.split(':');
+      let apiKey = () => `${apiName}:${path}`;
+      let onChange = () => {
+        console.log(apiKey())
+        //this.updateProp(apiKey, )
+      }
+      let apiListOptions = this.props.apiList.map((e, i) => (
+        <option key={i} value={e}>{e}</option>
+      ));
+      let apiNameElement = (
+        <select defaultValue={apiName} onChange={onChange}>
+          {apiListOptions}
+        </select>
+      );
+      let pathElement = (
+        <input defaultValue={path} onChange={onChange} />
+      );
 
       return (
         <div key={i}>
-          {apis[api]} = <input defaultValue={apiName} />
-          :<input defaultValue={path} />
+          {apis[api]} = {apiNameElement}:{pathElement}
         </div>
       );
     });

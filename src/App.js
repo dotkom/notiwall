@@ -21,6 +21,7 @@ class App extends Component {
 
     let apis = {};
     let components = [];
+    // Notifikasjon om arrangementer (ws eller interval)
 
     if (this.storage.has('apis')) {
       apis = this.storage.get('apis');
@@ -71,9 +72,9 @@ class App extends Component {
           template: 'Coffee',
           apis: {
             // Format:
-            // api.name:path.to.api.value: objectPath.to.save.value
-            'affiliation.org.online:coffee.date': 'coffeeTime',
-            'coffeePots:pots': 'pots',
+            // 'objectPath.to.save.value': 'api.name:path.to.api.value'
+            'coffeeTime': 'affiliation.org.online:coffee.date',
+            'pots': 'coffeePots:pots',
           },
           props: {},
         },
@@ -81,8 +82,8 @@ class App extends Component {
           template: 'Bus',
           name: 'Gløshaugen syd',
           apis: {
-            'bus.stops.glos.fromCity:departures': 'fromCity',
-            'bus.stops.glos.toCity:departures': 'toCity',
+            'fromCity': 'bus.stops.glos.fromCity:departures',
+            'toCity': 'bus.stops.glos.toCity:departures',
           },
           props: {},
         },
@@ -90,8 +91,8 @@ class App extends Component {
           template: 'Bus',
           name: 'Samfundet',
           apis: {
-            'bus.stops.samf.fromCity:departures': 'fromCity',
-            'bus.stops.samf.toCity:departures': 'toCity',
+            'fromCity': 'bus.stops.samf.fromCity:departures',
+            'toCity': 'bus.stops.samf.toCity:departures',
           },
           props: {},
         },
@@ -114,6 +115,7 @@ class App extends Component {
 
     this.updateComponent = this.updateComponent.bind(this);
     this.updateApi = this.updateApi.bind(this);
+    this.getApis = this.getApis.bind(this);
 
     // Start the APIs and resolve template URLs
     for (let api in this.state.apis) {
@@ -167,13 +169,16 @@ class App extends Component {
 
     for (let component of components) {
       if ('apis' in component) {
-        for (let apiPath in component.apis) {
-          if (apiPath.indexOf(object) === 0) {
+        for (let assignedTo in component.apis) {
+          let [ apiPath ] = component.apis[assignedTo].split(':');
+
+          if (apiPath === object) {
             apiIsInUse = true;
             break;
           }
         }
       }
+
       if (apiIsInUse) {
         break;
       }
@@ -217,10 +222,10 @@ class App extends Component {
 
       for (let component of components) {
         if ('apis' in component) {
-          for (let apiPath in component.apis) {
-            if (apiPath.indexOf(api) === 0) {
-              let deepPath = apiPath.split(api + ':')[1];
-              set(component, component.apis[apiPath], get(data, deepPath));
+          for (let assignedTo in component.apis) {
+            let [ apiPath, deepPath ] = component.apis[assignedTo].split(':');
+            if (apiPath === api) {
+              set(component, assignedTo, get(data, deepPath));
             }
           }
         }
@@ -284,7 +289,7 @@ class App extends Component {
     }
   }
 
-  getApis(key) {
+  getApis() {
     let matches = [];
 
     // Go through all APIs
@@ -307,7 +312,7 @@ class App extends Component {
     }
 
     // Filter and return fitting matches
-    return matches.filter(match => match.indexOf(key) === 0);
+    return matches;
   }
 
   updateComponent(index, key, value) {
@@ -332,8 +337,15 @@ class App extends Component {
     }))
   }
 
+  clearStorage() {
+    try {
+      localStorage.clear();
+    } catch (ex) { }
+  }
+
   render() {
     let { components, edit, apis, offlineMode } = this.state;
+    let apiList = this.getApis();
 
     let componentElements = components.map((element, i) => {
       const Element = Template[element.template];
@@ -349,6 +361,7 @@ class App extends Component {
           <Element
             {...element}
             edit={edit}
+            apiList={apiList}
             updateComponent={this.updateComponent}
             goOnline={this.goOnline.bind(this)}
             offline={offline}
@@ -368,7 +381,10 @@ class App extends Component {
           <Template.Header>
             <div className="triangle">
             </div>
-            <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
+            <div>
+              <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
+              <button onClick={() => this.clearStorage()}>Reset app</button>
+            </div>
             {offlineMode && <button onClick={() => this.goOnline()}>
               Gå online (Du er offline)
             </button>}
