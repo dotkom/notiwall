@@ -383,7 +383,7 @@ class App extends Component {
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
-          <Template.Header>
+          <Template.Header css={', { padding: 0; }'}>
             <div className="triangle">
             </div>
             <div>
