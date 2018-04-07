@@ -66,6 +66,10 @@ class App extends Component {
       components = [
         {
           template: 'Vakter',
+          apis: {
+            'affiliation.org.online:servant.message': 'message',
+            'affiliation.org.online:servant.responsible': 'responsible',
+          },
           props: {},
         },
         {
