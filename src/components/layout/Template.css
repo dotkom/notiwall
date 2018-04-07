@@ -5,4 +5,5 @@
     align-items: flex-start;
     justify-content: flex-start;
     min-height: 100%;
+    padding: 8px 16px;
 }

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 html {
   background-color: #000;
 }
@@ -5,10 +7,10 @@ html {
 body {
   margin: 0;
   padding: 0;
-  color: #ddd;
+  color: #ccc;
   overflow-x: hidden;
   background-color: #121280;
-  font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif;
+  font-family: 'Roboto', 'Open Sans', 'lucida grande', 'Segoe UI', arial, verdana, 'lucida sans unicode', tahoma, sans-serif;
 }
 
 .content {
@@ -16,4 +18,14 @@ body {
     width: 100%;
     overflow: hidden;
     background-color: #000040;
+}
+
+h1 {
+  color: #fff;
+  font-weight: normal;
+}
+
+h2, h3, h4, h5, h6 {
+  color: #eee;
+  font-weight: normal;
 }
