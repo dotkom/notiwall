@@ -69,6 +69,7 @@ class App extends Component {
           apis: {
             'affiliation.org.online:servant.message': 'message',
             'affiliation.org.online:servant.responsible': 'responsible',
+            'affiliation.org.online:servant.servants': 'servants',
           },
           props: {},
         },
