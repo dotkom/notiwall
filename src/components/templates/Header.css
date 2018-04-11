@@ -2,12 +2,6 @@
   position: relative;
 }
 
-.Header > button {
-  position: absolute;
-  bottom: 0;
-  margin: auto;
-}
-
 .triangle {
   box-sizing: border-box;
   width: 100%;

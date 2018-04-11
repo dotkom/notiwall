@@ -45,7 +45,7 @@ class Coffee extends Component {
       }
     } else if (this.state.coffeeTime === -1) {
       coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
-    } else if (offline.find(a => a.split('.')[0] === 'affiliation')) {
+    } else if (offline && offline.find(a => a.split('.')[0] === 'affiliation')) {
       coffeeInfo = 'API\'et er utilgjengelig';
     }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Section.css';
 
-class Section extends Component {
+export default class Section extends Component {
   render() {
     let props = Object.assign({}, this.props);
 
@@ -25,4 +25,26 @@ class Section extends Component {
   }
 }
 
-export default Section;
+export class SubSection extends Component {
+  render() {
+    let props = Object.assign({}, this.props);
+
+    props.className = `SubSection ${this.props.className || ''}`;
+
+    if (this.props.column) {
+      props.className += ' column';
+      delete props.column;
+    }
+
+    if (this.props.size) {
+      props.className += ` width-${this.props.size}`;
+      delete props.size;
+    }
+ 
+    return (
+      <div {...props}>
+        {this.props.children}
+      </div>
+    );
+  }
+}

@@ -37,19 +37,19 @@ class Vakter extends Component {
           "pretty":"14:00-15:00"
         },
         {
-          "summary":"Niklas/Doge mac Doge",
+          "summary":"Doge",
           "start":{"timeZone":"Europe/Oslo","date":"2018-04-07T13:00:00.000Z","pretty":"15:00"},
           "end":{"timeZone":"Europe/Oslo","date":"2018-04-07T14:00:00.000Z","pretty":"16:00"},
           "pretty":"15:00-16:00"
-        }
-      ]
-    }
+        },
+      ],
+    };
 
-    this.templateVars = {}
+    this.templateVars = {};
   }
 
   componentWillReceiveProps(nextProps) {
-    if (false) {
+    if (true) {
       let message = get(nextProps, 'message');
       let responsible = get(nextProps, 'responsible');
       let servants = get(nextProps, 'servants');

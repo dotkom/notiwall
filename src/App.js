@@ -65,24 +65,46 @@ class App extends Component {
     } else {
       components = [
         {
-          template: 'Vakter',
-          apis: {
-            'affiliation.org.online:servant.message': 'message',
-            'affiliation.org.online:servant.responsible': 'responsible',
-            'affiliation.org.online:servant.servants': 'servants',
-          },
-          props: {},
-        },
-        {
-          template: 'Coffee',
+          template: 'StatusTop',
+          size: 2,
+          components: [
+            {
+              template: 'Vakter',
+              uses: [ 'message', 'responsible', 'servants' ],
+            },
+            {
+              template: 'Coffee',
+              uses: [ 'coffeeTime', 'pots' ],
+            },
+          ],
           apis: {
             // Format:
             // 'objectPath.to.save.value': 'api.name:path.to.api.value'
+            'message': 'affiliation.org.online:servant.message',
+            'responsible': 'affiliation.org.online:servant.responsible',
+            'servants': 'affiliation.org.online:servant.servants',
             'coffeeTime': 'affiliation.org.online:coffee.date',
             'pots': 'coffeePots:pots',
           },
           props: {},
         },
+        //{
+        //  template: 'Vakter',
+        //  apis: {
+        //    'message': 'affiliation.org.online:servant.message',
+        //    'responsible': 'affiliation.org.online:servant.responsible',
+        //    'servants': 'affiliation.org.online:servant.servants',
+        //  },
+        //  props: {},
+        //},
+        //{
+        //  template: 'Coffee',
+        //  apis: {
+        //    'coffeeTime': 'affiliation.org.online:coffee.date',
+        //    'pots': 'coffeePots:pots',
+        //  },
+        //  props: {},
+        //},
         {
           template: 'Bus',
           name: 'Gløshaugen syd',
@@ -384,8 +406,7 @@ class App extends Component {
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
         <Section>
           <Template.Header css={', { padding: 0; }'}>
-            <div className="triangle">
-            </div>
+            <div className="triangle"></div>
             <div>
               <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
               <button onClick={() => this.clearStorage()}>Reset app</button>

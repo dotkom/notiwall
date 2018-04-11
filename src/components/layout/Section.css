@@ -13,6 +13,10 @@
     flex-direction: column;
 }
 
+.width-content {
+    flex-basis: auto;
+}
+
 .width-full {
     flex-basis: 100%;
 }
