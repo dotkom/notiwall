@@ -1,11 +1,3 @@
 .Header {
   position: relative;
 }
-
-.triangle {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  border-top: 200px solid transparent;
-  border-left: 100vw solid #000040;
-}

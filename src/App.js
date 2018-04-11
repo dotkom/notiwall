@@ -404,9 +404,8 @@ class App extends Component {
 
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
-        <Section>
-          <Template.Header css={', { padding: 0; }'}>
-            <div className="triangle"></div>
+        <Section style={{minHeight:0}}>
+          <Template.Header css={', { padding: 0; height: 0; }'}>
             <div>
               <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
               <button onClick={() => this.clearStorage()}>Reset app</button>
