@@ -1,3 +1,7 @@
+.StatusTop {
+  overflow: hidden;
+}
+
 .StatusTop .SubSection {
   transform: matrix(1, 0, -.6, 1, -420, 0);
   background-color: rgba(0, 0, 0, .2);

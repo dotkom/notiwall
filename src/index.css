@@ -10,6 +10,7 @@ body {
   color: #ccc;
   overflow-x: hidden;
   background-color: #121280;
+  min-height: 100vh;
   font-family: 'Roboto', 'Open Sans', 'lucida grande', 'Segoe UI', arial, verdana, 'lucida sans unicode', tahoma, sans-serif;
 }
 

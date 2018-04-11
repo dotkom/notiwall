@@ -3,8 +3,8 @@
     flex-flow: row wrap;
     flex: 1 1 420px;
     max-height: 420px;
-    min-height: 400px;
-    overflow: hidden;
+    /*min-height: 400px;
+    overflow: hidden;*/
 }
 
 .SubSection {
