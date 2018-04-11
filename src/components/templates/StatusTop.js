@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Template, Section } from '../layout';
+import { Template, SubSection } from '../layout';
 import * as Templates from '../templates';
 import './StatusTop.css';
 import { get } from 'object-path';
@@ -38,9 +38,9 @@ class StatusTop extends Component {
 
     return (
       <Template className={this.constructor.name} {...this.props}>
-        <Section>
+        <SubSection>
           {templatesElement}
-        </Section>
+        </SubSection>
       </Template>
     );
   }
