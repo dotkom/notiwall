@@ -1,6 +1,7 @@
-.StatusTop {
+.StatusTop .SubSection {
   transform: matrix(1, 0, -.6, 1, -420, 0);
   background-color: rgba(0, 0, 0, .2);
+  min-width: 720px;
 }
 
 .StatusTop .Vakter {
@@ -8,19 +9,6 @@
   position: relative;
 }
 
-.StatusTop .Vakter, .StatusTop .Coffee {
+.StatusTop .SubSection .Vakter, .StatusTop .SubSection .Coffee {
   transform: matrix(1, 0, .6, 1, 420, 0);
-}
-
-.StatusTop .Vakter:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 100%;
-  z-index: 0;
-  box-sizing: border-box;
-  width: 0;
-  height: 0;
-  border-bottom: 10px solid transparent;
-  border-left: 100px solid #000040;
 }
