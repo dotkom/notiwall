@@ -72,13 +72,17 @@ class Vakter extends Component {
           opacity: .5,
         };
 
+        let arrow = '';
+
         if (isAfter(new Date(), e.start.date) && isBefore(new Date(), e.end.date)) {
           style = {
             color: '#fff',
           };
+
+          arrow = '->';
         }
 
-        return <div style={style} key={i}>{e.pretty} - {e.summary}</div>;
+        return <div style={style} key={i}>{arrow} {e.pretty} - {e.summary}</div>;
       });
     } else {
       responsibleListElement = (

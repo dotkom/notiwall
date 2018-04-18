@@ -4,6 +4,7 @@
     flex: 1 1 420px;
     max-height: 420px;
     min-height: 400px;
+    min-width: 420px; 
     overflow: hidden;
 }
 
