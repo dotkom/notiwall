@@ -5,6 +5,9 @@
     max-height: 420px;
     /*min-height: 400px;
     overflow: hidden;*/
+    min-height: 400px;
+    min-width: 420px; 
+    overflow: hidden;
 }
 
 .SubSection {
