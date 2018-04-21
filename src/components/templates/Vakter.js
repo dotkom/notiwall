@@ -90,8 +90,31 @@ class Vakter extends Component {
       );
     }
 
+    let spaceAroundSVG = 40;
+    let skewSVG = (
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        style={{
+          width: '100%',
+          height: `calc(100% - ${spaceAroundSVG * 2}px)`,
+          position:'absolute',
+          marginLeft: -16,
+        }}
+      >
+        <path fill="rgba(0, 0, 0, .2)" d="M0,0 90,0 60,100 0,100" />
+      </svg>
+    );
+
+    let props = Object.assign({}, this.props);
+    props.style = Object.assign({}, this.props.style || {}, {
+      padding: `${spaceAroundSVG}px 16px`,
+      boxSizing: 'border-box',
+    });
+
     return (
-      <Template className={this.constructor.name} {...this.props}>
+      <Template className={this.constructor.name} {...props}>
+        {skewSVG}
         <h1>Onlinekontoret</h1>
         <h3>Kontorvakter</h3>
         {responsibleListElement}

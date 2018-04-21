@@ -154,7 +154,7 @@ class Template extends Component {
     return (
       <Style>
         {modularCSS}
-        <div {...props}>
+        <div {...props} style={this.props.style}>
           {content}
           {controlElement}
         </div>

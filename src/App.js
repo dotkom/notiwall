@@ -64,6 +64,7 @@ class App extends Component {
       components = this.storage.get('components');
     } else {
       components = [
+        /** /
         {
           template: 'StatusTop',
           size: 2,
@@ -88,23 +89,25 @@ class App extends Component {
           },
           props: {},
         },
-        //{
-        //  template: 'Vakter',
-        //  apis: {
-        //    'message': 'affiliation.org.online:servant.message',
-        //    'responsible': 'affiliation.org.online:servant.responsible',
-        //    'servants': 'affiliation.org.online:servant.servants',
-        //  },
-        //  props: {},
-        //},
-        //{
-        //  template: 'Coffee',
-        //  apis: {
-        //    'coffeeTime': 'affiliation.org.online:coffee.date',
-        //    'pots': 'coffeePots:pots',
-        //  },
-        //  props: {},
-        //},
+        /**/
+        {
+          template: 'Vakter',
+          apis: {
+            'message': 'affiliation.org.online:servant.message',
+            'responsible': 'affiliation.org.online:servant.responsible',
+            'servants': 'affiliation.org.online:servant.servants',
+          },
+          props: {},
+        },
+        {
+          template: 'Coffee',
+          apis: {
+            'coffeeTime': 'affiliation.org.online:coffee.date',
+            'pots': 'coffeePots:pots',
+          },
+          props: {},
+        },
+        /**/
         {
           template: 'Bus',
           name: 'Gløshaugen syd',
@@ -404,8 +407,8 @@ class App extends Component {
 
     return (
       <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
-        <Section style={{minHeight:0}}>
-          <Template.Header css={', { padding: 0; height: 0; }'}>
+        <Section style={{minHeight:20,minWidth:'100%'}}>
+          <Template.Header css={', { padding: 0; height: 0 }'}>
             <div>
               <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
               <button onClick={() => this.clearStorage()}>Reset app</button>

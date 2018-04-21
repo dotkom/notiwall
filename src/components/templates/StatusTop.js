@@ -40,6 +40,18 @@ class StatusTop extends Component {
       <Template className={this.constructor.name} {...this.props}>
         <SubSection>
           {templatesElement}
+
+          
+          {/*<svg width="300" height="300" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g id="Canvas" fill="none">
+              <g id="Ellipse 2.1">
+                <circle cx="150" cy="150" r="150" fill="black" fill-opacity="0.1"/>
+                <circle cx="150" cy="150" r="147.5" stroke-width="5" stroke="white"/>
+              </g>
+            </g>
+          </svg>*/}
+
+
         </SubSection>
       </Template>
     );
