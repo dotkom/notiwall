@@ -89,24 +89,8 @@ class App extends Component {
           },
           props: {},
         },
-        {
-          template: 'Bus',
-          name: 'Samfundet',
-          apiPaths: {
-            name: 'destination',
-            number: 'line',
-            registredTime: 'registeredDepartureTime',
-            scheduledTime: 'scheduledDepartureTime',
-            isRealtime: 'isRealtimeData',
-          },
-          apis: {
-            'fromCity': 'tarbus.stops.samf.fromCity:departures',
-            'toCity': 'tarbus.stops.samf.toCity:departures',
-          },
-          props: {},
-        },
       ],
-    });
+    }, true);
 
     for (let root in apis) {
       delete apis[root].fails;
