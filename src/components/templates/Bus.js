@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Template } from '../layout';
 import './Bus.css';
 import { distanceInWords, format, addMilliseconds, differenceInMilliseconds } from 'date-fns';
-import { get } from 'object-path';
+import { get, set } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
 
 class Bus extends Component {
@@ -38,13 +38,13 @@ class Bus extends Component {
     let diff = differenceInMilliseconds(new Date(), this.state.lastTick);
 
     for (let departure of toCity) {
-      departure.registeredDepartureTime = this.addTime(departure.registeredDepartureTime, diff);
-      departure.scheduledDepartureTime = this.addTime(departure.scheduledDepartureTime, diff);
+      set(departure, this.props.apiPaths.registredTime, this.addTime(get(departure, this.props.apiPaths.registredTime), diff));
+      set(departure, this.props.apiPaths.scheduledTime, this.addTime(get(departure, this.props.apiPaths.scheduledTime), diff));
     }
 
     for (let departure of fromCity) {
-      departure.registeredDepartureTime = this.addTime(departure.registeredDepartureTime, diff);
-      departure.scheduledDepartureTime = this.addTime(departure.scheduledDepartureTime, diff);
+      set(departure, this.props.apiPaths.registredTime, this.addTime(get(departure, this.props.apiPaths.registredTime), diff));
+      set(departure, this.props.apiPaths.scheduledTime, this.addTime(get(departure, this.props.apiPaths.scheduledTime), diff));
     }
 
     this.setState(Object.assign({}, this.state, { toCity, fromCity, lastTick: new Date().getTime() }));
@@ -58,10 +58,10 @@ class Bus extends Component {
   getDepartureList(departures) {
     return departures
     .map(e => {
-      e.time = e.scheduledDepartureTime;
+      e.time = get(e, this.props.apiPaths.scheduledTime);
 
-      if (e.isRealtimeData) {
-        e.time = e.registeredDepartureTime;
+      if (get(e, this.props.apiPaths.isRealtime)) {
+        e.time = get(e, this.props.apiPaths.registredTime);
       }
 
       return e;
@@ -70,9 +70,9 @@ class Bus extends Component {
     .map((e, i) => {
       let timeLeft = distanceInWords(e.time, new Date(), { locale });
       let time = format(e.time, 'HH:mm');
-      let style = e.isRealtimeData ? { color: 'blue' } : {};
+      let style = get(e, this.props.apiPaths.isRealtime) ? { color: 'blue' } : {};
 
-      return <div key={i} style={style}>{e.line} <b>{e.destination}</b> - om {timeLeft} ({time})</div>;
+      return <div key={i} style={style}>{get(e, this.props.apiPaths.number)} <b>{get(e, this.props.apiPaths.name)}</b> - om {timeLeft} ({time})</div>;
     });
   }
 

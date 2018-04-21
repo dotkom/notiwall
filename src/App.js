@@ -19,14 +19,8 @@ class App extends Component {
     this.storage = new Storage();
     this.intervals = {};
 
-    let apis = {};
-    let components = [];
-    // Notifikasjon om arrangementer (ws eller interval)
-
-    if (this.storage.has('apis')) {
-      apis = this.storage.get('apis');
-    } else {
-      apis = {
+    let { apis } = this.storage.merge({
+      apis: {
         affiliation: {
           interval: 10,
           url: `${API_URL}/affiliation/{{org.*}}`,
@@ -40,56 +34,28 @@ class App extends Component {
           interval: 60,
           url: `${API_URL}/coffee/online`,
         },
-        bus: {
+        tarbus: {
           interval: 10,
           // api.entur.org is also an option for the whole country
           url: 'https://atbapi.tar.io/api/v1/departures/{{stops.*.fromCity,toCity}}',
           stops: {
-            glos: {
-              fromCity: '16010265',
-              toCity: '16011265',
-            },
-            samf: {
-              fromCity: '16010476',
-              toCity: '16011476',
-            },
+            glos: { fromCity: '16010265', toCity: '16011265' },
+            samf: { fromCity: '16010476', toCity: '16011476' },
           },
         },
-      };
-
-      this.storage.merge({ apis }, true);
-    }
-
-    if (this.storage.has('components')) {
-      components = this.storage.get('components');
-    } else {
-      components = [
-        /** /
-        {
-          template: 'StatusTop',
-          size: 2,
-          components: [
-            {
-              template: 'Vakter',
-              uses: [ 'message', 'responsible', 'servants' ],
-            },
-            {
-              template: 'Coffee',
-              uses: [ 'coffeeTime', 'pots' ],
-            },
-          ],
-          apis: {
-            // Format:
-            // 'objectPath.to.save.value': 'api.name:path.to.api.value'
-            'message': 'affiliation.org.online:servant.message',
-            'responsible': 'affiliation.org.online:servant.responsible',
-            'servants': 'affiliation.org.online:servant.servants',
-            'coffeeTime': 'affiliation.org.online:coffee.date',
-            'pots': 'coffeePots:pots',
+        bartebuss: {
+          interval: 10,
+          url: 'https://bartebuss.no/api/unified/{{stops.*.fromCity,toCity}}',
+          stops: {
+            glos: { fromCity: '16010265', toCity: '16011265' },
+            samf: { fromCity: '16010476', toCity: '16011476' },
           },
-          props: {},
         },
-        /**/
+      },
+    }, true);
+
+    let { components } = this.storage.merge({
+      components: [
         {
           template: 'Vakter',
           apis: {
@@ -107,29 +73,40 @@ class App extends Component {
           },
           props: {},
         },
-        /**/
         {
           template: 'Bus',
           name: 'Gløshaugen syd',
+          apiPaths: {
+            name: 'destination',
+            number: 'line',
+            registredTime: 'registeredDepartureTime',
+            scheduledTime: 'scheduledDepartureTime',
+            isRealtime: 'isRealtimeData',
+          },
           apis: {
-            'fromCity': 'bus.stops.glos.fromCity:departures',
-            'toCity': 'bus.stops.glos.toCity:departures',
+            'fromCity': 'tarbus.stops.glos.fromCity:departures',
+            'toCity': 'tarbus.stops.glos.toCity:departures',
           },
           props: {},
         },
         {
           template: 'Bus',
           name: 'Samfundet',
+          apiPaths: {
+            name: 'destination',
+            number: 'line',
+            registredTime: 'registeredDepartureTime',
+            scheduledTime: 'scheduledDepartureTime',
+            isRealtime: 'isRealtimeData',
+          },
           apis: {
-            'fromCity': 'bus.stops.samf.fromCity:departures',
-            'toCity': 'bus.stops.samf.toCity:departures',
+            'fromCity': 'tarbus.stops.samf.fromCity:departures',
+            'toCity': 'tarbus.stops.samf.toCity:departures',
           },
           props: {},
         },
-      ];
-
-      this.storage.merge({ components }, true);
-    }
+      ],
+    });
 
     for (let root in apis) {
       delete apis[root].fails;
@@ -364,7 +341,7 @@ class App extends Component {
 
     this.setState(Object.assign({}, this.state, {
       edit: !this.state.edit,
-    }))
+    }));
   }
 
   clearStorage() {

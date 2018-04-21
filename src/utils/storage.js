@@ -1,4 +1,5 @@
 import { get, set, has } from 'object-path';
+import merge from 'object-merge';
 
 export default class Storage {
   constructor(data) {
@@ -91,7 +92,7 @@ export default class Storage {
    * @returns {object} Unified data sturcture.
    */
   merge(data, save = false) {
-    Object.assign(this.data, data);
+    this.data = merge(this.data, data);
 
     if (save) {
       this.save();

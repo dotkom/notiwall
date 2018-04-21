@@ -19,8 +19,8 @@ export const API = {
     let req = {
       headers: new Headers({
         //'Content-Type': 'application/json',
-      })
-    }
+      }),
+    };
 
     return fetch(new Request(API.transformURL(url), req))
       .then(res => res.json())
@@ -33,8 +33,8 @@ export const API = {
   },
 
   transformURL(url) {
-      return /^https?:\/\//.test(url)
-        ? url
-        : this.joinPath(API_ROOT, url);
+    return /^https?:\/\//.test(url)
+      ? url
+      : this.joinPath(API_ROOT, url);
   },
 };
