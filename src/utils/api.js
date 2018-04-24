@@ -7,7 +7,9 @@ export const API = {
     });
     req.method = 'POST';
     req.headers = new Headers(req.headers);
-    req.body = JSON.stringify(req.body || {});
+      req.body = typeof req.body === 'object'
+        ? JSON.stringify(req.body || {})
+        : req.body;
 
     return fetch(new Request(API.transformURL(url), req))
       .then(res => res.json())

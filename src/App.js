@@ -36,7 +36,6 @@ class App extends Component {
         },
         tarbus: {
           interval: 10,
-          // api.entur.org is also an option for the whole country
           url: 'https://atbapi.tar.io/api/v1/departures/{{stops.*.fromCity,toCity}}',
           stops: {
             glos: { fromCity: '16010265', toCity: '16011265' },
@@ -49,6 +48,43 @@ class App extends Component {
           stops: {
             glos: { fromCity: '16010265', toCity: '16011265' },
             samf: { fromCity: '16010476', toCity: '16011476' },
+          },
+        },
+        enturbus: {
+          interval: 10,
+          method: 'POST',
+          req: {
+            headers: {
+              'ET-Client-Name': 'Notifier-dev',
+            },
+          },
+          url: `https://api.entur.org/journeyplanner/2.0/index/graphql>>${JSON.stringify({
+            query: `{
+              stopPlace(id: "{{stops.*.fromCity,toCity}}") {
+                id
+                name
+                estimatedCalls(startTime:"[[now]]" timeRange: 72100, numberOfDepartures: 5) {
+                  aimedArrivalTime
+                  aimedDepartureTime
+                  expectedArrivalTime
+                  expectedDepartureTime
+                  realtime
+                  forBoarding
+                  destinationDisplay {
+                    frontText
+                  }
+                  serviceJourney {
+                    line {
+                      publicCode
+                    }
+                  }
+                }
+              }
+            }`
+          })}`,
+          stops: {
+            glos: { fromCity: 'NSR:StopPlace:44085', toCity: 'NSR:StopPlace:44085' },
+            samf: { fromCity: 'NSR:StopPlace:42660', toCity: 'NSR:StopPlace:42660' },
           },
         },
       },
@@ -86,6 +122,22 @@ class App extends Component {
           apis: {
             'fromCity': 'tarbus.stops.glos.fromCity:departures',
             'toCity': 'tarbus.stops.glos.toCity:departures',
+          },
+          props: {},
+        },
+        {
+          template: 'Bus',
+          name: 'Gløshaugen syd (entur)',
+          apiPaths: {
+            name: 'destinationDisplay.frontText',
+            number: 'serviceJourney.line.publicCode',
+            registredTime: 'aimedArrivalTime',
+            scheduledTime: 'expectedArrivalTime',
+            isRealtime: 'realtime',
+          },
+          apis: {
+            'fromCity': 'enturbus.stops.glos.fromCity:data.stopPlace.estimatedCalls',
+            'toCity': 'enturbus.stops.glos.toCity:data.stopPlace.estimatedCalls',
           },
           props: {},
         },
@@ -204,7 +256,7 @@ class App extends Component {
       return;
     }
 
-    API.getRequest(url || this.state.apis[api].url, data => {
+    const callback = data => {
       let components = this.state.components.slice();
 
       if (deep) {
@@ -223,7 +275,9 @@ class App extends Component {
       }
 
       this.setState(Object.assign({}, this.state, { components }));
-    }, () => {
+    };
+
+    const onError = () => {
       // Stop API when it reaches to many failed requests
       let maxFails = 1;
       let apis = Object.assign({}, this.state.apis);
@@ -249,7 +303,35 @@ class App extends Component {
 
         this.setState(Object.assign({}, this.state, { apis }));
       }
-    });
+    };
+
+    // Execute [[scripts]] inside the url and replace
+    // the fields with the data
+    const urlCopy = (url || this.state.apis[api].url).slice();
+    const urlSripts = getStringParams(urlCopy, '[[', ']]');
+    let urlExecuted = urlCopy.slice();
+    for (const urlScript of urlSripts) {
+      let value = '';
+      switch (urlScript) {
+        case 'now':
+        value = new Date().toISOString();
+        break;
+
+        default:
+        value = eval(urlScript); // I know, this is no good.
+        break;
+      }
+      urlExecuted = urlExecuted.replace(`[[${urlScript}]]`, value);
+    }
+
+    if (this.state.apis[api].method === 'POST') {
+      let [ urlPart, body ] = urlExecuted.split('>>');
+      let req = this.state.apis[api].req || {};
+      req.body = body;
+      API.postRequest(urlPart, req, callback, onError);
+    } else {
+      API.getRequest(urlExecuted, callback, onError);
+    }
   }
 
   goOnline(api = null) {
