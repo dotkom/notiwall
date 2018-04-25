@@ -64,7 +64,6 @@ class Coffee extends Component {
     }
 
     let potsList = [];
-    let pots = null;
     if (this.state.pots) {
       potsList = this.state.pots
         .filter(e => differenceInHours(new Date(), e) <= 24)
