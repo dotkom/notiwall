@@ -16,6 +16,16 @@ class Coffee extends Component {
     this.templateVars = {
       apis: 'apis',
     };
+
+    this.clockInterval = null;
+  }
+
+  componentDidMount() {
+    this.clockInterval = setInterval(() => this.forceUpdate(), 100);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.clockInterval);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,17 +70,32 @@ class Coffee extends Component {
       });
     }
 
-    const clockElement = (pots = []) => {
+    const clockElement = (time, pots = []) => {
       const potsElement = pots.map((e, i) => {
-        const [ hours, minutes ] = e.split(':').map(e => parseInt(e));
+        const [ hours, minutes ] = e.split(':').map(e => parseInt(e, 10));
         const pos = (hours + minutes / 60) / 12;
         const dx = Math.sin(Math.PI - pos * Math.PI * 2) * 40;
         const dy = Math.cos(Math.PI + pos * Math.PI * 2) * 40;
         return <circle key={i} cx={50 + dx} cy={50 + dy} r="4" fill="#f80" />;
       });
 
+      const hour = time.getHours();
+      const minute = time.getMinutes();
+      const second = time.getSeconds();
+      const millisecond = time.getMilliseconds();
+
+      const hourX = Math.sin(Math.PI - Math.PI * 2 * (hour / 12 + minute / 12 / 60)) * 16;
+      const hourY = Math.cos(Math.PI + Math.PI * 2 * (hour / 12 + minute / 12 / 60)) * 16;
+      const minuteX = Math.sin(Math.PI - Math.PI * 2 * (minute / 60 + second / 60 / 60)) * 32;
+      const minuteY = Math.cos(Math.PI + Math.PI * 2 * (minute / 60 + second / 60 / 60)) * 32;
+      const secondX = Math.sin(Math.PI - Math.PI * 2 * (second / 60 + millisecond / 60 / 1000)) * 32;
+      const secondY = Math.cos(Math.PI + Math.PI * 2 * (second / 60 + millisecond / 60 / 1000)) * 32;
+
       return (
         <svg width="100%" height="100%" viewBox="0 0 100 100">
+          <line strokeLinecap="round" x1="50" y1="50" x2={50 + hourX} y2={50 + hourY} strokeWidth="3" stroke="#fff" />
+          <line strokeLinecap="round" x1="50" y1="50" x2={50 + minuteX} y2={50 + minuteY} strokeWidth="3" stroke="#fff" />
+          <line strokeLinecap="round" x1="50" y1="50" x2={50 + secondX} y2={50 + secondY} strokeWidth="1" stroke="#fff" />
           <circle cx="50" cy="50" r="40" strokeWidth="3" stroke="#fff" fill="none" />
           {potsElement}
         </svg>
@@ -83,7 +108,7 @@ class Coffee extends Component {
         {coffeeInfo}
         {pots && pots.length ? <h3>Kaffe hittil i dag</h3> : null}
         {pots}
-        {clockElement(potsList || [])}
+        {clockElement(new Date(), potsList || [])}
       </Template>
     );
   }
