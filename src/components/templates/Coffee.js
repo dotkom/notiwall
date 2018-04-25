@@ -78,8 +78,6 @@ class Coffee extends Component {
       <Template className={this.constructor.name} {...this.props} templateVars={this.templateVars}>
         <h3>Kaffe</h3>
         {coffeeInfo}
-        {pots && pots.length ? <h3>Kaffe hittil i dag</h3> : null}
-        {false && pots}
         {simpleClock(new Date(), potsList || [])}
       </Template>
     );
