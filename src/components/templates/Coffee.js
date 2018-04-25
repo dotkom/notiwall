@@ -79,7 +79,7 @@ class Coffee extends Component {
         const pos = (hours + minutes / 60) / 12;
         const dx = Math.sin(Math.PI - pos * Math.PI * 2) * 40;
         const dy = Math.cos(Math.PI + pos * Math.PI * 2) * 40;
-        return <circle key={i} cx={50 + dx} cy={50 + dy} r="2" fill="#f80" />;
+        return <circle key={i} cx={50 + dx} cy={50 + dy} r="1" fill="#fff" />;
       });
 
       const hour = time.getHours();
@@ -98,10 +98,10 @@ class Coffee extends Component {
 
       return (
         <svg width="100%" height="100%" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" strokeWidth={borderSize} stroke="none" fill="rgba(0, 0, 0, .1)" />
           <line strokeLinecap="round" x1="50" y1="50" x2={50 + hourX} y2={50 + hourY} strokeWidth={borderSize} stroke="#fff" />
           <line strokeLinecap="round" x1="50" y1="50" x2={50 + minuteX} y2={50 + minuteY} strokeWidth={borderSize} stroke="#fff" />
           <line strokeLinecap="round" x1="50" y1="50" x2={50 + secondX} y2={50 + secondY} strokeWidth={borderSize / 2} stroke="#fff" />
-          <circle cx="50" cy="50" r="40" strokeWidth={borderSize} stroke="#fff" fill="none" />
           {potsElement}
         </svg>
       );
