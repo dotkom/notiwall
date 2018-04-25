@@ -69,9 +69,6 @@ class Coffee extends Component {
       potsList = this.state.pots
         .filter(e => differenceInHours(new Date(), e) <= 24)
         .map(e => format(e, 'HH:mm', { locale }));
-      pots = potsList.map((e, i) => {
-        return <div key={i}>{e}</div>;
-      });
     }
 
     return (
