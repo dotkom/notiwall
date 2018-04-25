@@ -21,7 +21,7 @@ class Coffee extends Component {
   }
 
   componentDidMount() {
-    this.clockInterval = setInterval(() => this.forceUpdate(), 100);
+    this.clockInterval = setInterval(() => this.forceUpdate(), 1000 / 50); // Almost 60 frames per sec
   }
 
   componentWillUnmount() {
@@ -107,7 +107,7 @@ class Coffee extends Component {
         <h3>Kaffe</h3>
         {coffeeInfo}
         {pots && pots.length ? <h3>Kaffe hittil i dag</h3> : null}
-        {pots}
+        {false && pots}
         {clockElement(new Date(), potsList || [])}
       </Template>
     );
