@@ -60,7 +60,7 @@ class App extends Component {
           },
           url: `https://api.entur.org/journeyplanner/2.0/index/graphql>>${JSON.stringify({
             query: `{
-              stopPlace(id: "{{stops.*.fromCity,toCity}}") {
+              quay(id: "{{stops.*.fromCity,toCity}}") {
                 id
                 name
                 estimatedCalls(startTime:"[[now]]" timeRange: 72100, numberOfDepartures: 5) {
@@ -83,8 +83,8 @@ class App extends Component {
             }`
           })}`,
           stops: {
-            glos: { fromCity: 'NSR:StopPlace:44085', toCity: 'NSR:StopPlace:44085' },
-            samf: { fromCity: 'NSR:StopPlace:42660', toCity: 'NSR:StopPlace:42660' },
+            glos: { fromCity: 'NSR:Quay:75707', toCity: 'NSR:Quay:75708' },
+            samf: { fromCity: 'NSR:Quay:73103', toCity: 'NSR:Quay:73101' },
           },
         },
       },
@@ -136,8 +136,8 @@ class App extends Component {
             isRealtime: 'realtime',
           },
           apis: {
-            'fromCity': 'enturbus.stops.glos.fromCity:data.stopPlace.estimatedCalls',
-            'toCity': 'enturbus.stops.glos.toCity:data.stopPlace.estimatedCalls',
+            'fromCity': 'enturbus.stops.glos.fromCity:data.quay.estimatedCalls',
+            'toCity': 'enturbus.stops.glos.toCity:data.quay.estimatedCalls',
           },
           props: {},
         },
@@ -305,6 +305,7 @@ class App extends Component {
       }
     };
 
+    
     // Execute [[scripts]] inside the url and replace
     // the fields with the data
     const urlCopy = (url || this.state.apis[api].url).slice();
@@ -318,7 +319,7 @@ class App extends Component {
         break;
 
         default:
-        value = eval(urlScript); // I know, this is no good.
+        value = ''; //eval(urlScript); // I know, this is no good.
         break;
       }
       urlExecuted = urlExecuted.replace(`[[${urlScript}]]`, value);
