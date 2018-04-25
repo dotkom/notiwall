@@ -17,15 +17,18 @@ class Coffee extends Component {
       apis: 'apis',
     };
 
-    this.clockInterval = null;
+    this.lastRendered = Date.now();
   }
 
-  componentDidMount() {
-    this.clockInterval = setInterval(() => this.forceUpdate(), 1000 / 50); // Almost 60 frames per sec
-  }
+  componentDidUpdate() {
+    const now = Date.now();
+    const diff = now - this.lastRendered;
+    this.lastRendered = now;
+    const timeout = diff >= 16 ? 0 : 16 - diff;
 
-  componentWillUnmount() {
-    clearInterval(this.clockInterval);
+    setTimeout(() => {
+      this.forceUpdate();
+    }, timeout);
   }
 
   componentWillReceiveProps(nextProps) {
