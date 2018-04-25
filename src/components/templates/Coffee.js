@@ -49,13 +49,32 @@ class Coffee extends Component {
       coffeeInfo = 'API\'et er utilgjengelig';
     }
 
+    let potsList = [];
     let pots = null;
     if (this.state.pots) {
-      pots = this.state.pots
+      potsList = this.state.pots
         .filter(e => differenceInHours(new Date(), e) <= 24)
-        .map((e, i) => {
-          return <div key={i}>{format(e, 'HH:mm', { locale })}</div>;
-        });
+        .map(e => format(e, 'HH:mm', { locale }));
+      pots = potsList.map((e, i) => {
+        return <div key={i}>{e}</div>;
+      });
+    }
+
+    const clockElement = (pots = []) => {
+      const potsElement = pots.map((e, i) => {
+        const [ hours, minutes ] = e.split(':').map(e => parseInt(e));
+        const pos = (hours + minutes / 60) / 12;
+        const dx = Math.sin(Math.PI - pos * Math.PI * 2) * 40;
+        const dy = Math.cos(Math.PI + pos * Math.PI * 2) * 40;
+        return <circle key={i} cx={50 + dx} cy={50 + dy} r="4" fill="#f80" />;
+      });
+
+      return (
+        <svg width="100%" height="100%" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" strokeWidth="3" stroke="#fff" fill="none" />
+          {potsElement}
+        </svg>
+      );
     }
 
     return (
@@ -64,6 +83,7 @@ class Coffee extends Component {
         {coffeeInfo}
         {pots && pots.length ? <h3>Kaffe hittil i dag</h3> : null}
         {pots}
+        {clockElement(potsList || [])}
       </Template>
     );
   }
