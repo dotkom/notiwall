@@ -3,7 +3,7 @@ import { Template } from '../layout';
 import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
 import { get } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
-import { simpleClock } from '../ui-elements/Clocks';
+import { simpleClock } from '../gadgets/Clocks';
 
 class Coffee extends Component {
   constructor() {
