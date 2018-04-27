@@ -305,7 +305,6 @@ class App extends Component {
       }
     };
 
-    
     // Execute [[scripts]] inside the url and replace
     // the fields with the data
     const urlCopy = (url || this.state.apis[api].url).slice();
