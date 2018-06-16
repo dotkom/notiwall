@@ -30,60 +30,60 @@ import { get, has } from 'object-path';
  */
 export const findObjectPaths = (object, schema = '') => {
 
-    // Check if a "|" is in the schema. If found, then split by "|"
-    // and run findObjectPaths function over them again and avoid
-    // duplicates.
-    if (schema.indexOf('|') !== -1) {
-        let results = [];
-        for (let part of schema.split('|')) {
-            let result = findObjectPaths(object, part);
-            for (let path of result) {
-                if (results.indexOf(path) === -1) {
-                    results.push(path);
-                }
-            }
+  // Check if a "|" is in the schema. If found, then split by "|"
+  // and run findObjectPaths function over them again and avoid
+  // duplicates.
+  if (schema.indexOf('|') !== -1) {
+    let results = [];
+    for (let part of schema.split('|')) {
+      let result = findObjectPaths(object, part);
+      for (let path of result) {
+        if (results.indexOf(path) === -1) {
+          results.push(path);
         }
-
-        return results;
+      }
     }
 
-    // If no splits, "|", are occurring, do a search
-    let keys = schema.split('.');
-    let results = [[]];
+    return results;
+  }
 
-    // Go through each key
-    for (let key of keys) {
-        let newResults = [];
+  // If no splits, "|", are occurring, do a search
+  let keys = schema.split('.');
+  let results = [[]];
 
-        // Search through all matches in object at current depth
-        if (key === '*') {
-            for (let index in results) {
-                let path = results[index];
-                if (has(object, path)) {
-                    for (let next in get(object, path)) {
-                        newResults.push(path.concat(next));
-                    }
-                }
-            }
+  // Go through each key
+  for (let key of keys) {
+    let newResults = [];
+
+    // Search through all matches in object at current depth
+    if (key === '*') {
+      for (let index in results) {
+        let path = results[index];
+        if (has(object, path)) {
+          for (let next in get(object, path)) {
+            newResults.push(path.concat(next));
+          }
         }
-
-        // If there are finite possibilities we know the
-        // paths to search through.
-        else {
-            for (let option of key.split(',')) {
-                for (let index in results) {
-                    let path = results[index].concat([option]);
-                    if (has(object, path)) {
-                        newResults.push(path);
-                    }
-                }
-            }
-        }
-
-        results = newResults;
+      }
     }
 
-    return results.map(result => result.join('.'));
+    // If there are finite possibilities we know the
+    // paths to search through.
+    else {
+      for (let option of key.split(',')) {
+        for (let index in results) {
+          let path = results[index].concat([option]);
+          if (has(object, path)) {
+            newResults.push(path);
+          }
+        }
+      }
+    }
+
+    results = newResults;
+  }
+
+  return results.map(result => result.join('.'));
 };
 
 /**
@@ -101,23 +101,84 @@ export const findObjectPaths = (object, schema = '') => {
  * @returns {array} Array of matches
  */
 export const getStringParams = (string, start = '{{', end = '}}') => {
-    let offsetStart = start.length;
-    let offsetEnd = end.length;
-    let indexStart = string.indexOf(start);
-    let index = indexStart;
-    let result = [];
+  const offsetStart = start.length;
+  const offsetEnd = end.length;
 
-    while (indexStart !== -1) {
-        let indexEnd = string.slice(index + offsetStart).indexOf(end);
+  let indexStart = string.indexOf(start);
+  let index = indexStart;
+  let result = [];
 
-        if (indexEnd === -1) {
-            break;
-        }
+  while (indexStart !== -1) {
+    let indexEnd = string.slice(index + offsetStart).indexOf(end);
 
-        result.push(string.slice(index + offsetStart, index + offsetStart + indexEnd));
-        indexStart = string.slice(index + offsetStart + indexEnd + offsetEnd).indexOf(start);
-        index += indexEnd + offsetEnd + indexStart + offsetStart;
+    if (indexEnd === -1) {
+      break;
     }
 
-    return result;
+    result.push(string.slice(index + offsetStart, index + offsetStart + indexEnd));
+    indexStart = string.slice(index + offsetStart + indexEnd + offsetEnd).indexOf(start);
+    index += indexEnd + offsetEnd + indexStart + offsetStart;
+  }
+
+  return result;
+};
+
+/**
+ * Inject values from object into string at marked locations.
+ * 
+ * Examples:
+ * 
+ * const obj = {
+ *   one: 1,
+ *   two: 2,
+ *   three: 3,
+ *   four: 4,
+ * };
+ * 
+ * injectValuesIntoString('test{{one}}', obj) => 'test1'
+ * injectValuesIntoString('{{one}}test', obj) => '1test'
+ * injectValuesIntoString('test{{one}}test', obj) => 'test1test'
+ * injectValuesIntoString('{{two}}test{{two}}', obj) => '2test2'
+ * injectValuesIntoString('{{three}}test{{four}}', obj) => '3test4'
+ * injectValuesIntoString('{{three}}test{{five}}', obj) => '3test{{five}}'
+ * injectValuesIntoString('{{three}}test{{five}}', obj, '0') => '3test0'
+ * 
+ * @param {string} string The String to search through
+ * @param {string} values An object with all values that can fit the keys
+ * @param {string} fallbackValue Default value if no keys in values matches
+ * @param {string} start Start of match
+ * @param {string} end End of match
+ * 
+ * @returns {string} Generated string
+ */
+export const injectValuesIntoString = (string, values, fallbackValue = null, start = '{{', end = '}}') => {
+  const params = getStringParams(string, start, end);
+  const offsetStart = start.length;
+  const offsetEnd = end.length;
+
+  let result = '';
+  let prevPosition = -1;
+  let prevFormattedParam = '';
+
+  for (let param of params) {
+    let value = '';
+
+    if (param in values) {
+      value = values[param];
+    } else if (fallbackValue !== null) {
+      value = fallbackValue;
+    } else {
+      continue;
+    }
+
+    const formattedParam = start + param + end;
+    const position = string.indexOf(formattedParam, prevPosition + 1);
+    result += string.slice((prevPosition === -1 ? 0 : prevPosition) + prevFormattedParam.length, position) + value;
+    prevPosition = position;
+    prevFormattedParam = formattedParam;
+  }
+
+  result += string.slice(prevPosition + prevFormattedParam.length);
+
+  return result;
 };
