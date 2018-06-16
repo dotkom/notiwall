@@ -54,6 +54,7 @@ it('Get string params', () => {
     four: 4,
   };
 
+  expect(injectValuesIntoString('test', obj)).toEqual('test');
   expect(injectValuesIntoString('test{{one}}', obj)).toEqual('test1');
   expect(injectValuesIntoString('test{{one}}test', obj)).toEqual('test1test');
   expect(injectValuesIntoString('{{one}}test', obj)).toEqual('1test');

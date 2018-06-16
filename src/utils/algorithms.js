@@ -154,6 +154,10 @@ export const getStringParams = (string, start = '{{', end = '}}') => {
 export const injectValuesIntoString = (string, values, fallbackValue = null, start = '{{', end = '}}') => {
   const params = getStringParams(string, start, end);
 
+  if (!params.length) {
+    return string;
+  }
+
   let result = '';
   let prevPosition = -1;
   let prevFormattedParam = '';
