@@ -153,8 +153,6 @@ export const getStringParams = (string, start = '{{', end = '}}') => {
  */
 export const injectValuesIntoString = (string, values, fallbackValue = null, start = '{{', end = '}}') => {
   const params = getStringParams(string, start, end);
-  const offsetStart = start.length;
-  const offsetEnd = end.length;
 
   let result = '';
   let prevPosition = -1;
