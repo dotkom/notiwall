@@ -1,7 +1,7 @@
-import { findObjectPaths, getStringParams } from './algorithms';
+import { findObjectPaths, getStringParams, injectValuesIntoString } from './algorithms';
 
 it('Find object paths', () => {
-  let obj = {
+  const obj = {
     a: {
       b: {
         c: 'first',
@@ -44,4 +44,21 @@ it('Get string params', () => {
   expect(getStringParams('test|18|test', '|', '|')).toEqual([ '18' ]);
   expect(getStringParams('test|19|||20||', '|', '||')).toEqual([ '19', '20' ]);
   expect(getStringParams('test||21|||22||', '|', '|||')).toEqual([ '|21' ]);
+});
+
+it('Get string params', () => {
+  const obj = {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+  };
+
+  expect(injectValuesIntoString('test{{one}}', obj)).toEqual('test1');
+  expect(injectValuesIntoString('test{{one}}test', obj)).toEqual('test1test');
+  expect(injectValuesIntoString('{{one}}test', obj)).toEqual('1test');
+  expect(injectValuesIntoString('{{two}}test{{two}}', obj)).toEqual('2test2');
+  expect(injectValuesIntoString('{{three}}test{{four}}', obj)).toEqual('3test4');
+  expect(injectValuesIntoString('{{three}}test{{five}}', obj)).toEqual('3test{{five}}');
+  expect(injectValuesIntoString('{{three}}test{{five}}', obj, '0')).toEqual('3test0');
 });
