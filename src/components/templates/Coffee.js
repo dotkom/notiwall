@@ -21,6 +21,10 @@ class Coffee extends Component {
     this.lastRendered = Date.now();
   }
 
+  componentDidMount() {
+    this.forceUpdate();
+  }
+
   componentDidUpdate() {
     const now = Date.now();
     const diff = now - this.lastRendered;
