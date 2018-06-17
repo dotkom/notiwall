@@ -9,8 +9,12 @@ import {
   getStringParams,
   findObjectPaths,
 } from './utils';
-import { API_URL } from './constants';
-import { get, set } from 'object-path';
+import {
+  defaultAffiliationSettings,
+  defaultApis,
+  defaultSettings,
+  defaultTranslations,
+} from './defaults';
 
 class App extends Component {
   constructor() {
@@ -19,130 +23,28 @@ class App extends Component {
     this.storage = new Storage();
     this.intervals = {};
 
-    let { apis } = this.storage.merge({
-      apis: {
-        affiliation: {
-          interval: 10,
-          url: `${API_URL}/affiliation/{{org.*}}`,
-          org: {
-            online: 'online',
-            abakus: 'abakus',
-            delta: 'delta',
-          },
-        },
-        coffeePots: {
-          interval: 60,
-          url: `${API_URL}/coffee/online`,
-        },
-        tarbus: {
-          interval: 10,
-          url: 'https://atbapi.tar.io/api/v1/departures/{{stops.*.fromCity,toCity}}',
-          stops: {
-            glos: { fromCity: '16010265', toCity: '16011265' },
-            samf: { fromCity: '16010476', toCity: '16011476' },
-          },
-        },
-        bartebuss: {
-          interval: 10,
-          url: 'https://bartebuss.no/api/unified/{{stops.*.fromCity,toCity}}',
-          stops: {
-            glos: { fromCity: '16010265', toCity: '16011265' },
-            samf: { fromCity: '16010476', toCity: '16011476' },
-          },
-        },
-        enturbus: {
-          interval: 10,
-          method: 'POST',
-          req: {
-            headers: {
-              'ET-Client-Name': 'Notifier-dev',
-            },
-          },
-          url: `https://api.entur.org/journeyplanner/2.0/index/graphql>>${JSON.stringify({
-            query: `{
-              quay(id: "{{stops.*.fromCity,toCity}}") {
-                id
-                name
-                estimatedCalls(startTime:"[[now]]" timeRange: 72100, numberOfDepartures: 5) {
-                  aimedArrivalTime
-                  aimedDepartureTime
-                  expectedArrivalTime
-                  expectedDepartureTime
-                  realtime
-                  forBoarding
-                  destinationDisplay {
-                    frontText
-                  }
-                  serviceJourney {
-                    line {
-                      publicCode
-                    }
-                  }
-                }
-              }
-            }`
-          })}`,
-          stops: {
-            glos: { fromCity: 'NSR:Quay:75707', toCity: 'NSR:Quay:75708' },
-            samf: { fromCity: 'NSR:Quay:73103', toCity: 'NSR:Quay:73101' },
-          },
-        },
-      },
+    let {
+      apis,
+      settings,
+      translations,
+      affiliationSettings,
+    } = this.storage.merge({
+
+      // Get all the APIs
+      apis: defaultApis,
+
+      // Get the global settings
+      settings: defaultSettings,
+
+      // Get all translations, such that glos = Gløshaugen
+      translations: defaultTranslations,
+
+      // Get all the affiliation settings
+      affiliationSettings: defaultAffiliationSettings,
     }, true);
 
-    let { components } = this.storage.merge({
-      components: [
-        {
-          template: 'Vakter',
-          apis: {
-            'message': 'affiliation.org.online:servant.message',
-            'responsible': 'affiliation.org.online:servant.responsible',
-            'servants': 'affiliation.org.online:servant.servants',
-          },
-          props: {},
-        },
-        {
-          template: 'Coffee',
-          apis: {
-            'coffeeTime': 'affiliation.org.online:coffee.date',
-            'pots': 'coffeePots:pots',
-          },
-          props: {},
-        },
-        {
-          template: 'Bus',
-          name: 'Gløshaugen syd',
-          apiPaths: {
-            name: 'destination',
-            number: 'line',
-            registredTime: 'registeredDepartureTime',
-            scheduledTime: 'scheduledDepartureTime',
-            isRealtime: 'isRealtimeData',
-          },
-          apis: {
-            'fromCity': 'tarbus.stops.glos.fromCity:departures',
-            'toCity': 'tarbus.stops.glos.toCity:departures',
-          },
-          props: {},
-        },
-        {
-          template: 'Bus',
-          name: 'Gløshaugen syd (entur)',
-          apiPaths: {
-            name: 'destinationDisplay.frontText',
-            number: 'serviceJourney.line.publicCode',
-            registredTime: 'aimedArrivalTime',
-            scheduledTime: 'expectedArrivalTime',
-            isRealtime: 'realtime',
-          },
-          apis: {
-            'fromCity': 'enturbus.stops.glos.fromCity:data.quay.estimatedCalls',
-            'toCity': 'enturbus.stops.glos.toCity:data.quay.estimatedCalls',
-          },
-          props: {},
-        },
-      ],
-    }, true);
+    // Get components from the given affiliation in the settings
+    let components = affiliationSettings[settings.affiliation].components;
 
     for (let root in apis) {
       delete apis[root].fails;
@@ -153,12 +55,15 @@ class App extends Component {
       offlineMode: !navigator.onLine,
       apis,
       components,
+      settings,
+      translations,
       edit: false,
     };
 
     this.updateComponent = this.updateComponent.bind(this);
     this.updateApi = this.updateApi.bind(this);
     this.getApis = this.getApis.bind(this);
+    this.translate = this.translate.bind(this);
 
     // Start the APIs and resolve template URLs
     for (let api in this.state.apis) {
@@ -400,6 +305,14 @@ class App extends Component {
     this.setState(Object.assign({}, this.state, { apis }));
   }
 
+  translate(word) {
+    if (word in this.state.translations) {
+      return this.state.translations[word];
+    }
+
+    return word;
+  }
+
   toggleEdit() {
     if (this.state.edit) {
       this.storage.set('components', this.state.components, true);
@@ -435,6 +348,7 @@ class App extends Component {
             {...element}
             edit={edit}
             apiList={apiList}
+            translate={this.translate}
             updateComponent={this.updateComponent}
             goOnline={this.goOnline.bind(this)}
             offline={offline}
