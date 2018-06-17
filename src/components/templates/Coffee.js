@@ -73,8 +73,8 @@ class Coffee extends Component {
     return (
       <Template className={this.constructor.name} {...this.props} templateVars={this.templateVars}>
         <h3>Kaffe</h3>
-        {coffeeInfo}
-        {simpleClock(new Date(), potsList || [])}
+        {this.props.showCoffeePots !== 'false' && coffeeInfo}
+        {simpleClock(new Date(), potsList || [], this.props.showCoffeePots !== 'false')}
       </Template>
     );
   }

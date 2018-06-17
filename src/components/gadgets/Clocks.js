@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const simpleClock = (time, pots = []) => {
+export const simpleClock = (time, pots = [], showPots = true) => {
   const potsElement = pots.map((e, i) => {
     const [ hours, minutes ] = e.split(':').map(e => parseInt(e, 10));
     const pos = (hours + minutes / 60) / 12;
@@ -38,8 +38,8 @@ export const simpleClock = (time, pots = []) => {
   return (
     <svg width="100%" height="100%" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="40" fill="rgba(0, 0, 0, .1)" />
-      <text x={potsX} y={potsY - 0} fill="rgba(255, 255, 255, .4)" textAnchor="middle" fontSize="10px">{pots.length}</text>
-      <text x={potsX} y={potsY + 8} fill="rgba(255, 255, 255, .4)" textAnchor="middle" fontSize="5px">Pots</text>
+      {showPots && <text x={potsX} y={potsY - 0} fill="rgba(255, 255, 255, .4)" textAnchor="middle" fontSize="10px">{pots.length}</text>}
+      {showPots && <text x={potsX} y={potsY + 8} fill="rgba(255, 255, 255, .4)" textAnchor="middle" fontSize="5px">Pots</text>}
       <line strokeLinecap="round" x1="50" y1="50" x2={50 + hourX} y2={50 + hourY} strokeWidth={borderSize} stroke="rgba(255, 255, 255, 1)" />
       <line strokeLinecap="round" x1="50" y1="50" x2={50 + minuteX} y2={50 + minuteY} strokeWidth={borderSize} stroke="rgba(255, 255, 255, 1)" />
       <line strokeLinecap="round" x1="50" y1="50" x2={50 + secondX} y2={50 + secondY} strokeWidth={borderSize / 2} stroke="rgba(255, 255, 255, .6)" />
