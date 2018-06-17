@@ -77,14 +77,15 @@ class Bus extends Component {
   }
 
   render() {
-    let toCity = this.getDepartureList(this.state.toCity);
-    let fromCity = this.getDepartureList(this.state.fromCity);
+    const toCity = this.getDepartureList(this.state.toCity);
+    const fromCity = this.getDepartureList(this.state.fromCity);
+    const { translate } = this.props;
 
     return (
       <Template className={this.constructor.name} {...this.props} templateVars={this.templateVars}>
-        <h3>{this.props.name} (fra byen)</h3>
+        <h3>{translate(this.props.name)} (fra byen)</h3>
         {fromCity}
-        <h3>{this.props.name} (mot byen)</h3>
+        <h3>{translate(this.props.name)} (mot byen)</h3>
         {toCity}
       </Template>
     );
