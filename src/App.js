@@ -116,14 +116,26 @@ class App extends Component {
 
   startAPI(api, url = '', deep = '') {
     // Check if any components has this API, else we should not fetch data
-    let components = this.state.components.slice();
-    let object = api + (deep ? '.' + deep : '');
+    const components = this.state.components.slice();
+    const object = api + (deep ? '.' + deep : '');
+
     let apiIsInUse = false;
 
-    for (let component of components) {
+    for (const component of components) {
       if ('apis' in component) {
-        for (let assignedTo in component.apis) {
-          let [ apiPath ] = component.apis[assignedTo].split(':');
+        for (const assignedTo in component.apis) {
+          let assignedToValue = component.apis[assignedTo];
+
+          if ('injectInto' in component) {
+            if (component.injectInto.includes(`apis.${assignedTo}`)) {
+              assignedToValue = injectValuesIntoString(
+                component.apis[assignedTo],
+                this.state.settings
+              );
+            }
+          }
+
+          const [ apiPath ] = assignedToValue.split(':');
 
           if (apiPath === object) {
             apiIsInUse = true;
@@ -175,8 +187,13 @@ class App extends Component {
 
       for (let component of components) {
         if ('apis' in component) {
-          for (let assignedTo in component.apis) {
-            let [ apiPath, deepPath ] = component.apis[assignedTo].split(':');
+          for (const assignedTo in component.apis) {
+            const injectedSettingsIntoPath = injectValuesIntoString(
+              component.apis[assignedTo],
+              this.state.settings
+            );
+            const [ apiPath, deepPath ] = injectedSettingsIntoPath.split(':');
+
             if (apiPath === api) {
               set(component, assignedTo, get(data, deepPath));
             }
