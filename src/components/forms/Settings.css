@@ -1,0 +1,101 @@
+.settings-container {
+  padding: 2em;
+  min-width: 640px;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  background-color: #121280;
+  text-align: left;
+}
+
+.settings-section {
+  padding: 1em 2em;
+  background-color: rgba(0, 0, 0, .16);
+}
+
+.settings-field {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 1em 0;
+  align-items: center;
+}
+
+.settings-field-name {
+  flex: 1;
+  font-size: 1.8em;
+}
+
+.settings-field-form {
+  flex: 0;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.settings-field-form.full-width {
+  min-width: 100%;
+}
+
+.settings-field-form-checkbox {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: .4em;
+  padding-right: 0;
+  box-sizing: border-box;
+  min-width: 100%;
+  font-size: 1.4em;
+}
+
+.settings-field-form-checkbox > input {
+  display: none;
+}
+
+.settings-field-form-checkbox > input + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 1.2em;
+  height: 1.2em;
+  background-color: rgba(0, 0, 0, .32);
+}
+
+.settings-field-form-checkbox > input:checked + label:after {
+  content: "";
+  position: absolute;
+  left: .3em;
+  top: .3em;
+  width: .6em;
+  height: .6em;
+  background-color: rgba(255, 255, 255, .8);
+}
+
+.settings-field-form-checkbox > input + label {
+  flex: 1;
+  position: relative;
+  padding-left: 2em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.settings-field-form-checkbox > input:not(:checked) ~ * {
+  visibility: hidden;
+}
+
+.settings-field-form-checkbox > input:not(:checked) + label {
+  visibility: visible;
+  color: rgba(255, 255, 255, .4);
+}
+
+.settings-container select {
+  font-size: 1rem;
+  background: rgba(0, 0, 0, .16);
+  color: rgba(255, 255, 255, .6);
+  padding: 1em;
+  border: none;
+  flex: 1;
+}
+
+.settings-container option {
+  color: black;
+}

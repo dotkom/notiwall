@@ -1,5 +1,7 @@
 import ChangeAPIs from './ChangeAPIs';
+import BasicSettings from './BasicSettings';
 
 export {
-    ChangeAPIs,
+  ChangeAPIs,
+  BasicSettings,
 };
