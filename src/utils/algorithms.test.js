@@ -46,7 +46,7 @@ it('Get string params', () => {
   expect(getStringParams('test||21|||22||', '|', '|||')).toEqual([ '|21' ]);
 });
 
-it('Get string params', () => {
+it('Inject values into placeholders in string', () => {
   const obj = {
     one: 1,
     two: 2,
