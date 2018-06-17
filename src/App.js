@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { get, set } from 'object-path';
+import Style from 'style-it';
+
 import './App.css';
-import { ChangeAPIs } from './components/forms';
+import { BasicSettings } from './components/forms';
 import { Section } from './components/layout';
 import * as Template from './components/templates';
+import * as Styles from './styles';
 import {
   API,
   Storage,
@@ -330,6 +334,10 @@ class App extends Component {
     } catch (ex) { }
   }
 
+  getStyle(group) {
+    return group in Styles ? Styles[group] : '';
+  }
+
   render() {
     let { components, edit, apis, offlineMode } = this.state;
     let apiList = this.getApis();
@@ -368,26 +376,33 @@ class App extends Component {
       );
     });
 
-    let editApisElement = edit
-      ? <ChangeAPIs apis={apis} updateApi={this.updateApi} />
+    let editSettingsElement = edit
+    //  ? <ChangeAPIs apis={apis} updateApi={this.updateApi} />
+      ? <BasicSettings
+           apis={apis}
+           updateApi={this.updateApi}
+           translate={this.translate}
+        />
       : null;
 
     return (
-      <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
-        <Section style={{minHeight:20,minWidth:'100%'}}>
-          <Template.Header css={', { padding: 0; height: 0 }'}>
-            <div>
-              <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
-              <button onClick={() => this.clearStorage()}>Reset app</button>
-            </div>
-            {offlineMode && <button onClick={() => this.goOnline()}>
-              Gå online (Du er offline)
-            </button>}
-          </Template.Header>
-        </Section>
-        {editApisElement}
-        {componentElements}
-      </div>
+      <Style>
+        {this.getStyle('Online')}
+        <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
+          <Section style={{ minHeight: 20, minWidth:'100%' }}>
+            <Template.Header css={', { padding: 0; height: 0 }'}>
+              <div>
+                <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
+                <button onClick={() => this.clearStorage()}>Reset app</button>
+              </div>
+              {offlineMode && <button onClick={() => this.goOnline()}>
+                Gå online (Du er offline)
+              </button>}
+            </Template.Header>
+          </Section>
+          {editSettingsElement || componentElements}
+        </div>
+      </Style>
     );
   }
 }
