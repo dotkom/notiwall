@@ -1,10 +1,15 @@
 import { API } from './api';
 import Storage from './storage';
-import { getStringParams, findObjectPaths } from './algorithms'
+import {
+  getStringParams,
+  findObjectPaths,
+  injectValuesIntoString,
+} from './algorithms'
 
 export {
-    API,
-    Storage,
-    getStringParams,
-    findObjectPaths,
+  API,
+  Storage,
+  getStringParams,
+  findObjectPaths,
+  injectValuesIntoString,
 };
