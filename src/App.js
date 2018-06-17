@@ -8,6 +8,7 @@ import {
   Storage,
   getStringParams,
   findObjectPaths,
+  injectValuesIntoString,
 } from './utils';
 import {
   defaultAffiliationSettings,
@@ -335,10 +336,19 @@ class App extends Component {
 
     let componentElements = components.map((element, i) => {
       const Element = Template[element.template];
+      element = Object.assign({}, element);
       element.css = element.css || `.${element.template} {
   /* Add custom styles here */
 }`;
       element.size = element.size || 1;
+
+      if ('injectInto' in element) {
+        for (let key of element.injectInto) {
+          const value = get(element, key);
+          const newValue = injectValuesIntoString(value, this.state.settings);
+          set(element, key, newValue);
+        }
+      }
 
       let offline = Object.keys(apis).filter(api => apis[api].offline);
 
