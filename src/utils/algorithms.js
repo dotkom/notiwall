@@ -170,6 +170,10 @@ export const injectValuesIntoString = (string, values, fallbackValue = null, sta
     } else if (fallbackValue !== null) {
       value = fallbackValue;
     } else {
+      if (prevPosition === -1) {
+        prevPosition = 0;
+      }
+
       continue;
     }
 
