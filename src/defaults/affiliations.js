@@ -23,7 +23,7 @@ export const defaultAffiliationSettings = {
       },
       {
         template: 'Bus',
-        name: '{{busName}}',
+        name: '{{bus}}',
         apiPaths: {
           name: 'destination',
           number: 'line',
@@ -40,7 +40,7 @@ export const defaultAffiliationSettings = {
       },
       {
         template: 'Bus',
-        name: '{{busName}}',
+        name: '{{bus}}',
         apiPaths: {
           name: 'destinationDisplay.frontText',
           number: 'serviceJourney.line.publicCode',

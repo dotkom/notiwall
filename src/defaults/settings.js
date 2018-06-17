@@ -1,6 +1,6 @@
 export const defaultSettings = {
   affiliation: 'online',
-  bus: 'glos',
+  bus: 'glossyd',
   showCoffeePots: true,
   showClock: true,
 };

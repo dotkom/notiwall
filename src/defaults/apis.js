@@ -18,7 +18,7 @@ export const defaultApis = {
     interval: 10,
     url: 'https://atbapi.tar.io/api/v1/departures/{{stops.*.fromCity,toCity}}',
     stops: {
-      glos: { fromCity: '16010265', toCity: '16011265' },
+      glossyd: { fromCity: '16010265', toCity: '16011265' },
       samf: { fromCity: '16010476', toCity: '16011476' },
     },
   },
@@ -26,7 +26,7 @@ export const defaultApis = {
     interval: 10,
     url: 'https://bartebuss.no/api/unified/{{stops.*.fromCity,toCity}}',
     stops: {
-      glos: { fromCity: '16010265', toCity: '16011265' },
+      glossyd: { fromCity: '16010265', toCity: '16011265' },
       samf: { fromCity: '16010476', toCity: '16011476' },
     },
   },
@@ -63,7 +63,7 @@ export const defaultApis = {
       }`
     })}`,
     stops: {
-      glos: { fromCity: 'NSR:Quay:75707', toCity: 'NSR:Quay:75708' },
+      glossyd: { fromCity: 'NSR:Quay:75707', toCity: 'NSR:Quay:75708' },
       samf: { fromCity: 'NSR:Quay:73103', toCity: 'NSR:Quay:73101' },
     },
   },
