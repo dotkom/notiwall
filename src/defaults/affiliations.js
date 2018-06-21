@@ -24,7 +24,7 @@ export const defaultAffiliationSettings = {
       {
         template: 'Bus',
         name: '{{bus}}',
-        apiPaths: {
+        departureSchema: {
           name: 'destination',
           number: 'line',
           registredTime: 'registeredDepartureTime',
@@ -41,7 +41,7 @@ export const defaultAffiliationSettings = {
       {
         template: 'Bus',
         name: '{{bus}}',
-        apiPaths: {
+        departureSchema: {
           name: 'destinationDisplay.frontText',
           number: 'serviceJourney.line.publicCode',
           registredTime: 'aimedArrivalTime',

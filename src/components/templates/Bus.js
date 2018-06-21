@@ -38,13 +38,13 @@ class Bus extends Component {
     let diff = differenceInMilliseconds(new Date(), this.state.lastTick);
 
     for (let departure of toCity) {
-      set(departure, this.props.apiPaths.registredTime, this.addTime(get(departure, this.props.apiPaths.registredTime), diff));
-      set(departure, this.props.apiPaths.scheduledTime, this.addTime(get(departure, this.props.apiPaths.scheduledTime), diff));
+      set(departure, this.props.departureSchema.registredTime, this.addTime(get(departure, this.props.departureSchema.registredTime), diff));
+      set(departure, this.props.departureSchema.scheduledTime, this.addTime(get(departure, this.props.departureSchema.scheduledTime), diff));
     }
 
     for (let departure of fromCity) {
-      set(departure, this.props.apiPaths.registredTime, this.addTime(get(departure, this.props.apiPaths.registredTime), diff));
-      set(departure, this.props.apiPaths.scheduledTime, this.addTime(get(departure, this.props.apiPaths.scheduledTime), diff));
+      set(departure, this.props.departureSchema.registredTime, this.addTime(get(departure, this.props.departureSchema.registredTime), diff));
+      set(departure, this.props.departureSchema.scheduledTime, this.addTime(get(departure, this.props.departureSchema.scheduledTime), diff));
     }
 
     this.setState(Object.assign({}, this.state, { toCity, fromCity, lastTick: new Date().getTime() }));
@@ -58,10 +58,10 @@ class Bus extends Component {
   getDepartureList(departures) {
     return departures
     .map(e => {
-      e.time = get(e, this.props.apiPaths.scheduledTime);
+      e.time = get(e, this.props.departureSchema.scheduledTime);
 
-      if (get(e, this.props.apiPaths.isRealtime)) {
-        e.time = get(e, this.props.apiPaths.registredTime);
+      if (get(e, this.props.departureSchema.isRealtime)) {
+        e.time = get(e, this.props.departureSchema.registredTime);
       }
 
       return e;
@@ -70,9 +70,9 @@ class Bus extends Component {
     .map((e, i) => {
       let timeLeft = distanceInWords(e.time, new Date(), { locale });
       let time = format(e.time, 'HH:mm');
-      let style = get(e, this.props.apiPaths.isRealtime) ? { color: 'blue' } : {};
+      let style = get(e, this.props.departureSchema.isRealtime) ? { color: 'blue' } : {};
 
-      return <div key={i} style={style}>{get(e, this.props.apiPaths.number)} <b>{get(e, this.props.apiPaths.name)}</b> - om {timeLeft} ({time})</div>;
+      return <div key={i} style={style}>{get(e, this.props.departureSchema.number)} <b>{get(e, this.props.departureSchema.name)}</b> - om {timeLeft} ({time})</div>;
     });
   }
 
