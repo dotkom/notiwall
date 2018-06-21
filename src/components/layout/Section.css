@@ -29,6 +29,10 @@
     flex-basis: auto;
 }
 
+.fill-height {
+    max-height: 100%;
+}
+
 .width-full {
     flex-basis: 100%;
 }

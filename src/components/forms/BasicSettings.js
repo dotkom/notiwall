@@ -19,8 +19,12 @@ class BasicSettings extends Component {
     });
 
     return (
-      <Section column size="full">
+      <Section column size="full" fillheight>
         <div className="settings-container">
+          <div className="settings-header">
+            <h1 className="settings-title">Alternativer</h1>
+            <span className="settings-close" onClick={this.props.onClick}></span>
+          </div>
           <div className="settings-section">
           <div className="settings-field">
               <span className="settings-field-name">

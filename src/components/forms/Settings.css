@@ -8,8 +8,35 @@
   text-align: left;
 }
 
+.settings-header {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 1em;
+  color: #ccc;
+  font-size: 1.4em;
+}
+
+.settings-header > h1 {
+  color: #ccc;
+}
+
+.settings-title {
+  flex: 1;
+}
+
+.settings-close:after {
+  content: "⨉";
+  position: relative;
+  top: -.1em;
+  cursor: pointer;
+  font-size: 4em;
+}
+
 .settings-section {
-  padding: 1em 2em;
+  padding: 0 2em;
   background-color: rgba(0, 0, 0, .16);
 }
 

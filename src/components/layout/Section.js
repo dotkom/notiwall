@@ -16,6 +16,11 @@ export default class Section extends Component {
       props.className += ` width-${this.props.size}`;
       delete props.size;
     }
+
+    if (this.props.fillheight) {
+      props.className += ` fill-height`;
+      delete props.fillheight;
+    }
  
     return (
       <div {...props}>
