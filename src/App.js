@@ -397,6 +397,7 @@ class App extends Component {
     //  ? <ChangeAPIs apis={apis} updateApi={this.updateApi} />
       ? <BasicSettings
            apis={apis}
+           onClick={() => this.toggleEdit()}
            updateApi={this.updateApi}
            translate={this.translate}
         />
