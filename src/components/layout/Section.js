@@ -18,7 +18,7 @@ export default class Section extends Component {
     }
 
     if (this.props.fillheight) {
-      props.className += ` fill-height`;
+      props.className += ' fill-height';
       delete props.fillheight;
     }
  
