@@ -9,16 +9,16 @@ body {
   padding: 0;
   color: #ccc;
   overflow-x: hidden;
-  background-color: #121280;
   min-height: 100vh;
-  font-family: 'Roboto', 'Open Sans', 'lucida grande', 'Segoe UI', arial, verdana, 'lucida sans unicode', tahoma, sans-serif;
+  font-family: 'Roboto', 'Open Sans', 'lucida grande', 'Segoe UI', arial,
+    verdana, 'lucida sans unicode', tahoma, sans-serif;
 }
 
 .content {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background-color: #000040;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #000040;
 }
 
 h1 {
@@ -26,7 +26,11 @@ h1 {
   font-weight: normal;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #eee;
   font-weight: normal;
 }
