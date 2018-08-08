@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Template } from "../layout";
-import { distanceInWordsToNow, format, differenceInHours } from "date-fns";
-import { get } from "object-path";
-import * as locale from "date-fns/locale/nb";
-import { simpleClock } from "../gadgets/Clocks";
+import React, { Component } from 'react';
+import { Template } from '../layout';
+import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
+import { get } from 'object-path';
+import * as locale from 'date-fns/locale/nb';
+import { simpleClock } from '../gadgets/Clocks';
 
 class Coffee extends Component {
   constructor() {
@@ -11,11 +11,11 @@ class Coffee extends Component {
 
     this.state = {
       coffeeTime: 0,
-      pots: []
+      pots: [],
     };
 
     this.templateVars = {
-      apis: "apis"
+      apis: 'apis',
     };
 
     this.lastRendered = Date.now();
@@ -37,35 +37,36 @@ class Coffee extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let nextDate = get(nextProps, "coffeeTime");
+    const nextDate = get(nextProps, 'coffeeTime');
+    const time = new Date(nextDate).getTime();
 
-    let state = Object.assign({}, this.state, {
-      coffeeTime: nextDate === null ? -1 : new Date(nextDate).getTime(),
-      pots: get(nextProps, "pots")
+    const state = Object.assign({}, this.state, {
+      coffeeTime: nextDate === null ? -1 : time,
+      pots: get(nextProps, 'pots'),
     });
 
     this.setState(state);
   }
 
   render() {
-    let coffeeInfo = "Henter kaffestatus...";
+    let coffeeInfo = 'Henter kaffestatus...';
     let { offline } = this.props;
 
     if (this.state.coffeeTime > 0) {
       let coffeeDate = this.state.coffeeTime;
 
       if (differenceInHours(new Date(), coffeeDate) > 1) {
-        let timeFormatted = format(this.state.coffeeTime, "HH:mm");
+        let timeFormatted = format(this.state.coffeeTime, 'HH:mm');
         coffeeInfo = `Kaffe ble laget kl. ${timeFormatted}`;
       } else {
         let dateFormatted = distanceInWordsToNow(coffeeDate, { locale });
         coffeeInfo = `Kaffe ble laget ${dateFormatted} siden`;
       }
     } else if (this.state.coffeeTime === -1) {
-      coffeeInfo = "Kaffen har ikke blitt satt på i dag.";
+      coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
     } else if (
       offline &&
-      offline.find(a => a.split(".")[0] === "affiliation")
+      offline.find(a => a.split('.')[0] === 'affiliation')
     ) {
       coffeeInfo = "API'et er utilgjengelig";
     }
@@ -74,8 +75,10 @@ class Coffee extends Component {
     if (this.state.pots) {
       potsList = this.state.pots
         .filter(e => differenceInHours(new Date(), e) <= 24)
-        .map(e => format(e, "HH:mm", { locale }));
+        .map(e => format(e, 'HH:mm', { locale }));
     }
+
+    const time = new Date();
 
     return (
       <Template
@@ -84,11 +87,11 @@ class Coffee extends Component {
         templateVars={this.templateVars}
       >
         <h3>Kaffe</h3>
-        {this.props.showCoffeePots !== "false" && coffeeInfo}
+        {this.props.showCoffeePots !== 'false' && coffeeInfo}
         {simpleClock(
-          new Date(),
+          new Date(time - (time % 1000)),
           potsList || [],
-          this.props.showCoffeePots !== "false"
+          this.props.showCoffeePots !== 'false',
         )}
       </Template>
     );
