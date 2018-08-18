@@ -6,3 +6,14 @@
   min-height: 100vh;
   overflow-x: auto;
 }
+
+.menu-button {
+  font-size: 2em;
+  padding: 10px 10px 0 0;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  opacity: 0.8;
+}

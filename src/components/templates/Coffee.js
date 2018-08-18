@@ -12,6 +12,7 @@ class Coffee extends Component {
     this.state = {
       coffeeTime: 0,
       pots: [],
+      mounted: false,
     };
 
     this.templateVars = {
@@ -23,6 +24,11 @@ class Coffee extends Component {
 
   componentDidMount() {
     this.forceUpdate();
+    this.setState(
+      Object.assign({}, this.state, {
+        mounted: true,
+      }),
+    );
   }
 
   componentDidUpdate() {
@@ -32,8 +38,18 @@ class Coffee extends Component {
     const timeout = diff >= 1000 ? 0 : 1000 - diff;
 
     setTimeout(() => {
-      this.forceUpdate();
+      if (this.state.mounted) {
+        this.forceUpdate();
+      }
     }, timeout);
+  }
+
+  componentWillUnmount() {
+    this.setState(
+      Object.assign({}, this.state, {
+        mounted: false,
+      }),
+    );
   }
 
   componentWillReceiveProps(nextProps) {

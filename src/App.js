@@ -420,8 +420,8 @@ class App extends Component {
         >
           <Section style={{ minHeight: 20, minWidth: '100%' }}>
             <Template.Header css={', { padding: 0; }'}>
-              <div>
-                <div onClick={() => this.toggleEdit()}>☰</div>
+              <div onClick={() => this.toggleEdit()} className="menu-button">
+                {!!editSettingsElement ? '' : '☰'}
               </div>
               {offlineMode && (
                 <button onClick={() => this.goOnline()}>
