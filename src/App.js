@@ -33,20 +33,22 @@ class App extends Component {
       settings,
       translations,
       affiliationSettings,
-    } = this.storage.merge({
+    } = this.storage.merge(
+      {
+        // Get all the APIs
+        apis: defaultApis,
 
-      // Get all the APIs
-      apis: defaultApis,
+        // Get the global settings
+        settings: defaultSettings,
 
-      // Get the global settings
-      settings: defaultSettings,
+        // Get all translations, such that glos = Gløshaugen
+        translations: defaultTranslations,
 
-      // Get all translations, such that glos = Gløshaugen
-      translations: defaultTranslations,
-
-      // Get all the affiliation settings
-      affiliationSettings: defaultAffiliationSettings,
-    }, true);
+        // Get all the affiliation settings
+        affiliationSettings: defaultAffiliationSettings,
+      },
+      true,
+    );
 
     // Get components from the given affiliation in the settings
     let components = affiliationSettings[settings.affiliation].components;
@@ -90,7 +92,7 @@ class App extends Component {
               for (let path in paramsData[section]) {
                 urls[`${url}.${path}`] = urls[url].replace(
                   new RegExp(`{{${section}}}`, 'g'),
-                  paramsData[section][path]
+                  paramsData[section][path],
                 );
               }
               delete urls[url];
@@ -99,7 +101,7 @@ class App extends Component {
             for (let path in paramsData[section]) {
               urls[path] = obj.url.replace(
                 new RegExp(`{{${section}}}`, 'g'),
-                paramsData[section][path]
+                paramsData[section][path],
               );
             }
           }
@@ -130,12 +132,12 @@ class App extends Component {
             if (component.injectInto.includes(`apis.${assignedTo}`)) {
               assignedToValue = injectValuesIntoString(
                 component.apis[assignedTo],
-                this.state.settings
+                this.state.settings,
               );
             }
           }
 
-          const [ apiPath ] = assignedToValue.split(':');
+          const [apiPath] = assignedToValue.split(':');
 
           if (apiPath === object) {
             apiIsInUse = true;
@@ -190,9 +192,9 @@ class App extends Component {
           for (const assignedTo in component.apis) {
             const injectedSettingsIntoPath = injectValuesIntoString(
               component.apis[assignedTo],
-              this.state.settings
+              this.state.settings,
             );
-            const [ apiPath, deepPath ] = injectedSettingsIntoPath.split(':');
+            const [apiPath, deepPath] = injectedSettingsIntoPath.split(':');
 
             if (apiPath === api) {
               set(component, assignedTo, get(data, deepPath));
@@ -241,18 +243,18 @@ class App extends Component {
       let value = '';
       switch (urlScript) {
         case 'now':
-        value = new Date().toISOString();
-        break;
+          value = new Date().toISOString();
+          break;
 
         default:
-        value = ''; //eval(urlScript); // I know, this is no good.
-        break;
+          value = ''; //eval(urlScript); // I know, this is no good.
+          break;
       }
       urlExecuted = urlExecuted.replace(`[[${urlScript}]]`, value);
     }
 
     if (this.state.apis[api].method === 'POST') {
-      let [ urlPart, body ] = urlExecuted.split('>>');
+      let [urlPart, body] = urlExecuted.split('>>');
       let req = this.state.apis[api].req || {};
       req.body = body;
       API.postRequest(urlPart, req, callback, onError);
@@ -270,7 +272,9 @@ class App extends Component {
         delete apis[root].offline;
       }
 
-      this.setState(Object.assign({}, this.state, { apis, offlineMode: false }));
+      this.setState(
+        Object.assign({}, this.state, { apis, offlineMode: false }),
+      );
     } else {
       let root = api.split('.')[0];
       delete apis[root].fails;
@@ -283,7 +287,11 @@ class App extends Component {
 
         clearInterval(this.intervals[api].interval);
         this.intervals[api].interval = setInterval(() => {
-          this.fetchData(root, this.intervals[api].url, this.intervals[api].deep);
+          this.fetchData(
+            root,
+            this.intervals[api].url,
+            this.intervals[api].deep,
+          );
         }, this.state.apis[root].interval * 1000);
       }
     }
@@ -306,7 +314,8 @@ class App extends Component {
             matches.push(path);
           }
         }
-      } else { // Else we add match
+      } else {
+        // Else we add match
         matches.push(api);
       }
     }
@@ -340,15 +349,11 @@ class App extends Component {
       this.storage.set('components', this.state.components, true);
     }
 
-    this.setState(Object.assign({}, this.state, {
-      edit: !this.state.edit,
-    }));
-  }
-
-  clearStorage() {
-    try {
-      localStorage.clear();
-    } catch (ex) { }
+    this.setState(
+      Object.assign({}, this.state, {
+        edit: !this.state.edit,
+      }),
+    );
   }
 
   getStyle(group) {
@@ -362,7 +367,9 @@ class App extends Component {
     let componentElements = components.map((element, i) => {
       const Element = Template[element.template];
       element = Object.assign({}, element);
-      element.css = element.css || `.${element.template} {
+      element.css =
+        element.css ||
+        `.${element.template} {
   /* Add custom styles here */
 }`;
       element.size = element.size || 1;
@@ -393,29 +400,34 @@ class App extends Component {
       );
     });
 
-    let editSettingsElement = edit
-    //  ? <ChangeAPIs apis={apis} updateApi={this.updateApi} />
-      ? <BasicSettings
-           apis={apis}
-           onClick={() => this.toggleEdit()}
-           updateApi={this.updateApi}
-           translate={this.translate}
-        />
-      : null;
+    let editSettingsElement = edit ? (
+      //  ? <ChangeAPIs apis={apis} updateApi={this.updateApi} />
+      <BasicSettings
+        apis={apis}
+        onClick={() => this.toggleEdit()}
+        updateApi={this.updateApi}
+        translate={this.translate}
+      />
+    ) : null;
 
     return (
       <Style>
         {this.getStyle('Online')}
-        <div className={`App ${process.env.NODE_ENV === 'development' ? 'dev' : ''}`}>
-          <Section style={{ minHeight: 20, minWidth:'100%' }}>
-            <Template.Header css={', { padding: 0; height: 0 }'}>
+        <div
+          className={`App ${
+            process.env.NODE_ENV === 'development' ? 'dev' : ''
+          }`}
+        >
+          <Section style={{ minHeight: 20, minWidth: '100%' }}>
+            <Template.Header css={', { padding: 0; }'}>
               <div>
-                <button onClick={() => this.toggleEdit()}>Toggle edit mode</button>
-                <button onClick={() => this.clearStorage()}>Reset app</button>
+                <div onClick={() => this.toggleEdit()}>☰</div>
               </div>
-              {offlineMode && <button onClick={() => this.goOnline()}>
-                Gå online (Du er offline)
-              </button>}
+              {offlineMode && (
+                <button onClick={() => this.goOnline()}>
+                  Gå online (Du er offline)
+                </button>
+              )}
             </Template.Header>
           </Section>
           {editSettingsElement || componentElements}
