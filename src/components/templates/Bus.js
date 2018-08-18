@@ -14,6 +14,8 @@ class Bus extends Component {
   constructor() {
     super();
 
+    this.mounted = false;
+
     this.state = {
       toCity: [],
       fromCity: [],
@@ -27,7 +29,12 @@ class Bus extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,13 +89,15 @@ class Bus extends Component {
       );
     }
 
-    this.setState(
-      Object.assign({}, this.state, {
-        toCity,
-        fromCity,
-        lastTick: new Date().getTime(),
-      }),
-    );
+    if (this.mounted) {
+      this.setState(
+        Object.assign({}, this.state, {
+          toCity,
+          fromCity,
+          lastTick: new Date().getTime(),
+        }),
+      );
+    }
   }
 
   addTime(time, add, strFormat = 'YYYY-MM-DDTHH:mm:ss') {

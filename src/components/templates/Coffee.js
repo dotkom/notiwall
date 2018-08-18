@@ -8,11 +8,11 @@ import { simpleClock } from '../gadgets/Clocks';
 class Coffee extends Component {
   constructor() {
     super();
+    this.mounted = false;
 
     this.state = {
       coffeeTime: 0,
       pots: [],
-      mounted: false,
     };
 
     this.templateVars = {
@@ -24,11 +24,7 @@ class Coffee extends Component {
 
   componentDidMount() {
     this.forceUpdate();
-    this.setState(
-      Object.assign({}, this.state, {
-        mounted: true,
-      }),
-    );
+    this.mounted = true;
   }
 
   componentDidUpdate() {
@@ -38,18 +34,14 @@ class Coffee extends Component {
     const timeout = diff >= 1000 ? 0 : 1000 - diff;
 
     setTimeout(() => {
-      if (this.state.mounted) {
+      if (this.mounted) {
         this.forceUpdate();
       }
     }, timeout);
   }
 
   componentWillUnmount() {
-    this.setState(
-      Object.assign({}, this.state, {
-        mounted: false,
-      }),
-    );
+    this.mounted = false;
   }
 
   componentWillReceiveProps(nextProps) {
