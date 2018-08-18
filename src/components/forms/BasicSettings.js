@@ -26,7 +26,6 @@ class BasicSettings extends Component {
 
     return (
       <Section column size="full" fillheight>
-        <button onClick={() => this.clearStorage()}>Reset app</button>
         <div className="settings-container">
           <div className="settings-header">
             <h1 className="settings-title">Alternativer</h1>

@@ -15,7 +15,7 @@ class StatusTop extends Component {
 
   componentWillReceiveProps(nextProps) {
     let components = this.state.components.slice();
-    
+
     for (let index in this.props.components) {
       for (let use of this.props.components[index].uses) {
         if (!(index in components)) {
@@ -41,7 +41,6 @@ class StatusTop extends Component {
         <SubSection>
           {templatesElement}
 
-          
           {/*<svg width="300" height="300" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <g id="Canvas" fill="none">
               <g id="Ellipse 2.1">
@@ -50,8 +49,6 @@ class StatusTop extends Component {
               </g>
             </g>
           </svg>*/}
-
-
         </SubSection>
       </Template>
     );

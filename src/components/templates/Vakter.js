@@ -13,34 +13,74 @@ class Vakter extends Component {
       responsible: true,
       servants: [
         {
-          "summary":"Emil Karoline",
-          "start":{"timeZone":"Europe/Oslo","date":"2018-04-07T09:00:00.000Z","pretty":"11:00"},
-          "end":{"timeZone":"Europe/Oslo","date":"2018-04-07T10:00:00.000Z","pretty":"12:00"},
-          "pretty":"11:00-12:00"
+          summary: 'Emil Karoline',
+          start: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T09:00:00.000Z',
+            pretty: '11:00',
+          },
+          end: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T10:00:00.000Z',
+            pretty: '12:00',
+          },
+          pretty: '11:00-12:00',
         },
         {
-          "summary":"Karoline Emil",
-          "start":{"timeZone":"Europe/Oslo","date":"2018-04-07T10:00:00.000Z","pretty":"12:00"},
-          "end":{"timeZone":"Europe/Oslo","date":"2018-04-07T11:00:00.000Z","pretty":"13:00"},
-          "pretty":"12:00-13:00"
+          summary: 'Karoline Emil',
+          start: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T10:00:00.000Z',
+            pretty: '12:00',
+          },
+          end: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T11:00:00.000Z',
+            pretty: '13:00',
+          },
+          pretty: '12:00-13:00',
         },
         {
-          "summary":"Sjokolade",
-          "start":{"timeZone":"Europe/Oslo","date":"2018-04-07T11:00:00.000Z","pretty":"13:00"},
-          "end":{"timeZone":"Europe/Oslo","date":"2018-04-07T12:00:00.000Z","pretty":"14:00"},
-          "pretty":"13:00-14:00"
+          summary: 'Sjokolade',
+          start: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T11:00:00.000Z',
+            pretty: '13:00',
+          },
+          end: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T12:00:00.000Z',
+            pretty: '14:00',
+          },
+          pretty: '13:00-14:00',
         },
         {
-          "summary":"Kake",
-          "start":{"timeZone":"Europe/Oslo","date":"2018-04-07T12:00:00.000Z","pretty":"14:00"},
-          "end":{"timeZone":"Europe/Oslo","date":"2018-04-07T13:00:00.000Z","pretty":"15:00"},
-          "pretty":"14:00-15:00"
+          summary: 'Kake',
+          start: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T12:00:00.000Z',
+            pretty: '14:00',
+          },
+          end: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T13:00:00.000Z',
+            pretty: '15:00',
+          },
+          pretty: '14:00-15:00',
         },
         {
-          "summary":"Doge",
-          "start":{"timeZone":"Europe/Oslo","date":"2018-04-07T13:00:00.000Z","pretty":"15:00"},
-          "end":{"timeZone":"Europe/Oslo","date":"2018-04-07T14:00:00.000Z","pretty":"16:00"},
-          "pretty":"15:00-16:00"
+          summary: 'Doge',
+          start: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T13:00:00.000Z',
+            pretty: '15:00',
+          },
+          end: {
+            timeZone: 'Europe/Oslo',
+            date: '2018-04-07T14:00:00.000Z',
+            pretty: '16:00',
+          },
+          pretty: '15:00-16:00',
         },
       ],
     };
@@ -66,15 +106,18 @@ class Vakter extends Component {
 
   render() {
     let responsibleListElement = null;
-    if (this.state.responsible && this.state.servants.length){
+    if (this.state.responsible && this.state.servants.length) {
       responsibleListElement = this.state.servants.map((e, i) => {
         let style = {
-          opacity: .5,
+          opacity: 0.5,
         };
 
         let arrow = '';
 
-        if (isAfter(new Date(), e.start.date) && isBefore(new Date(), e.end.date)) {
+        if (
+          isAfter(new Date(), e.start.date) &&
+          isBefore(new Date(), e.end.date)
+        ) {
           style = {
             color: '#fff',
           };
@@ -82,7 +125,11 @@ class Vakter extends Component {
           arrow = '->';
         }
 
-        return <div style={style} key={i}>{arrow} {e.pretty} - {e.summary}</div>;
+        return (
+          <div style={style} key={i}>
+            {arrow} {e.pretty} - {e.summary}
+          </div>
+        );
       });
     } else {
       responsibleListElement = (
@@ -98,7 +145,7 @@ class Vakter extends Component {
         style={{
           width: '100%',
           height: `calc(100% - ${spaceAroundSVG * 2}px)`,
-          position:'absolute',
+          position: 'absolute',
           marginLeft: -16,
         }}
       >

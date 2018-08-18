@@ -5,14 +5,14 @@ export const defaultApis = {
     interval: 10,
     url: `${API_URL}/affiliation/{{org.*}}`,
     org: {
-      online: 'online',
+      online: 'DEBUG',
       abakus: 'abakus',
       delta: 'delta',
     },
   },
   coffeePots: {
     interval: 60,
-    url: `${API_URL}/coffee/online`,
+    url: `${API_URL}/coffee/DEBUG`,
   },
   tarbus: {
     interval: 10,
