@@ -1,50 +1,49 @@
 .Section {
-    display: flex;
-    flex-flow: row wrap;
-    flex: 1 1 420px;
-    max-height: 420px;
-    /*min-height: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 420px;
+  max-height: 420px;
+  /*min-height: 400px;
     overflow: hidden;*/
-    min-height: 400px;
-    min-width: 420px; 
-    overflow: hidden;
+  min-height: 400px;
+  min-width: 420px;
 }
 
 .SubSection {
-    display: flex;
-    flex-flow: row wrap;
-    flex: 1 1 auto;
-    min-height: 200px;
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 auto;
+  min-height: 200px;
 }
 
 .row {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 .column {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .width-content {
-    flex-basis: auto;
+  flex-basis: auto;
 }
 
 .fill-height {
-    max-height: 100%;
+  max-height: 100%;
 }
 
 .width-full {
-    flex-basis: 100%;
+  flex-basis: 100%;
 }
 
 .width-2 {
-    flex-basis: calc(2 * 420px);
+  flex-basis: calc(2 * 420px);
 }
 
 .width-3 {
-    flex-basis: calc(3 * 420px);
+  flex-basis: calc(3 * 420px);
 }
 
 .width-4 {
-    flex-basis: calc(4 * 420px);
+  flex-basis: calc(4 * 420px);
 }
