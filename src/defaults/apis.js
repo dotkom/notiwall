@@ -15,7 +15,7 @@ export const defaultApis = {
     url: `${API_URL}/coffee/DEBUG`,
   },
   tarbus: {
-    interval: 10,
+    interval: 100,
     url: 'https://atbapi.tar.io/api/v1/departures/{{stops.*.fromCity,toCity}}',
     stops: {
       glossyd: { fromCity: '16010265', toCity: '16011265' },
@@ -23,7 +23,7 @@ export const defaultApis = {
     },
   },
   bartebuss: {
-    interval: 10,
+    interval: 100,
     url: 'https://bartebuss.no/api/unified/{{stops.*.fromCity,toCity}}',
     stops: {
       glossyd: { fromCity: '16010265', toCity: '16011265' },
@@ -31,7 +31,7 @@ export const defaultApis = {
     },
   },
   enturbus: {
-    interval: 10,
+    interval: 100,
     method: 'POST',
     req: {
       headers: {
@@ -41,7 +41,7 @@ export const defaultApis = {
     url: `https://api.entur.org/journeyplanner/2.0/index/graphql>>${JSON.stringify(
       {
         query: `{
-        quay(id: "{{stops.*.fromCity,toCity}}") {
+        quay(id: "NSR:Quay:{{stops.*.fromCity,toCity}}") {
           id
           name
           estimatedCalls(startTime:"[[now]]" timeRange: 72100, numberOfDepartures: 5) {
@@ -65,8 +65,8 @@ export const defaultApis = {
       },
     )}`,
     stops: {
-      glossyd: { fromCity: 'NSR:Quay:75707', toCity: 'NSR:Quay:75708' },
-      samf: { fromCity: 'NSR:Quay:73103', toCity: 'NSR:Quay:73101' },
+      glossyd: { fromCity: '75707', toCity: '75708' },
+      samf: { fromCity: '73103', toCity: '73101' },
     },
   },
 };
