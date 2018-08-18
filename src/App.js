@@ -203,7 +203,9 @@ class App extends Component {
         }
       }
 
-      this.setState(Object.assign({}, this.state, { components }));
+      if (!this.state.edit) {
+        this.setState(Object.assign({}, this.state, { components }));
+      }
     };
 
     const onError = () => {
@@ -327,7 +329,10 @@ class App extends Component {
   updateComponent(index, key, value) {
     let components = this.state.components.slice();
     set(components[index], key, value);
-    this.setState(Object.assign({}, this.state, { components }));
+
+    if (!this.state.edit) {
+      this.setState(Object.assign({}, this.state, { components }));
+    }
   }
 
   updateApi(api, key, value) {
@@ -421,7 +426,7 @@ class App extends Component {
           <Section style={{ minHeight: 20, minWidth: '100%' }}>
             <Template.Header css={', { padding: 0; }'}>
               <div onClick={() => this.toggleEdit()} className="menu-button">
-                {!!editSettingsElement ? '' : '☰'}
+                {!!edit ? '' : '☰'}
               </div>
               {offlineMode && (
                 <button onClick={() => this.goOnline()}>
@@ -430,7 +435,7 @@ class App extends Component {
               )}
             </Template.Header>
           </Section>
-          {editSettingsElement || componentElements}
+          {edit ? editSettingsElement : componentElements}
         </div>
       </Style>
     );
