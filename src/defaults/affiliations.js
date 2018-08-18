@@ -1,27 +1,27 @@
 export const defaultAffiliationSettings = {
   online: {
-    settings: [ 'bus', 'coffee', 'events', 'officestatus' ],
+    settings: ['bus', 'coffee', 'events', 'officestatus'],
     components: [
       {
         template: 'Vakter',
         apis: {
-          'message': 'affiliation.org.online:servant.message',
-          'responsible': 'affiliation.org.online:servant.responsible',
-          'servants': 'affiliation.org.online:servant.servants',
+          message: 'affiliation.org.online:servant.message',
+          responsible: 'affiliation.org.online:servant.responsible',
+          servants: 'affiliation.org.online:servant.servants',
         },
         props: {},
       },
       {
         template: 'Coffee',
         apis: {
-          'coffeeTime': 'affiliation.org.online:coffee.date',
-          'pots': 'coffeePots:pots',
+          coffeeTime: 'affiliation.org.online:coffee.date',
+          pots: 'coffeePots:pots',
         },
         showCoffeePots: '{{showCoffeePots}}',
-        injectInto: [ 'showCoffeePots' ],
+        injectInto: ['showCoffeePots'],
         props: {},
       },
-      {
+      /*{
         template: 'Bus',
         name: '{{bus}}',
         departureSchema: {
@@ -37,7 +37,7 @@ export const defaultAffiliationSettings = {
         },
         injectInto: [ 'name', 'apis.fromCity', 'apis.toCity' ],
         props: {},
-      },
+      },*/
       {
         template: 'Bus',
         name: '{{bus}}',
@@ -49,12 +49,12 @@ export const defaultAffiliationSettings = {
           isRealtime: 'realtime',
         },
         apis: {
-          'fromCity': 'enturbus.stops.{{bus}}.fromCity:data.quay.estimatedCalls',
-          'toCity': 'enturbus.stops.{{bus}}.toCity:data.quay.estimatedCalls',
+          fromCity: 'enturbus.stops.{{bus}}.fromCity:data.quay.estimatedCalls',
+          toCity: 'enturbus.stops.{{bus}}.toCity:data.quay.estimatedCalls',
         },
-        injectInto: [ 'name', 'apis.fromCity', 'apis.toCity' ],
+        injectInto: ['name', 'apis.fromCity', 'apis.toCity'],
         props: {},
       },
     ],
-  }
+  },
 };
