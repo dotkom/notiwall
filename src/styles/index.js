@@ -29,6 +29,7 @@ const Online = `
 
   .Bus > .bus-wrapper {
     background-color: #000000bb;
+    color: #fff;
     clip-path: polygon(0 3%,
       30% 0, 70% 6%,
       100% 0, 100% 97%,
