@@ -15,17 +15,17 @@ const Online = `
     background-position: bottom left;
   }
 
-  .Vakter > h1{
+  .Vakter > h1 {
      margin-top: 0.5em;
   }
 
-  .Bus{
+  .Bus {
     display: flex;
     justify-content: flex-start;
     flex-flow: row;
   }
 
-  .Bus > .bus-wrapper{
+  .Bus > .bus-wrapper {
     background-color: #000000bb;
     display: flex;
     flex-flow: row wrap;
@@ -64,7 +64,7 @@ const Online = `
     text-align: left;
     position: relative;
   }
-  .Bus .bus-list-item-number::before{
+  .Bus .bus-list-item-number::before {
     background-image: url(/knowit-express.svg);
     content: "";
     display: block;
