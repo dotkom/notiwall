@@ -62,7 +62,21 @@ const Online = `
   .Bus .bus-list-item-number {
     width: 1.5em;
     text-align: left;
+    position: relative;
   }
+  .Bus .bus-list-item-number::before{
+    background-image: url(/knowit-express.svg);
+    content: "";
+    display: block;
+    width: 2em;
+    height: 1em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    margin-top: 0.25em;
+    right: 120%;
+  }
+
   .Bus .bus-list-item-time::before {
     color: white;
     content: "- ";
