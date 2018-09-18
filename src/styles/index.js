@@ -10,9 +10,8 @@ const Online = `
     background-image: url(https://online.ntnu.no/static/img/online_logo.svg);
     background-size: 60vw;
     background-repeat: no-repeat;
-    min-height: 18vw;
-
     background-position: bottom left;
+    min-height: 18vw;
   }
 
   .Vakter > h1 {
@@ -61,10 +60,10 @@ const Online = `
     flex: 0 0 auto;
   }
   .Bus .bus-dir-item:first-child {
-    margin-left: 5em;
+    margin-left: 4.6em;
   }
   .Bus .bus-dir-item:last-child {
-    margin-right: 5em;
+    margin-right: 4.5em;
     margin-left: 3.5em;
   }
 
@@ -87,6 +86,7 @@ const Online = `
     margin-right: 5em;
     margin-left: 3.5em;
   }
+
   .Bus .bus-list-item {
     display: flex;
     flex-flow: row nowrap;
@@ -96,7 +96,7 @@ const Online = `
     text-align: left;
     position: relative;
   }
-  .Bus .bus-list-item-number::before {
+  .Bus .bus-list-item-number.is-realtime::before {
     background-image: url(/knowit-express.svg);
     content: "";
     display: block;
@@ -109,8 +109,11 @@ const Online = `
     right: 120%;
   }
 
+  .Bus .bus-list-item-time {
+    color: #ffffff88;
+  }
   .Bus .bus-list-item-time::before {
-    color: white;
+    color: #ffffff88;
     content: "- ";
   }
 `;
