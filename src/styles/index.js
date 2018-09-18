@@ -21,7 +21,8 @@ const Online = `
 
   .Bus {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
+    justify-content: space-evenly;
     flex-flow: row;
     font-family: 'Righteous';
   }
@@ -37,6 +38,8 @@ const Online = `
     flex-flow: row wrap;
     justify-content: space-between;
     padding-bottom: 2em;
+    max-width: 720px;
+    margin: 0 1em;
   }
 
   .Bus .bus-stop {
