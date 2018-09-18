@@ -166,8 +166,10 @@ class Bus extends Component {
             <h3 className="bus-dir-item">Til byen</h3>
             <h3 className="bus-dir-item">Fra byen</h3>
           </div>
-          <div className="bus-list">{fromCity}</div>
-          <div className="bus-list">{toCity}</div>
+          <div className="bus-list-row">
+            <div className="bus-list">{fromCity}</div>
+            <div className="bus-list">{toCity}</div>
+          </div>
         </div>
       </Template>
     );

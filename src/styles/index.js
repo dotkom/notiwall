@@ -30,8 +30,7 @@ const Online = `
     background-color: #000000bb;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding-bottom: 2em;
   }
 
@@ -44,18 +43,37 @@ const Online = `
     flex: 1 0 100%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around;
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
+
   .Bus .bus-dir-item {
     margin-top: 0;
-    flex: 0 0 114px;
+    flex: 0 0 auto;
+  }
+  .Bus .bus-dir-item:first-child {
+    margin-left: 5em;
+  }
+  .Bus .bus-dir-item:last-child {
+    margin-right: 5em;
+  }
+
+  .Bus .bus-list-row {
+    flex: 0 0 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
   }
 
   .Bus .bus-list {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
+  }
+  .Bus .bus-list:first-child {
+    margin-left: 5em;
+  }
+  .Bus .bus-list:last-child {
+    margin-right: 5em;
   }
   .Bus .bus-list-item {
     display: flex;
