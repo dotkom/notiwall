@@ -117,9 +117,17 @@ class Bus extends Component {
         return e;
       })
       .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
+      .filter(e => new Date(e.time).getTime() > new Date().getTime())
+      .slice(0, 4)
       .map((e, i) => {
-        let timeLeft =
-          differenceInMinutes(e.time, new Date(), { locale }) + ' min';
+        let timeLeft = differenceInMinutes(e.time, new Date(), { locale });
+
+        if (timeLeft === 0) {
+          timeLeft = 'nå';
+        } else {
+          timeLeft = `${timeLeft} min`;
+        }
+
         let time = format(e.time, 'HH:mm');
         const isRealtime = get(e, this.props.departureSchema.isRealtime);
         let style = isRealtime ? { color: '#ffb800' } : {};
