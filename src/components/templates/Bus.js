@@ -19,11 +19,14 @@ class Bus extends Component {
     this.state = {
       toCity: [],
       fromCity: [],
+      toCity2: [],
+      fromCity2: [],
       lastTick: new Date().getTime(),
     };
 
     this.templateVars = {
       name: 'string',
+      name2: 'string',
       apis: 'apis',
     };
   }
@@ -42,6 +45,8 @@ class Bus extends Component {
       Object.assign({}, this.state, {
         toCity: get(nextProps, 'toCity', []),
         fromCity: get(nextProps, 'fromCity', []),
+        toCity2: get(nextProps, 'toCity2', []),
+        fromCity2: get(nextProps, 'fromCity2', []),
       }),
     );
   }
@@ -158,6 +163,8 @@ class Bus extends Component {
   render() {
     const toCity = this.getDepartureList(this.state.toCity);
     const fromCity = this.getDepartureList(this.state.fromCity);
+    const toCity2 = this.getDepartureList(this.state.toCity2);
+    const fromCity2 = this.getDepartureList(this.state.fromCity2);
     const { translate } = this.props;
 
     return (
@@ -177,6 +184,19 @@ class Bus extends Component {
             <div className="bus-list">{toCity}</div>
           </div>
         </div>
+        {toCity2.length || fromCity2.length ? (
+          <div className="bus-wrapper">
+            <h2 className="bus-stop">{translate(this.props.name2)}</h2>
+            <div className="bus-dir">
+              <h3 className="bus-dir-item">Til byen</h3>
+              <h3 className="bus-dir-item">Fra byen</h3>
+            </div>
+            <div className="bus-list-row">
+              <div className="bus-list">{fromCity2}</div>
+              <div className="bus-list">{toCity2}</div>
+            </div>
+          </div>
+        ) : null}
       </Template>
     );
   }

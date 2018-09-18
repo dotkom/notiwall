@@ -1,6 +1,6 @@
 export const defaultAffiliationSettings = {
   online: {
-    settings: ['bus', 'coffee', 'events', 'officestatus'],
+    settings: ['bus', 'bus2', 'coffee', 'events', 'officestatus'],
     components: [
       {
         template: 'Vakter',
@@ -41,6 +41,7 @@ export const defaultAffiliationSettings = {
       {
         template: 'Bus',
         name: '{{bus}}',
+        name2: '{{bus2}}',
         departureSchema: {
           name: 'destinationDisplay.frontText',
           number: 'serviceJourney.line.publicCode',
@@ -51,8 +52,18 @@ export const defaultAffiliationSettings = {
         apis: {
           fromCity: 'enturbus.stops.{{bus}}.fromCity:data.quay.estimatedCalls',
           toCity: 'enturbus.stops.{{bus}}.toCity:data.quay.estimatedCalls',
+          fromCity2:
+            'enturbus.stops.{{bus2}}.fromCity:data.quay.estimatedCalls',
+          toCity2: 'enturbus.stops.{{bus2}}.toCity:data.quay.estimatedCalls',
         },
-        injectInto: ['name', 'apis.fromCity', 'apis.toCity'],
+        injectInto: [
+          'name',
+          'apis.fromCity',
+          'apis.toCity',
+          'name2',
+          'apis.fromCity2',
+          'apis.toCity2',
+        ],
         size: '4',
         props: {},
       },
