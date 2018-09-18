@@ -23,6 +23,7 @@ const Online = `
     display: flex;
     justify-content: flex-start;
     flex-flow: row;
+    font-family: 'Righteous';
   }
 
   .Bus > .bus-wrapper {
@@ -31,6 +32,7 @@ const Online = `
     flex-flow: row wrap;
     justify-content: space-around;
     justify-content: space-evenly;
+    padding-bottom: 2em;
   }
 
   .Bus .bus-stop {
