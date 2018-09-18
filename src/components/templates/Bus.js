@@ -118,17 +118,24 @@ class Bus extends Component {
       })
       .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
       .map((e, i) => {
-        let timeLeft = differenceInMinutes(e.time, new Date(), { locale }) + ' min';
+        let timeLeft =
+          differenceInMinutes(e.time, new Date(), { locale }) + ' min';
         let time = format(e.time, 'HH:mm');
         const isRealtime = get(e, this.props.departureSchema.isRealtime);
-        let style = isRealtime
-          ? { color: '#ffb800' }
-          : {};
+        let style = isRealtime ? { color: '#ffb800' } : {};
 
         return (
-          <div key={i} title={get(e, this.props.departureSchema.name)} className="bus-list-item">
-            <div className="bus-list-item-number">{get(e, this.props.departureSchema.number)}</div>
-            <div className="bus-list-item-time" style={style}>{isRealtime ? timeLeft : time}</div>
+          <div
+            key={i}
+            title={get(e, this.props.departureSchema.name)}
+            className="bus-list-item"
+          >
+            <div className="bus-list-item-number">
+              {get(e, this.props.departureSchema.number)}
+            </div>
+            <div className="bus-list-item-time" style={style}>
+              {isRealtime ? timeLeft : time}
+            </div>
           </div>
         );
       });
