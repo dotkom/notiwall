@@ -138,7 +138,7 @@ class Vakter extends Component {
     }
 
     let spaceAroundSVG = 40;
-    let skewSVG = (
+  /*  let skewSVG = (
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
@@ -148,10 +148,10 @@ class Vakter extends Component {
           position: 'absolute',
           marginLeft: -16,
         }}
-      >
+
         <path fill="rgba(0, 0, 0, .2)" d="M0,0 90,0 60,100 0,100" />
       </svg>
-    );
+    );*/
 
     let props = Object.assign({}, this.props);
     props.style = Object.assign({}, this.props.style || {}, {

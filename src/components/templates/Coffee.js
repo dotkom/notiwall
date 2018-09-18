@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Template } from '../layout';
-import { distanceInWordsToNow, format, differenceInHours } from 'date-fns';
+import { format, differenceInHours } from 'date-fns';
 import { get } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
 import { simpleClock } from '../gadgets/Clocks';
@@ -57,7 +57,7 @@ class Coffee extends Component {
   }
 
   render() {
-    let coffeeInfo = 'Henter kaffestatus...';
+  /*  let coffeeInfo = 'Henter kaffestatus...';
     let { offline } = this.props;
 
     if (this.state.coffeeTime > 0) {
@@ -71,13 +71,13 @@ class Coffee extends Component {
         coffeeInfo = `Kaffe ble laget ${dateFormatted} siden`;
       }
     } else if (this.state.coffeeTime === -1) {
-      coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
+      //coffeeInfo = 'Kaffen har ikke blitt satt på i dag.';
     } else if (
       offline &&
       offline.find(a => a.split('.')[0] === 'affiliation')
     ) {
       coffeeInfo = "API'et er utilgjengelig";
-    }
+    }*/
 
     let potsList = [];
     if (this.state.pots) {
