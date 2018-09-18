@@ -23,7 +23,7 @@ const Online = `
     display: flex;
     justify-content: center;
     justify-content: space-evenly;
-    flex-flow: row;
+    flex-flow: row wrap;
     font-family: 'Righteous';
   }
 
@@ -40,6 +40,7 @@ const Online = `
     padding-bottom: 2em;
     max-width: 720px;
     margin: 0 1em;
+    flex: 0 1 auto;
   }
 
   .Bus .bus-stop {
@@ -63,6 +64,7 @@ const Online = `
   }
   .Bus .bus-dir-item:last-child {
     margin-right: 5em;
+    margin-left: 3.5em;
   }
 
   .Bus .bus-list-row {
@@ -82,6 +84,7 @@ const Online = `
   }
   .Bus .bus-list:last-child {
     margin-right: 5em;
+    margin-left: 3.5em;
   }
   .Bus .bus-list-item {
     display: flex;

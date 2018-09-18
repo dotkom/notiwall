@@ -53,6 +53,7 @@ export const defaultAffiliationSettings = {
           toCity: 'enturbus.stops.{{bus}}.toCity:data.quay.estimatedCalls',
         },
         injectInto: ['name', 'apis.fromCity', 'apis.toCity'],
+        size: '4',
         props: {},
       },
     ],
