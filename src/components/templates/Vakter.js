@@ -161,7 +161,6 @@ class Vakter extends Component {
 
     return (
       <Template className={this.constructor.name} {...props}>
-        {skewSVG}
         <h1>Onlinekontoret</h1>
         <h3>Kontorvakter</h3>
         {responsibleListElement}
