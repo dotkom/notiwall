@@ -28,6 +28,11 @@ const Online = `
 
   .Bus > .bus-wrapper {
     background-color: #000000bb;
+    clip-path: polygon(0 3%,
+      30% 0, 70% 6%,
+      100% 0, 100% 97%,
+      70% 100%, 30% 94%,
+      0 100%);
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
