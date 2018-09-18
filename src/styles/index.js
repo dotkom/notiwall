@@ -92,7 +92,7 @@ const Online = `
     flex-flow: row nowrap;
   }
   .Bus .bus-list-item-number {
-    width: 1.5em;
+    min-width: 1.5em;
     text-align: left;
     position: relative;
   }

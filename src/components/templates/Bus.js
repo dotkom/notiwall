@@ -151,6 +151,7 @@ class Bus extends Component {
               }`}
             >
               {get(e, this.props.departureSchema.number)}
+              &nbsp;
             </div>
             <div className="bus-list-item-time" style={style}>
               {time}
