@@ -40,7 +40,7 @@ const Online = `
     padding-bottom: 2em;
     max-width: 720px;
     margin: 0 1em;
-    flex: 0 1 auto;
+    flex: 1 1 544px;
   }
 
   .Bus .bus-stop {
