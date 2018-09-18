@@ -1,10 +1,18 @@
 const Online = `
   , {
-    background-color: #121280;
+    background-color: #001533;
   }
 
   .App {
-    background: #121280;
+    background: #001533;
+  }
+  .Header {
+    background-image: url(https://online.ntnu.no/static/img/online_logo.svg);
+    background-size: 60vw;
+    background-repeat: no-repeat;
+    min-height: 18vw;
+
+    background-position: bottom left;
   }
 `;
 
