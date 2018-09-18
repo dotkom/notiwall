@@ -94,8 +94,6 @@ class Coffee extends Component {
         {...this.props}
         templateVars={this.templateVars}
       >
-        <h3>Kaffe</h3>
-        {this.props.showCoffeePots !== 'false' && coffeeInfo}
         {simpleClock(
           new Date(time - (time % 1000)),
           potsList || [],
