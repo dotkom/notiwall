@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Template } from '../layout';
 import './Bus.css';
 import {
-  distanceInWords,
   format,
   addMilliseconds,
   differenceInMilliseconds,
+  differenceInMinutes,
 } from 'date-fns';
 import { get, set } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
@@ -118,17 +118,17 @@ class Bus extends Component {
       })
       .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
       .map((e, i) => {
-        let timeLeft = distanceInWords(e.time, new Date(), { locale });
+        let timeLeft = differenceInMinutes(e.time, new Date(), { locale }) + ' min';
         let time = format(e.time, 'HH:mm');
-        let style = get(e, this.props.departureSchema.isRealtime)
-          ? { color: 'blue' }
+        const isRealtime = get(e, this.props.departureSchema.isRealtime);
+        let style = isRealtime
+          ? { color: '#ffb800' }
           : {};
 
         return (
-          <div key={i} style={style}>
-            {get(e, this.props.departureSchema.number)}{' '}
-            <b>{get(e, this.props.departureSchema.name)}</b> - om {timeLeft} (
-            {time})
+          <div key={i} title={get(e, this.props.departureSchema.name)} className="bus-list-item">
+            <div className="bus-list-item-number">{get(e, this.props.departureSchema.number)}</div>
+            <div className="bus-list-item-time" style={style}>{isRealtime ? timeLeft : time}</div>
           </div>
         );
       });
@@ -145,10 +145,15 @@ class Bus extends Component {
         {...this.props}
         templateVars={this.templateVars}
       >
-        <h3>{translate(this.props.name)} (fra byen)</h3>
-        {fromCity}
-        <h3>{translate(this.props.name)} (mot byen)</h3>
-        {toCity}
+        <div className="bus-wrapper">
+          <h2 className="bus-stop">{translate(this.props.name)}</h2>
+          <div className="bus-dir">
+            <h3 className="bus-dir-item">Til byen</h3>
+            <h3 className="bus-dir-item">Fra byen</h3>
+          </div>
+          <div className="bus-list">{fromCity}</div>
+          <div className="bus-list">{toCity}</div>
+        </div>
       </Template>
     );
   }
