@@ -14,6 +14,9 @@ const Online = `
 
     background-position: bottom left;
   }
+  .Vakter > h1{
+     margin-top: 0.5em;
+  }
 `;
 
 const SmartMirror = `
