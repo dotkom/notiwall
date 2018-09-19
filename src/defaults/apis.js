@@ -67,6 +67,7 @@ export const defaultApis = {
     stops: {
       glossyd: { fromCity: '75707', toCity: '75708' },
       samf: { fromCity: '73103', toCity: '73101' },
+      prof: { fromCity: '73103', toCity: '73101' },
     },
   },
 };

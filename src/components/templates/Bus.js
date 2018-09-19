@@ -147,7 +147,7 @@ class Bus extends Component {
           >
             <div
               className={`bus-list-item-number${
-                isRealtime ? 'is-realtime' : ''
+                isRealtime ? ' is-realtime' : ''
               }`}
             >
               {get(e, this.props.departureSchema.number)}

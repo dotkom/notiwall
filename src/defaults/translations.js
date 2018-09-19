@@ -5,4 +5,5 @@ export const defaultTranslations = {
   glos: 'Gløshaugen',
   glossyd: 'Gløshaugen syd',
   samf: 'Samfundet',
+  prof: 'Professor Brochs gate',
 };

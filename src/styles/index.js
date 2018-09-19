@@ -98,7 +98,7 @@ const Online = `
   }
   .Bus .bus-list-item-number.is-realtime::before {
     background-image: url(/knowit-express.svg);
-    content: "";
+    content: '';
     display: block;
     width: 2em;
     height: 1em;
