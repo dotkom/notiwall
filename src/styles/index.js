@@ -41,6 +41,7 @@ const Online = `
     max-width: 720px;
     margin: 0 1em;
     flex: 1 1 544px;
+    height: 280px;
   }
 
   .Bus .bus-stop {
@@ -96,7 +97,7 @@ const Online = `
     text-align: left;
     position: relative;
   }
-  .Bus .bus-list-item-number.is-realtime::before {
+  .Bus .bus-list-item-number.is-close::before {
     background-image: url(/knowit-express.svg);
     content: '';
     display: block;
