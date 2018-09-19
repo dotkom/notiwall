@@ -423,7 +423,7 @@ class App extends Component {
             process.env.NODE_ENV === 'development' ? 'dev' : ''
           }`}
         >
-          <Section style={{ minHeight: 20, minWidth: '100%' }}>
+          <Section style={{ minHeight: 20, maxHeight: 'unset', minWidth: '100%' }}>
             <Template.Header css={', { padding: 0; }'}>
               <div onClick={() => this.toggleEdit()} className="menu-button">
                 {!!edit ? '' : '☰'}
