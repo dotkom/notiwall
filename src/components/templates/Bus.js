@@ -9,6 +9,7 @@ import {
 } from 'date-fns';
 import { get, set } from 'object-path';
 import * as locale from 'date-fns/locale/nb';
+import { DEBUG } from '../../constants';
 
 class Bus extends Component {
   constructor() {
@@ -122,21 +123,27 @@ class Bus extends Component {
         return e;
       })
       .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
-      .filter(e => new Date(e.time).getTime() > new Date().getTime())
+      .filter(
+        e =>
+          new Date(e.time).getTime() >=
+          Math.ceil(new Date().getTime() / 60000 - 1) * 60000,
+      )
       .slice(0, 4)
       .map((e, i) => {
+        const isRealtime = get(e, this.props.departureSchema.isRealtime);
         const timeLeft = differenceInMinutes(e.time, new Date(), { locale });
-        let time = '';
+        let time = isRealtime ? '' : 'ca. ';
 
         if (timeLeft === 0) {
-          time = 'nå';
+          time += 'nå';
         } else if (timeLeft <= 10) {
-          time = `${timeLeft} min`;
+          time += `${timeLeft + 1} min`;
         } else {
           time = format(e.time, 'HH:mm');
         }
 
-        const isRealtime = get(e, this.props.departureSchema.isRealtime);
+        if (DEBUG) time += '; ' + format(e.time, 'HH:mm');
+
         const style = isRealtime ? { color: '#ffb800' } : {};
 
         return (
@@ -147,8 +154,8 @@ class Bus extends Component {
           >
             <div
               className={`bus-list-item-number${
-                isRealtime ? ' is-realtime' : ''
-              }`}
+                timeLeft <= 10 ? ' is-close' : ''
+              }${isRealtime ? ' is-realtime' : ''}`}
             >
               {get(e, this.props.departureSchema.number)}
               &nbsp;
